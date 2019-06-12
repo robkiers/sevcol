@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './medical/dashboard/dashboard.component';
 
 const routes: Routes = [
+  {
+    path: 'patient-list',
+    loadChildren: './medical/patientdossiers/overview/overview.module#OverviewModule'
+  },
   { path: '', component: DashboardComponent },
 ];
 
