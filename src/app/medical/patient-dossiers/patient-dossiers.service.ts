@@ -1,34 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable, OnInit } from '@angular/core';
+import { of } from 'rxjs';
 
-@Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
-})
+@Injectable()
+export class PatientdossiersService implements OnInit {
 
-export class OverviewComponent implements OnInit {
+  patientList;
+  patient;
 
-  patients;
-
-  displayedColumns = ['name', 'gender', 'organisation', 'ship'];
-
-  constructor(
-    // private _router: Router,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.patients = [
+    this.patientList = [
       {
         name: 'Simeon',
         familyName: 'Wilde',
-        origigin: 'Lucis',
+        origin: 'Lucis',
         organisation: 'Sevcol',
         ship: 'Celestra',
         gender: 'Male',
         patientID: '6cd985f2-7178-422b-a7c4-d8cc4fb34ab3',
         specialAttention: 'false',
         bloodGroup: 'AB',
+        dateOfBirth: '',
         NPC: 'false',
       },
       {
@@ -41,19 +34,14 @@ export class OverviewComponent implements OnInit {
         patientID: '3c8f2d75-5f56-44fa-848a-3515ae776a4e',
         specialAttention: 'false',
         bloodGroup: 'AB',
+        dateOfBirth: '',
         NPC: 'false',
       }
     ];
   }
 
-  navigateTo(row) {
 
-    console.log(row);
-    // this._router.navigate(['/processes', row]);
+  getPatientList() {
+    return of(this.patientList);
   }
-
-  entitySelected(entity) {
-
-  }
-
 }

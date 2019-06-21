@@ -5,7 +5,7 @@ import { DashboardComponent } from './medical/dashboard/dashboard.component';
 const routes: Routes = [
   {
     path: 'patient-list',
-    loadChildren: './medical/patientdossiers/overview/overview.module#OverviewModule'
+    loadChildren: './medical/patient-dossiers/patient-dossiers.module#PatientDossierModule'
   },
   { path: '', component: DashboardComponent },
 ];

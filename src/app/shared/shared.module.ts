@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -17,7 +18,8 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatTableModule,
     MatGridListModule,
-    MatInputModule
+    MatInputModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }

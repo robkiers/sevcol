@@ -1,26 +1,27 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-dossier',
-  templateUrl: './dossier.component.html',
-  styleUrls: ['./dossier.component.scss']
+  selector: 'app-patient-dossier',
+  templateUrl: './patient-dossier.component.html',
+  styleUrls: ['./patient-dossier.component.scss']
 })
 
-export class DossierComponent implements OnInit {
+export class PatientDossierComponent implements OnInit {
 
-  @Input()
-  patient: any;
+  @Input() patient: any;
 
   constructor() { }
 
   ngOnInit() {
+
+    console.log('input', this.patient);
   }
 
 }
 
 // name: 'Simeon',
 // familyName: 'Wilde',
-// origigin: 'Lucis',
+// origin: 'Lucis',
 // organisation: 'Sevcol',
 // ship: 'Celestra',
 // gender: 'Male',
