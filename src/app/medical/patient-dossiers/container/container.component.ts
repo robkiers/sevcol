@@ -37,5 +37,10 @@ export class ContainerComponent implements OnInit {
     console.log(event);
   }
 
+  log(event) {
+    this.store.getPatientList().subscribe(data => console.log(data));
+
+    console.log(event);
+  }
 
 }

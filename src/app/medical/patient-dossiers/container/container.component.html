@@ -1,9 +1,10 @@
-<div *ngIf="!!$patientList">
-    <mat-card>
-        <app-patient-list [patientList]="patientList$ | async" (patient)="setPatient($event)"></app-patient-list>
-    </mat-card>
-</div>
+x
 
+<!-- <div *ngIf="!!$patientList"> -->
+    <mat-card>
+        <app-patient-list [patientList]="patientList$" (patient)="setPatient($event)"></app-patient-list>
+    </mat-card>
+<!-- </div> -->
 <!-- <button mat-raised-button class="dashboard-button">New Patient</button> -->
 
 <div *ngIf="!!patient">
@@ -34,7 +35,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
 </table> -->
 
-<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
+<!-- <mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
 
     <ng-container matColumnDef="seqNo">
         <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
@@ -56,4 +57,4 @@
 
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
-</mat-table>
+</mat-table> -->

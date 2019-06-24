@@ -19,7 +19,7 @@ export class PatientListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.patientList);
+    console.log('patientList', this.patientList);
   }
 
   selectRow(row) {
@@ -27,5 +27,11 @@ export class PatientListComponent implements OnInit {
     // this._router.navigate(['/processes', row.patientID]);
     this.patient.next(row);
   }
+
+  log(event) {
+    this.patientList.subscribe(data => console.log(data));
+    console.log(event);
+  }
+
 
 }
