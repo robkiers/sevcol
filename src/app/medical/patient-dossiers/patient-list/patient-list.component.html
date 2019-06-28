@@ -1,6 +1,6 @@
 <!-- <span *ngIf="(patientList$ | async) as patientList"> -->
 
-    <mat-table [dataSource]="patientList | async" class="mat-elevation-z8 patient-table" style="width:100%">
+    <mat-table [dataSource]="patientList | async" class="patient-table" style="width:100%">
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
@@ -12,21 +12,19 @@
             <th mat-header-cell *matHeaderCellDef style="width:250px"> Gender </th>
             <td mat-cell *matCellDef="let patient"> {{patient.gender}}</td>
         </ng-container>
-        <ng-container matColumnDef="organisation">
-            <th mat-header-cell *matHeaderCellDef> organisation </th>
-            <td mat-cell *matCellDef="let patient"> {{patient.organisation}}</td>
-        </ng-container>
-        <ng-container matColumnDef="ship">
-            <th mat-header-cell *matHeaderCellDef> ship </th>
+        <ng-container matColumnDef="ship" >
+            <th mat-header-cell *matHeaderCellDef style="width:250px"> ship </th>
             <td mat-cell *matCellDef="let patient"> {{patient.ship}}</td>
         </ng-container>
+        <ng-container matColumnDef="organisation">
+            <th mat-header-cell *matHeaderCellDef style="width:250px"> organisation </th>
+            <td mat-cell *matCellDef="let patient"> {{patient.organisation}}</td>
+        </ng-container>
+
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
 
     </mat-table>
-
-
-    <button mat-raised-button (click)="log(this.patientList)">Supplies</button>
 
 <!-- </span> -->

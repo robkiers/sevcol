@@ -11,7 +11,7 @@ export class PatientListComponent implements OnInit {
   @Input() patientList: any;
 
   // @Output() patient;
-  @Output() patient: EventEmitter<any> = new EventEmitter();
+  @Output() patient: EventEmitter<any> = new EventEmitter(null);
 
   displayedColumns = ['name', 'gender', 'organisation', 'ship'];
 
@@ -23,9 +23,9 @@ export class PatientListComponent implements OnInit {
   }
 
   selectRow(row) {
-    console.log('row', row);
+    // console.log('row', row);
     // this._router.navigate(['/processes', row.patientID]);
-    this.patient.next(row);
+    this.patient.emit(row);
   }
 
   log(event) {

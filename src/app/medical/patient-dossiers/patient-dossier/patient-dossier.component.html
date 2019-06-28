@@ -1,4 +1,7 @@
-<mat-card>
+<div *ngIf="patient$; let patient">
+  <h1>
+    Patient File: {{patient.name}} {{patient.familyName}}
+  </h1>
   <mat-grid-list cols="2" rowHeight="3em">
     <mat-grid-tile>Name:</mat-grid-tile>
     <mat-grid-tile>{{patient.name}} {{patient.familyName}}</mat-grid-tile>
@@ -11,12 +14,32 @@
     <mat-grid-tile>Origin:</mat-grid-tile>
     <mat-grid-tile>{{patient.origin}}</mat-grid-tile>
   </mat-grid-list>
-</mat-card>
+</div>
 
-<!-- <form class="example-form">
+
+
+
+// familyName: 'Wilde',
+// origin: 'Lucis',
+// organisation: 'Sevcol',
+// ship: 'Celestra',
+// gender: 'Male',
+// patientID: '6cd985f2-7178-422b-a7c4-d8cc4fb34ab3',
+// specialAttention: 'false',
+// NPC: 'false',
+
+<form class="example-form" [formGroup]="formGroup">
 
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
+    <input matInput placeholder="Name" formControlName='name'>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Family Name" value="familyName">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Favorite food" value="organisation">
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
@@ -27,12 +50,13 @@
     <input matInput placeholder="Favorite food" value="Sushi">
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
+  <mat-form-field>
+    <mat-label>Favorite food</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Favorite food" value="Sushi">
-  </mat-form-field>
-  
-</form> -->
+</form>

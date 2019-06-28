@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-dossier',
@@ -8,15 +9,42 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class PatientDossierComponent implements OnInit {
 
-  @Input() patient: any;
+  @Input() patient$: any;
 
-  constructor() { }
+  formGroup;
 
-  ngOnInit() {
+  foods = [
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
+  ];
 
-    console.log('input', this.patient);
+  constructor(
+    protected _fb: FormBuilder,
+  ) {
+
   }
 
+  ngOnInit() {
+    console.log('input', this.patient$);
+    this.createFormgroup();
+  }
+
+  createFormgroup() {
+
+    this.formGroup = this._fb.group({
+      name: ['', [Validators.required, Validators.maxLength(200)]],
+      familyName: ['', [Validators.required, Validators.maxLength(200)]],
+      origin: ['', [Validators.required, Validators.maxLength(200)]],
+      organisation: ['', [Validators.maxLength(200)]],
+      ship: ['', [Validators.maxLength(200)]],
+      gender: ['', [Validators.required, Validators.maxLength(200)]],
+      patientID: ['', [Validators.required, Validators.maxLength(200)]],
+      specialAttention: ['', [Validators.required, Validators.maxLength(200)]],
+      NPC: ['', [Validators.required, Validators.maxLength(200)]],
+    });
+
+  }
 }
 
 // name: 'Simeon',

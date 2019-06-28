@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientdossiersService } from '../patient-dossiers.service';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-container',
@@ -11,7 +12,12 @@ import { PatientdossiersService } from '../patient-dossiers.service';
 export class ContainerComponent implements OnInit {
 
   patientList$;
+  treatmentHistory$;
+
   displayedColumns = ['name', 'gender', 'organisation', 'ship'];
+
+  // patient: BehaviorSubject<any> = new BehaviorSubject(null);
+  patient$: Subject<any> = new Subject();
 
   constructor(
     private store: PatientdossiersService,
@@ -30,11 +36,13 @@ export class ContainerComponent implements OnInit {
     //   this.filterItemPropertyLookup = [...lookup];
     // });
 
-
   }
 
   setPatient(event) {
     console.log(event);
+
+    this.patient$.next(event);
+    // this.store.setPatient(event);
   }
 
   log(event) {

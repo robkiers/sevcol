@@ -5,6 +5,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PatientDossierComponent } from './patient-dossier/patient-dossier.component';
 import { ContainerComponent } from './container/container.component';
 
+import { TreatmentModule } from './treatment/treatment.module';
+import { TreatmentHistoryComponent } from './treatment/treatment-history/treatment-history.component';
+
 const routes: Routes = [
   { path: '', component: ContainerComponent }
 ];
@@ -13,10 +16,12 @@ const routes: Routes = [
   declarations: [
     PatientListComponent,
     PatientDossierComponent,
-    ContainerComponent
+    ContainerComponent,
   ],
   imports: [
     SharedModule,
+    TreatmentModule,
+    // TreatmentHistoryComponent,
     RouterModule.forChild(routes),
   ]
 })
