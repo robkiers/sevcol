@@ -13,11 +13,19 @@ export class PatientDossierComponent implements OnInit {
 
   formGroup;
 
-  foods = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' }
+  originLookup = [
+    { value: 'earth', viewValue: 'Earth' },
+    { value: 'luna', viewValue: 'Luna' },
+    { value: 'mars', viewValue: 'Mars' },
+    { value: 'jupiter', viewValue: 'United Moons of Jupiter' },
+    { value: 'saturn', viewValue: 'Saturn Collective' },
+    { value: 'eden', viewValue: 'Eden' },
+    { value: 'kordoss', viewValue: 'Kordoss' },
+    { value: 'lux', viewValue: 'Lux' },
+    { value: 'lucis', viewValue: 'Lucis' }
   ];
+
+  
 
   constructor(
     protected _fb: FormBuilder,
@@ -45,6 +53,9 @@ export class PatientDossierComponent implements OnInit {
     });
 
   }
+
+
+
 }
 
 // name: 'Simeon',
