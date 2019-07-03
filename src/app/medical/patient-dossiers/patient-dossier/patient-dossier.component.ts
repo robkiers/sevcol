@@ -11,50 +11,14 @@ export class PatientDossierComponent implements OnInit {
 
   @Input() patient$: any;
 
-  formGroup;
-
-  originLookup = [
-    { value: 'earth', viewValue: 'Earth' },
-    { value: 'luna', viewValue: 'Luna' },
-    { value: 'mars', viewValue: 'Mars' },
-    { value: 'jupiter', viewValue: 'United Moons of Jupiter' },
-    { value: 'saturn', viewValue: 'Saturn Collective' },
-    { value: 'eden', viewValue: 'Eden' },
-    { value: 'kordoss', viewValue: 'Kordoss' },
-    { value: 'lux', viewValue: 'Lux' },
-    { value: 'lucis', viewValue: 'Lucis' }
-  ];
-
-  
-
   constructor(
-    protected _fb: FormBuilder,
   ) {
 
   }
 
   ngOnInit() {
     console.log('input', this.patient$);
-    this.createFormgroup();
   }
-
-  createFormgroup() {
-
-    this.formGroup = this._fb.group({
-      name: ['', [Validators.required, Validators.maxLength(200)]],
-      familyName: ['', [Validators.required, Validators.maxLength(200)]],
-      origin: ['', [Validators.required, Validators.maxLength(200)]],
-      organisation: ['', [Validators.maxLength(200)]],
-      ship: ['', [Validators.maxLength(200)]],
-      gender: ['', [Validators.required, Validators.maxLength(200)]],
-      patientID: ['', [Validators.required, Validators.maxLength(200)]],
-      specialAttention: ['', [Validators.required, Validators.maxLength(200)]],
-      NPC: ['', [Validators.required, Validators.maxLength(200)]],
-    });
-
-  }
-
-
 
 }
 

@@ -10,11 +10,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { PatientService } from './services/patient.service';
 
 @NgModule({
-  declarations: [],
+  providers: [
+    PatientService
+  ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     CommonModule,
@@ -27,7 +30,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatSelectModule,
     MatSlideToggleModule,
     MatButtonToggleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }

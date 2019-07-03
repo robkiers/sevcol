@@ -7,8 +7,10 @@ import { ContainerComponent } from './container/container.component';
 
 import { TreatmentModule } from './treatment/treatment.module';
 import { TreatmentHistoryComponent } from './treatment/treatment-history/treatment-history.component';
+import { NewPatientComponent } from './new-patient/new-patient.component';
 
 const routes: Routes = [
+  { path: 'new-patient', component: NewPatientComponent },
   { path: '', component: ContainerComponent }
 ];
 
@@ -17,6 +19,7 @@ const routes: Routes = [
     PatientListComponent,
     PatientDossierComponent,
     ContainerComponent,
+    NewPatientComponent,
   ],
   imports: [
     SharedModule,
