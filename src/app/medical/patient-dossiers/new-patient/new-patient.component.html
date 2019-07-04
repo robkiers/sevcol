@@ -1,27 +1,15 @@
-<form class="example-form" [formGroup]="formGroup">
+<form [formGroup]="formGroup">
   <mat-grid-list cols="2" rowHeight="75px">
 
     <mat-grid-tile>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="full-width">
         <input matInput placeholder="Name" formControlName='name'>
       </mat-form-field>
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="full-width">
         <input matInput placeholder="Family Name" formControlName='familyName'>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Ship" formControlName='ship'>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Organisation" formControlName='organisation'>
       </mat-form-field>
     </mat-grid-tile>
 
@@ -33,7 +21,26 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-slide-toggle>NPC</mat-slide-toggle>
+      <mat-form-field>
+        <mat-label>Planet of Origin</mat-label>
+        <mat-select formControlName="origin">
+          <mat-option *ngFor="let origin of originLookup"  [value]="origin.value">
+            {{origin.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Ship" formControlName='ship'>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Organisation" formControlName='organisation'>
+      </mat-form-field>
     </mat-grid-tile>
 
     <mat-grid-tile>
@@ -41,23 +48,31 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Planet of Origin</mat-label>
-        <mat-select formControlName='origin'>
-          <mat-option *ngFor="let origin of originLookup">
-            {{origin.viewValue}}
-          </mat-option>
-        </mat-select>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Special Attention Description" formControlName='specialAttentionDescription'>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-slide-toggle>NPC</mat-slide-toggle>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="General Notes" formControlName='notes'>
+      </mat-form-field>
+    </mat-grid-tile>
+
 
   </mat-grid-list>
 </form>
 
-<button mat-raised-button (click)="save()">Database</button>
+<button mat-raised-button (click)="save()">Save</button>
+<button mat-raised-button (click)="log()">Log</button>
+<button mat-raised-button [routerLink]="['']">Dashbard</button>
 
 
-  <!-- <mat-form-field>
+<!-- <mat-form-field>
     <mat-label>Favorite food</mat-label>
     <mat-select>
       <mat-option *ngFor="let food of foods" formControlName='organisation'>
@@ -66,7 +81,7 @@
     </mat-select>
   </mat-form-field> -->
 
-  <!-- <mat-form-field>
+<!-- <mat-form-field>
     <mat-label>Favorite food</mat-label>
     <mat-select>
       <mat-option *ngFor="let food of foods" formControlName='ship'>

@@ -40,13 +40,15 @@ export class NewPatientComponent implements OnInit {
     this.formGroup = this._fb.group({
       name: [null, [Validators.required, Validators.maxLength(200)]],
       familyName: [null, [Validators.required, Validators.maxLength(200)]],
-      origin: [null, [Validators.required, Validators.maxLength(200)]],
-      organisation: [null, [Validators.maxLength(200)]],
+      origin: [null],
+      organisation: [null],
       ship: [null, [Validators.maxLength(200)]],
       gender: [null, [Validators.required, Validators.maxLength(200)]],
       patientID: UUID.UUID(),
       specialAttention: [false, [Validators.required, Validators.maxLength(200)]],
-      NPC: [false, [Validators.required, Validators.maxLength(200)]],
+      specialAttentionDescription: [],
+      NPC: [false],
+      notes: [],
     });
 
   }
@@ -79,6 +81,10 @@ export class NewPatientComponent implements OnInit {
 
     var blob = new Blob([csvArray], { type: 'text/csv' })
     saveAs(blob, "myFile.csv");
+  }
+
+  log() {
+    this._api.getPatients();
   }
 
 }
