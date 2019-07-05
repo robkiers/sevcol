@@ -11,6 +11,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { PatientService } from './services/patient.service';
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatIconModule } from '@angular/material/icon'
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   providers: [
@@ -31,6 +36,11 @@ import { PatientService } from './services/patient.service';
     MatSlideToggleModule,
     MatButtonToggleModule,
     ReactiveFormsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDividerModule
   ]
 })
 export class SharedModule { }

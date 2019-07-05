@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
-import * as FileSaver from 'file-saver';
 import { PatientService } from 'src/app/shared/services/patient.service';
+import { PATIENT } from 'src/app/core/models';
 
 @Component({
   selector: 'app-new-patient',
@@ -12,7 +11,11 @@ import { PatientService } from 'src/app/shared/services/patient.service';
 })
 export class NewPatientComponent implements OnInit {
 
-  formGroup;
+  @Input() set patient(patient: PATIENT) {
+    this.populateFormgroup(patient);
+  }
+
+  formGroup: FormGroup;
 
   originLookup = [
     { value: 'earth', viewValue: 'Earth' },
@@ -29,62 +32,79 @@ export class NewPatientComponent implements OnInit {
   constructor(
     protected _fb: FormBuilder,
     protected _api: PatientService,
-  ) { }
-
-  ngOnInit() {
+  ) {
     this.createFormgroup();
   }
 
-  createFormgroup() {
+  ngOnInit() {
+  }
 
+  createFormgroup() {
     this.formGroup = this._fb.group({
       name: [null, [Validators.required, Validators.maxLength(200)]],
+      otherNames: [null, [Validators.maxLength(200)]],
       familyName: [null, [Validators.required, Validators.maxLength(200)]],
+
+      gender: [null, [Validators.required, Validators.maxLength(200)]],
+      height: [null],
+      weight: [null],
+
       origin: [null],
+      dateOfBirth: [],
+      bloodType: [],
+      allele: [],
+
+
       organisation: [null],
       ship: [null, [Validators.maxLength(200)]],
-      gender: [null, [Validators.required, Validators.maxLength(200)]],
-      patientID: UUID.UUID(),
+
       specialAttention: [false, [Validators.required, Validators.maxLength(200)]],
       specialAttentionDescription: [],
-      NPC: [false],
-      notes: [],
-    });
 
+      notes: [],
+
+      npc: [false],
+      patientID: UUID.UUID(),
+
+    });
+  }
+
+  populateFormgroup(patient: PATIENT) {
+    this.formGroup.reset({
+      name: patient.name,
+      otherNames: patient.otherNames,
+      familyName: patient.familyName,
+
+      gender: patient.gender,
+      height: patient.height,
+      weight: patient.weight,
+
+      origin: patient.origin,
+      dateOfBirth: patient.dateOfBirth,
+      bloodType: patient.bloodType,
+      allele: patient.allele,
+
+
+      organisation: patient.organisation,
+      ship: patient.ship,
+
+      specialAttention: patient.specialAttention,
+      specialAttentionDescription: patient.specialAttentionDescription,
+
+      notes: patient.notes,
+
+      npc: patient.npc,
+      patientID: patient.patientID,
+    })
   }
 
   save() {
     const saveEntity = this.formGroup.getRawValue();
-    // FileSaver.saveAs(saveEntity, "export.csv");
-    // const blob = new Blob(["Hello, world!"], { type: "text/plain;charset=utf-8" });
-    // console.log(blob);
-
-    this._api.showUpdatedItem(saveEntity);
-    // this.downloadFile([tries]);
-    // FileSaver.saveAs(blob);
+    this._api.upsertPatient(saveEntity);
   }
 
-  try() {
-    const blob = new Blob(["Hello, world!"], { type: "text/csv;charset=utf-8" });
-    console.log(blob);
-
-    FileSaver.saveAs(blob);
-  }
-
-  downloadFile(data: any) {
-    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
-
-    const header = Object.keys(data[0]);
-    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-    csv.unshift(header.join(','));
-    let csvArray = csv.join('\r\n');
-
-    var blob = new Blob([csvArray], { type: 'text/csv' })
-    saveAs(blob, "myFile.csv");
-  }
-
-  log() {
-    this._api.getPatients();
+  delete(patient: PATIENT) {
+    this._api.deletePatient(patient);
   }
 
 }

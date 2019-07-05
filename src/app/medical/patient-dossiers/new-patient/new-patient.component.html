@@ -1,91 +1,124 @@
-<form [formGroup]="formGroup">
-  <mat-grid-list cols="2" rowHeight="75px">
+<div class="viewScreen">
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Name" formControlName='name'>
-      </mat-form-field>
-    </mat-grid-tile>
+  <h1>New Patient</h1>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Family Name" formControlName='familyName'>
-      </mat-form-field>
-    </mat-grid-tile>
+  <form [formGroup]="formGroup">
+    <mat-grid-list cols="3" rowHeight="70px" gutterSize="10px">
 
-    <mat-grid-tile>
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-        <mat-button-toggle value="Male">Male</mat-button-toggle>
-        <mat-button-toggle value="Female">Female</mat-button-toggle>
-      </mat-button-toggle-group>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" formControlName='name'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Planet of Origin</mat-label>
-        <mat-select formControlName="origin">
-          <mat-option *ngFor="let origin of originLookup"  [value]="origin.value">
-            {{origin.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Other Names" formControlName='otherNames'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Ship" formControlName='ship'>
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Family Name" formControlName='familyName'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Organisation" formControlName='organisation'>
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-button-toggle-group formControlName='gender' name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="Male">Male</mat-button-toggle>
+          <mat-button-toggle value="Female">Female</mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-slide-toggle>Special Attention Required</mat-slide-toggle>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Height(cm)" formControlName='height'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Special Attention Description" formControlName='specialAttentionDescription'>
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Weight(kg)" formControlName='weight'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-slide-toggle>NPC</mat-slide-toggle>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input formControlName='dateOfBirth' matInput [matDatepicker]="picker" placeholder="Choose a date of birth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="General Notes" formControlName='notes'>
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName='bloodType'>
+          <mat-button-toggle value="A">A</mat-button-toggle>
+          <mat-button-toggle value="B">B</mat-button-toggle>
+          <mat-button-toggle value="AB">AB</mat-button-toggle>
+          <mat-button-toggle value="O">O</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        <mat-button-toggle-group name="fontStyle" class="margin-left" aria-label="Font Style" formControlName='allele'>
+          <mat-button-toggle value="A">+</mat-button-toggle>
+          <mat-button-toggle value="B">-</mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3">
+        <mat-divider class="full-width"></mat-divider>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <mat-label>Planet of Origin</mat-label>
+          <mat-select formControlName="origin">
+            <mat-option *ngFor="let origin of originLookup" [value]="origin.value">
+              {{origin.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Ship" formControlName='ship'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Organisation" formControlName='organisation'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-slide-toggle formControlName="specialAttention">Special Attention Required</mat-slide-toggle>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2" rowspan="2">
+        <mat-form-field class="full-width full-height">
+          <textarea matInput placeholder="Special Attention Description" formControlName='specialAttentionDescription'
+            matTextareaAutosize matAutosizeMinRows="4"></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="3" rowspan="2">
+        <mat-form-field class="full-width full-height">
+          <textarea matInput matTextareaAutosize placeholder="General Notes" formControlName='notes'
+            matAutosizeMinRows="4"></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-slide-toggle formControlName='npc'>NPC</mat-slide-toggle>
+      </mat-grid-tile>
 
 
-  </mat-grid-list>
-</form>
+    </mat-grid-list>
+  </form>
 
-<button mat-raised-button (click)="save()">Save</button>
-<button mat-raised-button (click)="log()">Log</button>
-<button mat-raised-button [routerLink]="['']">Dashbard</button>
-
-
-<!-- <mat-form-field>
-    <mat-label>Favorite food</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let food of foods" formControlName='organisation'>
-        {{food.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> -->
-
-<!-- <mat-form-field>
-    <mat-label>Favorite food</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let food of foods" formControlName='ship'>
-        {{food.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field> -->
+  <button mat-raised-button (click)="save()">Save</button>
+</div>

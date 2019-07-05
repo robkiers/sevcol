@@ -45,6 +45,10 @@ export class ContainerComponent implements OnInit {
     // this.store.setPatient(event);
   }
 
+  clearPatient(){
+    this.patient$.next(null);
+  }
+
   log(event) {
     this.store.getPatientList().subscribe(data => console.log(data));
 

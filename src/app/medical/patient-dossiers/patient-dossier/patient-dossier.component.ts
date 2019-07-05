@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { PatientService } from 'src/app/shared/services/patient.service';
+import { PATIENT } from 'src/app/core/models';
 
 @Component({
   selector: 'app-patient-dossier',
@@ -12,6 +14,7 @@ export class PatientDossierComponent implements OnInit {
   @Input() patient$: any;
 
   constructor(
+    protected _api: PatientService,
   ) {
 
   }
@@ -20,6 +23,9 @@ export class PatientDossierComponent implements OnInit {
     console.log('input', this.patient$);
   }
 
+  delete(patient: PATIENT) {
+    this._api.deletePatient(patient);
+  }
 }
 
 // name: 'Simeon',
