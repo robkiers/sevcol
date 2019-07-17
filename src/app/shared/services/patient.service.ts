@@ -7,10 +7,8 @@ export class PatientService {
 
   patientList: PATIENT[] = [];
 
-  treatmentList: any[];
-
   upsertPatient(patient: PATIENT) {
-    const updatePatient = this.patientList.find(this.findIndexToUpdate, patient.patientID);
+    const updatePatient = this.patientList.find(this.findIndexToUpdate, patient.personID);
     const index = this.patientList.indexOf(updatePatient);
 
     if (index === -1) {
@@ -25,7 +23,7 @@ export class PatientService {
     console.log('Deleting: ', patient);
 
     if (!!this.patientList) {
-      const updatePatient = this.patientList.find(this.findIndexToUpdate, patient.patientID);
+      const updatePatient = this.patientList.find(this.findIndexToUpdate, patient.personID);
       const index = this.patientList.indexOf(updatePatient);
 
       this.patientList.splice(index, 1);
@@ -42,7 +40,7 @@ export class PatientService {
   }
 
   findIndexToUpdate(newItem) {
-    return newItem.patientID === this;
+    return newItem.personID === this;
   }
 
 

@@ -1,0 +1,9 @@
+.dossier-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.dossier-child {
+  width: 50%;
+  margin: 15px;
+}

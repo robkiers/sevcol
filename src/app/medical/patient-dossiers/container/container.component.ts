@@ -19,6 +19,8 @@ export class ContainerComponent implements OnInit {
   // patient: BehaviorSubject<any> = new BehaviorSubject(null);
   patient$: Subject<any> = new Subject();
 
+  showNewTreatment = false;
+
   constructor(
     private store: PatientdossiersService,
   ) { }
@@ -45,8 +47,12 @@ export class ContainerComponent implements OnInit {
     // this.store.setPatient(event);
   }
 
-  clearPatient(){
+  clearPatient() {
     this.patient$.next(null);
+  }
+
+  newTreatment() {
+    this.showNewTreatment = true;
   }
 
   log(event) {

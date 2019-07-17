@@ -2,35 +2,27 @@
     <app-patient-list [patientList]="patientList$" (patient)="setPatient($event)"></app-patient-list>
 </mat-card>
 
-<div *ngIf="(patient$ | async) as patient">
-    <mat-card style="width:90%">
+<div *ngIf="(patient$ | async) as patient" class="dossier-container">
+    <!-- <mat-card style="width:90%">
+        <app-patient-dossier [patient$]="patient"></app-patient-dossier>
         <app-new-patient [patient]="patient"></app-new-patient>
+    </mat-card> -->
+
+    <mat-card class="dossier-child">
+        <app-patient-dossier [patient$]="patient"></app-patient-dossier>
+        <!-- <app-new-patient [patient]="patient"></app-new-patient> -->
     </mat-card>
 
-    <!-- <mat-grid-list cols="2">
-        <mat-grid-tile>
-            <mat-card style="width:90%">
-                <app-new-patient [patient]="patient"></app-new-patient>
-            </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-card style="width:90%">
-                <app-treatment-history [patient$]="patient"></app-treatment-history>
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list> -->
+    <div class="dossier-child">
+        <mat-card>
+            <button *ngIf="!showNewTreatment" mat-raised-button (click)="newTreatment()">New</button>
+            <div *ngIf="showNewTreatment">
+                <app-new-treatment></app-new-treatment>
+            </div>
+        </mat-card>
+        <mat-card>
+            <app-treatment-history [patient$]="patient"></app-treatment-history>
+        </mat-card>
+    </div>
+
 </div>
-
-
-<!-- <app-patient-dossier [patient$]="patient"></app-patient-dossier> -->
-
-<!-- 
-     rowHeight="2:1"
-    <div *ngIf="(user$ | async) as user; else loading">
-    <user-profile
-      [user]="user.profile">
-    </user-profile>
-    <user-messages
-      [user]="user.messages">
-    </user-messages>
-  </div> -->

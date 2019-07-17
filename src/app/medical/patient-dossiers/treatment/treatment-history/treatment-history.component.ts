@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TreatmentService } from '../treatment.service';
+import { TreatmentStoreService } from '../treatment.service';
 
 @Component({
   selector: 'app-treatment-history',
   templateUrl: './treatment-history.component.html',
   styleUrls: ['./treatment-history.component.scss'],
-  providers: [TreatmentService]
+  providers: [TreatmentStoreService]
 })
 export class TreatmentHistoryComponent implements OnInit {
 
@@ -19,7 +19,7 @@ export class TreatmentHistoryComponent implements OnInit {
   }
 
   constructor(
-    private _store: TreatmentService,
+    private _store: TreatmentStoreService,
   ) { }
 
   ngOnInit() {

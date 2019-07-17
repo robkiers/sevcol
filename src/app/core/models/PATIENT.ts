@@ -6,9 +6,9 @@ export interface PATIENT {
     'organisation'?: string;
     'ship'?: string;
     'gender'?: string;
-    'patientID'?: string;
+    'personID'?: string;
     'specialAttention'?: boolean;
-    'specialAttentionDescription': string
+    'specialAttentionDescription': string;
     'bloodType'?: string;
     'allele'?: string;
     'dateOfBirth'?: string;

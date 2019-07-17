@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
 @Injectable()
-export class TreatmentService {
+export class TreatmentStoreService {
+
+  personID;
 
   treatmentHistory = [
 
@@ -39,11 +41,16 @@ export class TreatmentService {
   constructor() { }
 
   getTreatmentHistory(patient) {
-    console.log('getTreatment', patient.name);
+    this.personID = patient.personID;
+    console.log('getTreatment', patient.name, this.personID);
     console.log('getTreatment', this.treatmentHistory[0]);
     switch (patient.name) {
-      case 'Simeon': return of(this.treatmentHistory[0]);
-      case 'Alma': return of(this.treatmentHistory[1]);
+      case 'simeon': return of(this.treatmentHistory[0]);
+      case 'alma': return of(this.treatmentHistory[1]);
     }
+  }
+
+  getPersonID() {
+    return this.personID;
   }
 }

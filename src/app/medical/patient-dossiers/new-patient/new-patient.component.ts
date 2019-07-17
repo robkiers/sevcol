@@ -64,7 +64,7 @@ export class NewPatientComponent implements OnInit {
       notes: [],
 
       npc: [false],
-      patientID: UUID.UUID(),
+      personID: UUID.UUID(),
 
     });
   }
@@ -94,8 +94,8 @@ export class NewPatientComponent implements OnInit {
       notes: patient.notes,
 
       npc: patient.npc,
-      patientID: patient.patientID,
-    })
+      personID: patient.personID,
+    });
   }
 
   save() {

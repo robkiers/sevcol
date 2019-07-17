@@ -1,11 +1,15 @@
 <mat-toolbar>
-  <button mat-raised-button [routerLink]="['']">
-      <mat-icon>chevron_left</mat-icon>Dashbard
-  </button>
-  <button mat-raised-button class='margin-left' (click)="clearPatient()" *ngIf="(patient$ | async)">
-      <mat-icon>chevron_left</mat-icon>patientList
-  </button>
-  <button mat-raised-button class='margin-left' (click)="log()">
-      <mat-icon>chevron_left</mat-icon>log
-  </button>
+    <button mat-raised-button [routerLink]="['']">
+        <mat-icon>chevron_left</mat-icon>Dashbard
+    </button>
+    <!-- <button mat-raised-button class='margin-left' (click)="clearPatient()" *ngIf="(patient$ | async)">
+        <mat-icon>chevron_left</mat-icon>patientList
+    </button> -->
+    <button mat-raised-button class='margin-left' (click)="log()">
+        <mat-icon>chevron_left</mat-icon>log
+    </button>
+    <span style="float: right">
+        {{ time | date: 'hh:mm a' }}
+        {{ time | date: 'EEEE, MMMM d, y' }}
+    </span>
 </mat-toolbar>
