@@ -5,9 +5,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PatientDossierComponent } from './patient-dossier/patient-dossier.component';
 import { ContainerComponent } from './container/container.component';
 
-import { TreatmentModule } from './treatment/treatment.module';
-import { TreatmentHistoryComponent } from './treatment/treatment-history/treatment-history.component';
 import { NewPatientComponent } from './new-patient/new-patient.component';
+import { TreatmentModule } from '../treatment/treatment.module';
 
 const routes: Routes = [
   { path: 'new-patient', component: NewPatientComponent },
