@@ -6,6 +6,7 @@ const routes: Routes = [
   {
     path: 'patient-list',
     loadChildren: './medical/patient-dossiers/patient-dossiers.module#PatientDossierModule'
+    // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   { path: '', component: DashboardComponent },
 ];
