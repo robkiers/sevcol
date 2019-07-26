@@ -42,7 +42,7 @@ import { TreatmentService } from './services/treatment.service';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDividerModule
+    MatDividerModule,
   ]
 })
 export class SharedModule { }

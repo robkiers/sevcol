@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
 import { PATIENT } from 'src/app/core/models';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable(
 )
 export class PatientService {
 
+  public get db(): AngularFirestore {
+    return this._db;
+  }
+  public set db(value: AngularFirestore) {
+    this._db = value;
+  }
+
+  constructor(private _db: AngularFirestore) { }
+
   patientList: PATIENT[] = [];
 
   upsertPatient(patient: PATIENT) {
-    const updatePatient = this.patientList.find(this.findIndexToUpdate, patient.personID);
-    const index = this.patientList.indexOf(updatePatient);
-
-    if (index === -1) {
-      this.patientList.push(patient);
-    } else {
-      this.patientList[index] = patient;
-    }
-    localStorage.setItem('patientList', JSON.stringify(this.patientList));
+    this.db.collection('users').add(patient);
   }
+
+  // upsertPatient(patient: PATIENT) {
+  //   const updatePatient = this.patientList.find(this.findIndexToUpdate, patient.personID);
+  //   const index = this.patientList.indexOf(updatePatient);
+
+  //   if (index === -1) {
+  //     this.patientList.push(patient);
+  //   } else {
+  //     this.patientList[index] = patient;
+  //   }
+  //   localStorage.setItem('patientList', JSON.stringify(this.patientList));
+  // }
 
   deletePatient(patient: PATIENT) {
     console.log('Deleting: ', patient);
