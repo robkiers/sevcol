@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    protected _db: FirebaseService,
+  ) { }
 
   ngOnInit() {
   }
+
+  getAvatars() {
+    console.log('x');
+    // console.log(
+    this._db.getAvatars().subscribe(data => {
+      console.log(data);
+    }),
+    (error => )
+}
 
 }

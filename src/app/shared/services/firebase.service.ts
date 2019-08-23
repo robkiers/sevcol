@@ -5,7 +5,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class FirebaseService {
-  
+
   public get db(): AngularFirestore {
     return this._db;
   }
@@ -13,7 +13,11 @@ export class FirebaseService {
     this._db = value;
   }
 
-  constructor(private _db: AngularFirestore) { }
+  upsertPatient() {
+
+  }
+
+  // this._db.upsertPatient(saveEntity);
 
   getAvatars() {
     return this.db.collection('/avatar').valueChanges();
@@ -47,13 +51,13 @@ export class FirebaseService {
   }
 
 
-  createUser(value, avatar) {
-    return this.db.collection('users').add({
-      name: value.name,
-      nameToSearch: value.name.toLowerCase(),
-      surname: value.surname,
-      age: parseInt(value.age),
-      avatar: avatar
-    });
-  }
+  // createUser(value, avatar) {
+  //   return this.db.collection('users').add({
+  //     name: value.name,
+  //     nameToSearch: value.name.toLowerCase(),
+  //     surname: value.surname,
+  //     age: parseInt(value.age),
+  //     avatar: avatar
+  //   });
+  // }
 }

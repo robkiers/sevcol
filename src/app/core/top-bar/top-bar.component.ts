@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { ShipStatsService } from '../ship-stats/ship-stats.service';
-import * as firebase from 'firebase'; 
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -64,7 +63,7 @@ export class TopBarComponent implements OnInit {
 
   logIn() {
     const input = this.formGroup.getRawValue();
-    firebase.auth().signInWithEmailAndPassword(input.email, input.password);
+    // fb.auth().signInWithEmailAndPassword(input.email, input.password);
     // .catch(
     // function (error) {
     // Handle Errors here.
