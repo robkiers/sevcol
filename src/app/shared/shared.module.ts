@@ -17,11 +17,21 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { TreatmentService } from './services/treatment.service';
+import { DesktopCameraService } from './services/desktop-camera.service';
+import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
+import { PlatformInformationProvider } from './services/platform-information.provider';
 
 @NgModule({
   providers: [
     PatientService,
-    TreatmentService
+    TreatmentService,
+    DesktopCameraService,
+    PlatformInformationProvider,
+    {
+      provide: AbstractCameraService,
+      useFactory: cameraFactory,
+      deps: [PlatformInformationProvider]
+    }
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,14 @@
 import { Injectable, OnInit } from '@angular/core';
 import { of, BehaviorSubject } from 'rxjs';
-import { PatientService } from 'src/app/shared/services/patient.service';
+// import { PatientService } from 'src/app/shared/services/patient.service';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Injectable()
 export class PatientdossiersService implements OnInit {
 
   // patient: BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(
-    protected _api: PatientService,
+    protected _api: FirebaseService,
   ) { }
 
   ngOnInit() {
@@ -16,7 +17,8 @@ export class PatientdossiersService implements OnInit {
   }
 
   getPatientList() {
-    return of(this._api.getPatients());
+    return this._api.getPatientList();
+    // return of(this._api.getPatientList());
   }
 
 

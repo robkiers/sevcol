@@ -5,6 +5,7 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { TreatmentService } from 'src/app/shared/services/treatment.service';
 import { TreatmentStoreService } from '../treatment.service';
 import { UUID } from 'angular2-uuid';
+import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
 @Component({
   selector: 'app-new-treatment',
@@ -15,10 +16,10 @@ export class NewTreatmentComponent implements OnInit {
 
   reasonList = [
     { value: 'earth', viewValue: 'Earth' },
-    { value: 'water', viewValue: 'Earth' },
-    { value: 'fire', viewValue: 'Earth' },
-    { value: 'earth', viewValue: 'Earth' },
-    { value: 'earth', viewValue: 'Earth' },
+    { value: 'water', viewValue: 'Water' },
+    { value: 'fire', viewValue: 'Fire' },
+    { value: 'air', viewValue: 'Air' },
+    { value: 'aether', viewValue: 'Aether' },
   ];
 
   medicationList = [
@@ -55,7 +56,7 @@ export class NewTreatmentComponent implements OnInit {
 
   constructor(
     protected _fb: FormBuilder,
-    protected _api: TreatmentService,
+    protected _api: FirebaseService,
     protected _store: TreatmentStoreService,
     private shipStats: ShipStatsService,
   ) { }
@@ -92,7 +93,7 @@ export class NewTreatmentComponent implements OnInit {
 
     saveEntity.personID = this._store.getPersonID();
     saveEntity.treatmentID = UUID.UUID();
-    this._api.upsertTreatment(saveEntity);
+    this._api.createTreatment(saveEntity);
   }
 
   getPersonID() {
@@ -100,7 +101,4 @@ export class NewTreatmentComponent implements OnInit {
     return id;
   }
 
-  log(thing) {
-    console.log(thing);
-  }
 }

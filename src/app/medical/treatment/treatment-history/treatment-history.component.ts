@@ -9,14 +9,16 @@ import { TreatmentService } from 'src/app/shared/services/treatment.service';
 })
 export class TreatmentHistoryComponent implements OnInit {
 
+  SCOPE = 'TreatmentHistoryComponent';
+
   treatmentHistory$;
-  displayedColumns = ['date', 'type'];
+  displayedColumns = ['date', 'doctor', 'reasonOfVisit'];
 
   @Input() set patient$(patient$) {
     if (!!patient$) {
-      console.log('trigger', patient$);
+      console.log('trigger' + this.SCOPE, patient$);
       this.treatmentHistory$ = this._store.getTreatmentHistory(patient$);
-      this.treatmentHistory$.subscribe(data => console.log('data', data));
+      // this.treatmentHistory$.subscribe(data => console.log('data', data));
     }
   }
 
@@ -26,7 +28,6 @@ export class TreatmentHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Treatment history', this.treatmentHistory$);
   }
 
   selectRow(row) {

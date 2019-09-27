@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
-import { PatientService } from 'src/app/shared/services/patient.service';
 import { PATIENT } from 'src/app/core/models';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
@@ -32,8 +31,8 @@ export class NewPatientComponent implements OnInit {
 
   constructor(
     protected _fb: FormBuilder,
-    protected _api: PatientService,
-    protected _db: FirebaseService,
+    protected _api: FirebaseService,
+    // protected _db: FirebaseService,
 
   ) {
     this.createFormgroup();
@@ -103,12 +102,12 @@ export class NewPatientComponent implements OnInit {
 
   save() {
     const saveEntity = this.formGroup.getRawValue();
-    // this._api.upsertPatient(saveEntity);
+    this._api.createPatient(saveEntity);
     // this._db.upsertPatient(saveEntity);
   }
 
-  delete(patient: PATIENT) {
-    this._api.deletePatient(patient);
-  }
+  // delete(patient: PATIENT) {
+  //   this._api.deletePatient(patient);
+  // }
 
 }

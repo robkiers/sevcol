@@ -15,7 +15,9 @@
 
     <div class="dossier-child">
         <mat-card>
-            <button *ngIf="!showNewTreatment" mat-raised-button (click)="newTreatment()">New</button>
+            <button *ngIf="!showNewTreatment" mat-raised-button (click)="newTreatment()">New Treatment</button>
+            <button *ngIf="!showNewTreatment" mat-raised-button>Dummy Button</button>
+            <button *ngIf="!showNewTreatment" mat-raised-button>Dummy Button</button>
             <div *ngIf="showNewTreatment">
                 <app-new-treatment></app-new-treatment>
             </div>

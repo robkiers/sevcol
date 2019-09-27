@@ -59,17 +59,4 @@ export class TopBarComponent implements OnInit {
     console.log(this.router);
   }
 
-
-
-  logIn() {
-    const input = this.formGroup.getRawValue();
-    // fb.auth().signInWithEmailAndPassword(input.email, input.password);
-    // .catch(
-    // function (error) {
-    // Handle Errors here.
-    // var errorCode = error.code;
-    // var errorMessage = error.message;
-    // ...
-    // });
-  }
 }

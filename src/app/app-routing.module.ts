@@ -9,6 +9,11 @@ const routes: Routes = [
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   { path: '', component: DashboardComponent },
+  {
+    path: 'medical-scanner',
+    loadChildren: './medical/scanner/scanner.module#ScannerModule'
+    // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+  },
 ];
 
 @NgModule({

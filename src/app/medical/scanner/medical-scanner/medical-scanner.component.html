@@ -1,0 +1,34 @@
+<!-- 
+<button (click)="takeImage()" class="btn btn-primary my-2">Take picture</button>
+
+<div>
+  <img *ngIf="imageString" [src]="imageString" alt="imageString">
+</div> -->
+
+<!-- <div class="webcam-wrapper" (click)="imageClick.next();">
+  <video #video [width]="videoWidth" [height]="videoHeight" [class]="videoStyleClasses" autoplay muted playsinline (resize)="videoResize()"></video>
+  <div class="camera-switch" *ngIf="allowCameraSwitch && availableVideoInputs.length > 1 && videoInitialized" (click)="rotateVideoInput(true)"></div>
+  <canvas #canvas [width]="width" [height]="height"></canvas>
+</div> -->
+
+<div class="viewScreen">
+
+  <div>
+    <button mat-raised-button (click)="start()">Play</button>
+    <!-- <button (click)="toggleControls()" class="btn btn-success">Toggle Controls</button> -->
+    <button mat-raised-button (click)="pause()">Pause</button>
+    <button mat-raised-button (click)="resume()">Resume</button>
+    <!-- <button (click)="sound()" class="btn btn-danger">Play with Sound</button> -->
+  </div>
+
+  <div>
+    <h1> vid </h1>
+    <div class="col-md-12">
+      <div class="text-center">
+        <h3>
+          <video #videoElement></video>
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
