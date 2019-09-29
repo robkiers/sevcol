@@ -20,6 +20,7 @@ import { TreatmentService } from './services/treatment.service';
 import { DesktopCameraService } from './services/desktop-camera.service';
 import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
 import { PlatformInformationProvider } from './services/platform-information.provider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   providers: [
@@ -53,6 +54,7 @@ import { PlatformInformationProvider } from './services/platform-information.pro
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
+    MatTooltipModule
   ]
 })
 export class SharedModule { }

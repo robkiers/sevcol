@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: './medical/scanner/scanner.module#ScannerModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
+  {
+    path: 'medical-database',
+    loadChildren: './medical/database/database.module#DatabaseModule'
+    // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+  },
 ];
 
 @NgModule({
