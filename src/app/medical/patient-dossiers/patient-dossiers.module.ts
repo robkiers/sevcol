@@ -7,10 +7,12 @@ import { ContainerComponent } from './container/container.component';
 
 import { NewPatientComponent } from './new-patient/new-patient.component';
 import { TreatmentModule } from '../treatment/treatment.module';
+import { PatientViewComponent } from './patient-view/patient-view.component';
 
 const routes: Routes = [
-  { path: 'new-patient', component: NewPatientComponent },
-  { path: '', component: ContainerComponent }
+  // { path: 'new-patient', component: NewPatientComponent },
+  // { path: '', component: ContainerComponent }
+  { path: '', component: PatientViewComponent }
 ];
 
 @NgModule({
@@ -19,6 +21,7 @@ const routes: Routes = [
     PatientDossierComponent,
     ContainerComponent,
     NewPatientComponent,
+    PatientViewComponent,
   ],
   imports: [
     SharedModule,

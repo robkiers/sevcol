@@ -1,0 +1,81 @@
+<div style="height:800px">
+  <mat-grid-list cols="2" gutterSize="5px">
+    <mat-grid-tile>
+      <mat-card style="margin:5px">
+
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <!-- <button *ngIf="!formGroup" mat-raised-button (click)="createFormgroup()" class="float-right">New Entry</button> -->
+
+        <mat-table [dataSource]="patientList" matSort class="patient-table" style="width:100%">
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef style="width:250px"> Name </th>
+            <td mat-cell *matCellDef="let patient"> {{patient.name}} {{patient.familyName}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef style="width:250px"> Gender </th>
+            <td mat-cell *matCellDef="let patient"> {{patient.gender}}</td>
+          </ng-container>
+          <ng-container matColumnDef="ship">
+            <th mat-header-cell *matHeaderCellDef style="width:250px"> ship </th>
+            <td mat-cell *matCellDef="let patient"> {{patient.ship}}</td>
+          </ng-container>
+          <ng-container matColumnDef="organisation">
+            <th mat-header-cell *matHeaderCellDef style="width:250px"> organisation </th>
+            <td mat-cell *matCellDef="let patient"> {{patient.organisation}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
+
+        </mat-table>
+
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+
+      <mat-card *ngIf="!!selectedEntry" style="margin:5px" class="full-width">
+        <mat-card-title>{{selectedEntry.name}} {{selectedEntry?.otherNames}} {{selectedEntry.familyName}}
+          <button mat-icon-button matTooltip="Special Attention required"
+            *ngIf="selectedEntry.specialAttention === true">
+            <mat-icon>error_outline</mat-icon>
+          </button>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <mat-grid-list cols="3" rowHeight="3em">
+            <mat-grid-tile>{{selectedEntry.gender}}</mat-grid-tile>
+            <mat-grid-tile>Age: {{selectedEntry.age}}</mat-grid-tile>
+            <mat-grid-tile>Bloodgroup: {{selectedEntry.bloodType}}{{selectedEntry.allele}}</mat-grid-tile>
+          </mat-grid-list>
+        </mat-card-subtitle>
+
+        <mat-card-content>
+          <mat-grid-list cols="3" rowHeight="3em">
+            <mat-grid-tile *ngIf="selectedEntry.specialAttention === true" colspan="3">{{selectedEntry.specialAttentionDescription}}</mat-grid-tile>
+
+            <mat-grid-tile>Height: {{selectedEntry.height}} cm</mat-grid-tile>
+            <mat-grid-tile>Weight: {{selectedEntry.weight}} kg</mat-grid-tile>
+            <mat-grid-tile>Planet of Origin: {{selectedEntry.origin}}</mat-grid-tile>
+
+            <mat-grid-tile>Ship Enlisted: {{selectedEntry.ship}}</mat-grid-tile>
+            <mat-grid-tile>Organisation Employed: {{selectedEntry.Organisation}}</mat-grid-tile>
+
+            <mat-grid-tile colspan="3">{{selectedEntry.notes}}</mat-grid-tile>
+          </mat-grid-list>
+        </mat-card-content>
+
+
+        <mat-card-actions>
+          <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">Update Entry</button>
+          <!-- <button mat-raised-button (click)="save()">Save Entry</button> -->
+          <!-- <button mat-raised-button (click)="cancel()">Cancel Entry</button> -->
+        </mat-card-actions>
+      </mat-card>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
