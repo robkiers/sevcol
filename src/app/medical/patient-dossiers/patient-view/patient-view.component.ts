@@ -44,7 +44,29 @@ export class PatientViewComponent implements OnInit {
 
     if (!!selectedEntry) {
       this.formGroup = this._fb.group({
+        name: [selectedEntry.name, [Validators.required, Validators.maxLength(200)]],
+        otherNames: [selectedEntry.otherNames, [Validators.maxLength(200)]],
+        familyName: [selectedEntry.familyName, [Validators.required, Validators.maxLength(200)]],
 
+        gender: [selectedEntry.gender, [Validators.required, Validators.maxLength(200)]],
+        height: [selectedEntry.height],
+        weight: [selectedEntry.weight],
+
+        origin: [selectedEntry.origin],
+        dateOfBirth: [selectedEntry.dateOfBirth],
+        bloodType: [selectedEntry.bloodType],
+        allele: [selectedEntry.allele],
+
+        organisation: [selectedEntry.organisation],
+        ship: [selectedEntry.ship, [Validators.maxLength(200)]],
+
+        specialAttention: [selectedEntry.specialAttention, [Validators.required, Validators.maxLength(200)]],
+        specialAttentionDescription: [selectedEntry.specialAttentionDescription],
+
+        notes: [selectedEntry.notes],
+
+        npc: [selectedEntry.npc],
+        personID: [selectedEntry.personID],
       });
 
     } else {
@@ -63,7 +85,6 @@ export class PatientViewComponent implements OnInit {
         bloodType: [],
         allele: [],
 
-
         organisation: [null],
         ship: [null, [Validators.maxLength(200)]],
 
@@ -75,7 +96,20 @@ export class PatientViewComponent implements OnInit {
         npc: [false],
         personID: UUID.UUID(),
       });
+      this.formGroup.markAllAsTouched();
     }
+  }
+
+  cancel() {
+    this.formGroup = null;
+  }
+
+  save() {
+    const saveEntity = this.formGroup.getRawValue();
+    this._api.createDatabseEntry(saveEntity);
+
+    this.formGroup = null;
+    this.selectedEntry = saveEntity;
   }
 
 }

@@ -3,11 +3,13 @@ import { TreatmentHistoryComponent } from './treatment-history/treatment-history
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewTreatmentComponent } from './new-treatment/new-treatment.component';
 import { TreatmentStoreService } from './treatment.service';
+import { TreatmentViewComponent } from './treatment-view/treatment-view.component';
 
 @NgModule({
   declarations: [
     TreatmentHistoryComponent,
-    NewTreatmentComponent
+    NewTreatmentComponent,
+    TreatmentViewComponent
   ],
   imports: [
     SharedModule

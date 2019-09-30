@@ -14,7 +14,7 @@ export class TreatmentStoreService {
 
   getTreatmentHistory(patient) {
     this.personID = patient.personID;
-    return this._api.getPatientTreatmentList(patient.personID);
+    // return this._api.getPatientTreatmentList(patient.personID);
   }
 
   getPersonID() {

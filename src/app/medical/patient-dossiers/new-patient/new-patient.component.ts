@@ -1,19 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
-import { PATIENT } from 'src/app/core/models';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-patient',
   templateUrl: './new-patient.component.html',
   styleUrls: ['./new-patient.component.scss']
 })
-export class NewPatientComponent implements OnInit {
 
-  @Input() set patient(patient: PATIENT) {
-    this.populateFormgroup(patient);
-  }
+export class NewPatientComponent implements OnInit {
 
   formGroup: FormGroup;
 
@@ -32,8 +29,7 @@ export class NewPatientComponent implements OnInit {
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
-    // protected _db: FirebaseService,
-
+    private router: Router
   ) {
     this.createFormgroup();
   }
@@ -56,7 +52,6 @@ export class NewPatientComponent implements OnInit {
       bloodType: [],
       allele: [],
 
-
       organisation: [null],
       ship: [null, [Validators.maxLength(200)]],
 
@@ -69,45 +64,17 @@ export class NewPatientComponent implements OnInit {
       personID: UUID.UUID(),
 
     });
-  }
-
-  populateFormgroup(patient: PATIENT) {
-    this.formGroup.reset({
-      name: patient.name,
-      otherNames: patient.otherNames,
-      familyName: patient.familyName,
-
-      gender: patient.gender,
-      height: patient.height,
-      weight: patient.weight,
-
-      origin: patient.origin,
-      dateOfBirth: patient.dateOfBirth,
-      bloodType: patient.bloodType,
-      allele: patient.allele,
-
-
-      organisation: patient.organisation,
-      ship: patient.ship,
-
-      specialAttention: patient.specialAttention,
-      specialAttentionDescription: patient.specialAttentionDescription,
-
-      notes: patient.notes,
-
-      npc: patient.npc,
-      personID: patient.personID,
-    });
+    this.formGroup.markAllAsTouched();
   }
 
   save() {
     const saveEntity = this.formGroup.getRawValue();
     this._api.createPatient(saveEntity);
-    // this._db.upsertPatient(saveEntity);
+    this.router.navigate(['./patient-list']);
   }
 
-  // delete(patient: PATIENT) {
-  //   this._api.deletePatient(patient);
-  // }
+  cancel() {
+    this.router.navigate(['']);
+  }
 
 }
