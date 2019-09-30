@@ -23,14 +23,14 @@ export class FirebaseService {
     return this.db.collection('patientlist').doc(patient.personID).set(Object.assign(patient));
   }
 
-  getMedicalRecordsList(personID) {
-    return this.db.collection('patient').doc(personID)
+  getMedicalRecordsList(patient) {
+    return this.db.collection('patient').doc(patient.personID)
       .collection('medicalRecordList').valueChanges();
   }
 
   upsertMedicalRecord(record) {
     return this.db.collection('patient').doc(record.personID)
-      .collection('medicalRecordList').doc(record.treatmentID).set(Object.assign(record));
+      .collection('medicalRecordList').doc(record.recordID).set(Object.assign(record));
   }
 
   getDatabaseList() {

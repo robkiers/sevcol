@@ -6,7 +6,8 @@
         <mat-form-field>
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
-        <button *ngIf="!formGroup" mat-raised-button (click)="createFormgroup()" class="float-right">New Patient</button>
+        <button *ngIf="!formGroup" mat-raised-button (click)="createFormgroup()" class="float-right">New
+          Patient</button>
 
         <mat-table [dataSource]="patientList" matSort class="patient-table" style="width:100%">
 
@@ -71,6 +72,7 @@
 
 
         <mat-card-actions>
+          <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">View </button>
           <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">Update Entry</button>
         </mat-card-actions>
       </mat-card>
@@ -205,4 +207,8 @@
 
     </mat-grid-tile>
   </mat-grid-list>
+</div>
+
+<div *ngIf="!!selectedEntry">
+  <app-medical-records [patient]="selectedEntry"></app-medical-records>
 </div>

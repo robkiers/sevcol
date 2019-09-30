@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
@@ -21,6 +21,13 @@ export class MedicalRecordsComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  @Input() set patient(patient) {
+    console.log('x', patient);
+    this._api.getMedicalRecordsList(patient).subscribe(data => this.medicalRecords = new MatTableDataSource(data));
+  };
+  // @Input() set patient$(patient$) {
+  //   if (!!patient$) {
+
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
@@ -28,9 +35,8 @@ export class MedicalRecordsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._api.getDatabaseList().subscribe(data => this.medicalRecords = new MatTableDataSource(data));
     // this.databaseEntries = new MatTableDataSource(this.dataSource);
-    this.medicalRecords.sort = this.sort;
+    // this.medicalRecords.sort = this.sort;
   }
 
   selectRow(row) {
