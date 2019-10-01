@@ -19,6 +19,7 @@ import { DesktopCameraService } from './services/desktop-camera.service';
 import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
 import { PlatformInformationProvider } from './services/platform-information.provider';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   providers: [
@@ -50,7 +51,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule
   ]
 })
 export class SharedModule { }

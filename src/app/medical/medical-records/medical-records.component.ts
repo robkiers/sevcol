@@ -13,20 +13,34 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 })
 export class MedicalRecordsComponent implements OnInit {
 
-  dataSource;
+  doctorList = [
+    { value: 'Porter', viewValue: 'Porter' },
+    { value: 'Porter', viewValue: 'Porter' },
+    { value: 'Wilde', viewValue: 'Wilde' },
+  ];
+
+  medicineList = [
+    { value: 'Pencilin', viewValue: 'Pencilin' },
+  ]
+
   medicalRecords;
   selectedEntry;
-  displayedColumns = ['title', 'category', 'shortDescription'];
+  displayedColumns = ['date', 'treatingDoctor', 'treatmentAction'];
   formGroup;
+
+  patientFile;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() set patient(patient) {
-    console.log('x', patient);
-    this._api.getMedicalRecordsList(patient).subscribe(data => this.medicalRecords = new MatTableDataSource(data));
+    this.resetProperties();
+
+    this.patientFile = patient;
+    this._api.getMedicalRecordsList(patient).subscribe(data => {
+      this.medicalRecords = new MatTableDataSource(data)
+    });
+
   };
-  // @Input() set patient$(patient$) {
-  //   if (!!patient$) {
 
   constructor(
     protected _fb: FormBuilder,
@@ -35,8 +49,6 @@ export class MedicalRecordsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.databaseEntries = new MatTableDataSource(this.dataSource);
-    // this.medicalRecords.sort = this.sort;
   }
 
   selectRow(row) {
@@ -54,8 +66,10 @@ export class MedicalRecordsComponent implements OnInit {
     if (!!selectedEntry) {
       this.formGroup = this._fb.group({
         recordID: selectedEntry.id,
+        personID: selectedEntry.personID,
 
         date: [selectedEntry.date, [Validators.required]],
+        description: [selectedEntry.description],
         contact: [selectedEntry.contact],
         treatingDoctor: [selectedEntry.treatingDoctor, [Validators.required]],
         assistingDoctor: [selectedEntry.assistingDoctor],
@@ -75,9 +89,11 @@ export class MedicalRecordsComponent implements OnInit {
     } else {
       this.formGroup = this._fb.group({
         recordID: UUID.UUID(),
+        personID: this.patientFile.personID,
 
         date: [this._shipStats.getTime(), [Validators.required]],
         contact: [],
+        description: [],
         treatingDoctor: [null, [Validators.required]],
         assistingDoctor: [],
         reasonOfVisit: [, Validators.required],
@@ -86,14 +102,14 @@ export class MedicalRecordsComponent implements OnInit {
         usedMedication: [],
         prescribedMedication: [],
 
-        treatmentAction: [],
+        treatmentAction: [null, [Validators.required]],
         treatmentActionNotes: [],
 
         surgery: [],
         surgeryNotes: [],
         possibleSideEffects: [],
       })
-      this.formGroup.markAllAsTouched()();
+      this.formGroup.markAllAsTouched();
     }
   };
 
@@ -103,10 +119,17 @@ export class MedicalRecordsComponent implements OnInit {
 
   save() {
     const saveEntity = this.formGroup.getRawValue();
-    this._api.createDatabseEntry(saveEntity);
+    this._api.upsertMedicalRecord(saveEntity);
 
     this.formGroup = null;
     this.selectedEntry = saveEntity;
+  }
+
+  resetProperties() {
+    this.medicalRecords = null;
+    this.selectedEntry = null;
+    this.formGroup = null;
+    this.patientFile = null;
   }
 
 }

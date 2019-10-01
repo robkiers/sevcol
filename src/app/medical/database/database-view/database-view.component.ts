@@ -50,7 +50,6 @@ export class DatabaseViewComponent implements OnInit {
 
   // databaseEntries = new MatTableDataSource(this.dataSource);
 
-  dataSource;
   databaseEntries;
   selectedEntry;
   displayedColumns = ['title', 'category', 'shortDescription'];
@@ -65,8 +64,6 @@ export class DatabaseViewComponent implements OnInit {
 
   ngOnInit() {
     this._api.getDatabaseList().subscribe(data => this.databaseEntries = new MatTableDataSource(data));
-    // this.databaseEntries = new MatTableDataSource(this.dataSource);
-    this.databaseEntries.sort = this.sort;
   }
 
 

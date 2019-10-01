@@ -1,7 +1,7 @@
-<div>
+<div style="height: 600px">
   <mat-grid-list cols="2" gutterSize="5px">
     <mat-grid-tile>
-      <mat-card style="margin:5px">
+      <mat-card style="margin:5px" class="full-width">
 
         <mat-form-field>
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -178,14 +178,14 @@
             </mat-grid-tile>
 
             <mat-grid-tile colspan="2" rowspan="2">
-              <mat-form-field class="full-width full-height">
+              <mat-form-field class="full-width">
                 <textarea matInput placeholder="Special Attention Description"
                   formControlName='specialAttentionDescription' matTextareaAutosize matAutosizeMinRows="4"></textarea>
               </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile colspan="3" rowspan="2">
-              <mat-form-field class="full-width full-height">
+              <mat-form-field class="full-width">
                 <textarea matInput matTextareaAutosize placeholder="General Notes" formControlName='notes'
                   matAutosizeMinRows="4"></textarea>
               </mat-form-field>
@@ -207,8 +207,9 @@
 
     </mat-grid-tile>
   </mat-grid-list>
+
 </div>
 
-<div *ngIf="!!selectedEntry">
+<div style="height: 600px" *ngIf="!!selectedEntry">
   <app-medical-records [patient]="selectedEntry"></app-medical-records>
 </div>

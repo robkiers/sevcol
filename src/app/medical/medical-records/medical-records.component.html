@@ -1,139 +1,173 @@
-<div>
-  <mat-grid-list cols="2" gutterSize="5px">
-    <mat-grid-tile>
-      <mat-card style="margin:5px">
+<mat-grid-list cols="2" gutterSize="5px">
+  <mat-grid-tile>
+    <mat-card style="margin:5px" class="full-width">
 
-        <mat-form-field>
-          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
 
-        <button *ngIf="!formGroup" mat-raised-button (click)="createFormgroup()" class="float-right">New Medical Record</button>
+      <button *ngIf="!formGroup" mat-raised-button (click)="createFormgroup()" class="float-right">New Medical
+        Record</button>
 
+      <mat-table [dataSource]="medicalRecords" matSort class="patient-table" style="width:100%">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef style="width:250px">Date</th>
+          <td mat-cell *matCellDef="let entry"> {{entry.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</td>
+        </ng-container>
 
-        <!-- <mat-table [dataSource]="databaseEntries" matSort class="patient-table" style="width:100%">
-          <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef style="width:250px">Entry Title</th>
-            <td mat-cell *matCellDef="let entry"> {{entry.title}}</td>
-          </ng-container>
+        <ng-container matColumnDef="treatingDoctor">
+          <th mat-header-cell *matHeaderCellDef style="width:250px" mat-sort-header>Treating Doctor</th>
+          <td mat-cell *matCellDef="let entry"> {{entry.treatingDoctor}}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef style="width:250px" mat-sort-header>Category</th>
-            <td mat-cell *matCellDef="let entry"> {{entry.category}}</td>
-          </ng-container>
+        <ng-container matColumnDef="treatmentAction">
+          <th mat-header-cell *matHeaderCellDef style="width:250px">Actions</th>
+          <td mat-cell *matCellDef="let entry"> {{entry.treatmentAction}}</td>
+        </ng-container>
 
-          <ng-container matColumnDef="shortDescription">
-            <th mat-header-cell *matHeaderCellDef style="width:250px"> Description </th>
-            <td mat-cell *matCellDef="let entry"> {{entry.shortDescription}}</td>
-          </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
+      </mat-table>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
-        </mat-table> -->
+    </mat-card>
+  </mat-grid-tile>
 
-      </mat-card>
-    </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-card *ngIf="!!selectedEntry" style="margin:5px" class="full-width">
+      <mat-card-title>{{selectedEntry.reasonOfVisit}}</mat-card-title>
+      <mat-card-subtitle>
+        <mat-grid-list cols="3" rowHeight="3em">
+          <mat-grid-tile>Date: {{selectedEntry.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
+          <mat-grid-tile>Treating Doctor: {{selectedEntry.treatingDoctor}}</mat-grid-tile>
+          <mat-grid-tile>Assisting Doctor: {{selectedEntry.treatingDoctor}}</mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-subtitle>
 
-    <mat-grid-tile>
-      <mat-card *ngIf="!!selectedEntry" style="margin:5px">
-        <mat-card-title>{{selectedEntry.treatmentAction}}</mat-card-title>
-        <mat-card-subtitle>
-          <mat-grid-list cols="3" rowHeight="3em">
-            <!-- <mat-grid-tile>Category: {{selectedEntry.category}}</mat-grid-tile> -->
-            <!-- <mat-grid-tile>Subcategory: {{selectedEntry.subCategory}}</mat-grid-tile> -->
-            <!-- <mat-grid-tile>Onboard: {{selectedEntry.amountOnBoard}} {{selectedEntry.measurement}}</mat-grid-tile> -->
-          </mat-grid-list>
-        </mat-card-subtitle>
+      <mat-card-content>
 
-        <mat-card-content>
-          {{selectedEntry.description}}
-        </mat-card-content>
+        <mat-grid-list cols="2" rowHeight="3em">
 
-        <mat-card-actions>
-          <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">Update Entry</button>
-        </mat-card-actions>
-      </mat-card>
+          <mat-grid-tile colspan="2">Description: {{selectedEntry.Description}}</mat-grid-tile>
+          <mat-grid-tile>Treatment Action: {{selectedEntry.treatmentAction}}</mat-grid-tile>
+          <mat-grid-tile>Location of Treatment: {{selectedEntry.locationOfTreatment}}</mat-grid-tile>
+          <mat-grid-tile>Used Medication: {{selectedEntry.usedMedication}}</mat-grid-tile>
+          <mat-grid-tile>Prescribed: {{selectedEntry.prescribedMedication}}</mat-grid-tile>
+          <mat-grid-tile colspan="2">Notes: {{selectedEntry.treatmentActionNotes}}</mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
 
-
-
-      <mat-card *ngIf="!!formGroup" style="margin:5px" class="full-width">
-
-        <form [formGroup]="formGroup">
-
-          <mat-grid-list cols="2" rowHeight="3em">
-
-            <!-- <mat-grid-tile colspan="2">
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Name" formControlName='title'>
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-              <mat-form-field class="full-width">
-                <mat-label>Category</mat-label>
-                <mat-select formControlName="category">
-                  <mat-option *ngFor="let category of categoryList" [value]="category.value">
-                    {{category.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <button mat-icon-button matTooltip="Add Category">
-                <mat-icon>add</mat-icon>
-              </button>
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-              <mat-form-field class="full-width">
-                <mat-label>Subcategory</mat-label>
-                <mat-select formControlName="subCategory">
-                  <mat-option *ngFor="let subCategory of subCategoryList" [value]="subCategory.value">
-                    {{subCategory.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <button mat-icon-button matTooltip="Add Subcategory">
-                <mat-icon>add</mat-icon>
-              </button>
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-              <mat-form-field class="full-width">
-                <input matInput placeholder="Amount on Board" formControlName='amountOnBoard'>
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-              <mat-form-field class="full-width">
-                <mat-label>Measurement</mat-label>
-                <mat-select formControlName="measurement">
-                  <mat-option *ngFor="let measurement of measurementList" [value]="measurement.value">
-                    {{measurement.viewValue}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile colspan="2" rowspan="2">
-              <mat-form-field class="full-width">
-                <textarea matInput placeholder="Short Description" formControlName='shortDescription'></textarea>
-              </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile colspan="2" rowspan="2">
-              <mat-form-field class="full-width">
-                <textarea matInput placeholder="Description" formControlName='description'></textarea>
-              </mat-form-field>
-            </mat-grid-tile> -->
-
-          </mat-grid-list>
-        </form>
-
-        <mat-card-actions>
-          <button mat-raised-button (click)="save()">Save Entry</button>
-          <button mat-raised-button (click)="cancel()">Cancel Entry</button>
-        </mat-card-actions>
-      </mat-card>
+      <mat-card-actions>
+        <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">Update Entry</button>
+      </mat-card-actions>
+    </mat-card>
 
 
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+
+    <mat-card *ngIf="!!formGroup" style="margin:5px" class="full-width">
+
+      <form [formGroup]="formGroup">
+
+        <mat-grid-list cols="2" rowHeight="3em">
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Reason of Visit" formControlName='reasonOfVisit'>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="datepicker" formControlName='date'>
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker></mat-datepicker>
+            </mat-form-field>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile colspan="2" rowspan="2">
+            <mat-form-field class="full-width">
+              <textarea matInput placeholder="Description" formControlName='description'></textarea>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <mat-label>Treating Doctor</mat-label>
+              <mat-select formControlName="treatingDoctor">
+                <mat-option *ngFor="let doctor of doctorList" [value]="doctor.value">
+                  {{doctor.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button matTooltip="Add Doctor">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <mat-label>Assisting Doctor</mat-label>
+              <mat-select formControlName="assistingDoctor">
+                <mat-option *ngFor="let doctor of doctorList" [value]="doctor.value">
+                  {{doctor.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button matTooltip="Add Doctor">
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <mat-label>Used Medicine</mat-label>
+              <mat-select formControlName="usedMedication">
+                <mat-option *ngFor="let medicine of medicineList" [value]="medicineList.value">
+                  {{medicine.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <mat-label>Prescribed Medicine</mat-label>
+              <mat-select formControlName="prescribedMedication">
+                <mat-option *ngFor="let medicine of medicineList" [value]="medicineList.value">
+                  {{medicine.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Location Of Treatment" formControlName='locationOfTreatment'>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Treatment Action" formControlName='treatmentAction'>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2" rowspan="2">
+            <mat-form-field class="full-width">
+              <textarea matInput placeholder="Notes" formControlName='treatmentActionNotes'></textarea>
+            </mat-form-field>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+      </form>
+
+      <mat-card-actions>
+        <button mat-raised-button (click)="save()">Save Entry</button>
+        <button mat-raised-button (click)="cancel()">Cancel Entry</button>
+      </mat-card-actions>
+    </mat-card>
+
+
+  </mat-grid-tile>
+</mat-grid-list>

@@ -26,8 +26,6 @@ export class PatientViewComponent implements OnInit {
 
   ngOnInit() {
     this._api.getPatientList().subscribe(data => this.patientList = new MatTableDataSource(data));
-    // this.databaseEntries = new MatTableDataSource(this.dataSource);
-    // this.patientList.sort = this.sort;
   }
 
   selectRow(row) {
