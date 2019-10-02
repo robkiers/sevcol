@@ -21,6 +21,8 @@ import { PlatformInformationProvider } from './services/platform-information.pro
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 
+import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
+
 @NgModule({
   providers: [
     DesktopCameraService,
@@ -52,7 +54,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatNativeDateModule,
     MatDividerModule,
     MatTooltipModule,
-    MatSortModule
-  ]
+    MatSortModule,
+    TableOverviewModule
+  ],
+  declarations: []
 })
 export class SharedModule { }

@@ -1,9 +1,10 @@
 <div>
   <mat-grid-list cols="2" gutterSize="5px">
     <mat-grid-tile>
-      <mat-card style="margin:5px">
+      <mat-card style="margin:5px" class="full-width">
 
-        <mat-form-field>
+        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" ></app-table-overview>
+        <!-- [displayedColumns]="displayedColumns"<mat-form-field>
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
 
@@ -28,7 +29,9 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
-        </mat-table>
+        </mat-table> -->
+
+
       </mat-card>
     </mat-grid-tile>
 
