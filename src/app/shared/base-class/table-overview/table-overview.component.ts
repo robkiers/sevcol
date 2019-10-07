@@ -23,7 +23,7 @@ export class TableOverviewComponent {
     console.log(displayedColumns);
     console.log(displayedColumns.map(obj => obj.definition));
     this.displayedColumns = displayedColumns.map(obj => obj.definition);
-    
+
     // .filter(column => displayedColumns.definition);
   }
 
@@ -46,6 +46,9 @@ export class TableOverviewComponent {
     this.data.filter = filterValue.trim().toLowerCase();
   }
 
-  determine
+  determineWidth() {
+    const width = 100 / this.columnFields.length;
+    return 'width: ' + width + '%'
+  }
 
 }
