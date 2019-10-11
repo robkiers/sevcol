@@ -13,6 +13,8 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 })
 export class MedicalRecordsComponent implements OnInit {
 
+
+
   doctorList = [
     { value: 'Porter', viewValue: 'Porter' },
     { value: 'Porter', viewValue: 'Porter' },
@@ -21,26 +23,29 @@ export class MedicalRecordsComponent implements OnInit {
 
   medicineList = [
     { value: 'Pencilin', viewValue: 'Pencilin' },
-  ]
+  ];
 
-  medicalRecords;
-  selectedEntry;
-  displayedColumns = ['date', 'treatingDoctor', 'treatmentAction'];
+  // medicalRecords;
+  // selectedRecord;
+  // displayedColumns = ['date', 'treatingDoctor', 'treatmentAction'];
   formGroup;
 
   patientFile;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+
+  @Input() selectedRecord;
 
   @Input() set patient(patient) {
     this.resetProperties();
 
     this.patientFile = patient;
-    this._api.getMedicalRecordsList(patient).subscribe(data => {
-      this.medicalRecords = new MatTableDataSource(data)
-    });
+    // this._api.getMedicalRecordsList(patient).subscribe(data => {
+    //   this.medicalRecords = new MatTableDataSource(data)
+    // });
 
-  };
+  }
 
   constructor(
     protected _fb: FormBuilder,
@@ -51,41 +56,41 @@ export class MedicalRecordsComponent implements OnInit {
   ngOnInit() {
   }
 
-  selectRow(row) {
-    this.formGroup = null;
-    this.selectedEntry = row;
-  }
+  // selectRow(row) {
+  //   this.formGroup = null;
+  //   this.selectedRecord = row;
+  // }
 
-  applyFilter(filterValue: string) {
-    this.medicalRecords.filter = filterValue.trim().toLowerCase();
-  }
+  // applyFilter(filterValue: string) {
+  //   this.medicalRecords.filter = filterValue.trim().toLowerCase();
+  // }
 
-  createFormgroup(selectedEntry?: any) {
-    this.selectedEntry = null;
+  createFormgroup(selectedRecord?: any) {
+    this.selectedRecord = null;
 
-    if (!!selectedEntry) {
+    if (!!selectedRecord) {
       this.formGroup = this._fb.group({
-        recordID: selectedEntry.id,
-        personID: selectedEntry.personID,
+        recordID: selectedRecord.id,
+        personID: selectedRecord.personID,
 
-        date: [selectedEntry.date, [Validators.required]],
-        description: [selectedEntry.description],
-        contact: [selectedEntry.contact],
-        treatingDoctor: [selectedEntry.treatingDoctor, [Validators.required]],
-        assistingDoctor: [selectedEntry.assistingDoctor],
-        reasonOfVisit: [selectedEntry.reasonOfVisit, Validators.required],
+        date: [selectedRecord.date, [Validators.required]],
+        description: [selectedRecord.description],
+        contact: [selectedRecord.contact],
+        treatingDoctor: [selectedRecord.treatingDoctor, [Validators.required]],
+        assistingDoctor: [selectedRecord.assistingDoctor],
+        reasonOfVisit: [selectedRecord.reasonOfVisit, Validators.required],
 
-        locationOfTreatment: [selectedEntry.locationOfTreatment],
-        usedMedication: [selectedEntry.usedMedication],
-        prescribedMedication: [selectedEntry.prescribedMedication],
+        locationOfTreatment: [selectedRecord.locationOfTreatment],
+        usedMedication: [selectedRecord.usedMedication],
+        prescribedMedication: [selectedRecord.prescribedMedication],
 
-        treatmentAction: [selectedEntry.treatmentAction],
-        treatmentActionNotes: [selectedEntry.treatmentActionNotes],
+        treatmentAction: [selectedRecord.treatmentAction],
+        treatmentActionNotes: [selectedRecord.treatmentActionNotes],
 
-        surgery: [selectedEntry.surgery],
-        surgeryNotes: [selectedEntry.surgeryNotes],
-        possibleSideEffects: [selectedEntry.possibleSideEffects],
-      })
+        surgery: [selectedRecord.surgery],
+        surgeryNotes: [selectedRecord.surgeryNotes],
+        possibleSideEffects: [selectedRecord.possibleSideEffects],
+      });
     } else {
       this.formGroup = this._fb.group({
         recordID: UUID.UUID(),
@@ -108,10 +113,10 @@ export class MedicalRecordsComponent implements OnInit {
         surgery: [],
         surgeryNotes: [],
         possibleSideEffects: [],
-      })
+      });
       this.formGroup.markAllAsTouched();
     }
-  };
+  }
 
   cancel() {
     this.formGroup = null;
@@ -122,12 +127,12 @@ export class MedicalRecordsComponent implements OnInit {
     this._api.upsertMedicalRecord(saveEntity);
 
     this.formGroup = null;
-    this.selectedEntry = saveEntity;
+    this.selectedRecord = saveEntity;
   }
 
   resetProperties() {
-    this.medicalRecords = null;
-    this.selectedEntry = null;
+    // this.medicalRecords = null;
+    this.selectedRecord = null;
     this.formGroup = null;
     this.patientFile = null;
   }

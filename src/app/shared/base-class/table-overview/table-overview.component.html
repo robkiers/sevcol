@@ -6,14 +6,14 @@
   Record</button> -->
 <div *ngIf="!!data">
 
-  <mat-table [dataSource]="data" matSort class="full-width">
+  <table mat-table [dataSource]="data" matSort class="full-width">
 
     <ng-container *ngFor="let col of columnFields" [matColumnDef]="col.definition">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ col.header }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element[col.definition] }} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="col.width"> {{ col.header }} </th>
+      <td mat-cell *matCellDef="let element" [style]="col.width"> {{ element[col.definition] }} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns" [style]="determineWidth()"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
-  </mat-table>
+  </table>
 </div>

@@ -22,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 
 import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   providers: [
@@ -38,6 +39,7 @@ import { TableOverviewModule } from './base-class/table-overview/table-overview.
   ],
   exports: [
     CommonModule,
+    ScrollingModule,
     RouterModule,
     MatButtonModule,
     MatTableModule,

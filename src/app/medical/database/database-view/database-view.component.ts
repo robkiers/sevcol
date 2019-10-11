@@ -52,12 +52,15 @@ export class DatabaseViewComponent implements OnInit {
 
   databaseEntries;
   selectedEntry;
-  // displayedColumns = ['title', 'category', 'shortDescription'];
-  displayedColumns = ['title'];
+
+  // displayedColumns = ['title'];
+
   columns = [
-    {definition: 'title', header: 'Title'}
-    // 'category', 'shortDescription'}
+    { definition: 'title', header: 'Title', width: '30%' },
+    { definition: 'category', header: 'Category', width: '30%' },
+    { definition: 'shortDescription', header: '', width: '40%' }
   ];
+
   formGroup;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;

@@ -46,9 +46,9 @@ export class TableOverviewComponent {
     this.data.filter = filterValue.trim().toLowerCase();
   }
 
-  determineWidth() {
-    const width = 100 / this.columnFields.length;
-    return 'width: ' + width + '%'
-  }
+  // determineWidth() {
+  //   const width = 100 / this.columnFields.length;
+  //   return 'width: ' + width + '%'
+  // }
 
 }
