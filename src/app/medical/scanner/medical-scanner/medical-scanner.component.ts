@@ -41,7 +41,7 @@ export class MedicalScannerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.video = this.videoElement.nativeElement;
+    // this.video = this.videoElement.nativeElement;
   }
 
   start() {

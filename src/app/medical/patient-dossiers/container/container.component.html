@@ -1,41 +1,57 @@
 <mat-grid-list cols="2" rowHeight="50%">
 
   <mat-grid-tile>
-    <mat-card style="margin:5px" class="full-width">
+    <mat-card class="dashboard-container full-width">
       <mat-card-title>Patient Files
         <button mat-raised-button (click)="createNewPatients()" class="float-right">Add Patient File
         </button>
       </mat-card-title>
-      <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-        <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
-        </app-table-overview>
+
+      <mat-card-content style="height: calc(100% - 45px);">
+        <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+          <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
+          </app-table-overview>
+        </cdk-virtual-scroll-viewport>
+      </mat-card-content>
+
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="full-width dashboard-container">
+
+      <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+        <app-patient-view [selectedEntry]="selectedPatient"></app-patient-view>
+      </cdk-virtual-scroll-viewport>
+
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="full-width dashboard-container">
+      <mat-card-title>Medical Records
+        <button mat-raised-button (click)="createMedicalRecord()" class="float-right"
+          [disabled]="!this.selectedPatient">Add Medical
+          Record</button>
+      </mat-card-title>
+
+      <mat-card-content style="height: calc(100% - 45px);">
+        <cdk-virtual-scroll-viewport itemSize="50" style="height: calc(100% - 296px);">
+          <app-table-overview [dataSource]="recordList" [columns]="recordListColumns"
+            (rowSelect)="recordRowSelect($event)">
+          </app-table-overview>
+        </cdk-virtual-scroll-viewport>
+      </mat-card-content>
+
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="dashboard-container full-width">
+      <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+        <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord"></app-medical-records>
       </cdk-virtual-scroll-viewport>
     </mat-card>
   </mat-grid-tile>
 
-  <mat-grid-tile>
-    <mat-card style="margin:5px" class="full-width">
-      <app-patient-view [selectedEntry]="selectedPatient"></app-patient-view>
-    </mat-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-    <mat-card style="margin:5px" class="full-width">
-      <mat-card-title>Medical Records
-        <button mat-raised-button (click)="createMedicalRecord()" class="float-right">Add Medical
-          Record</button>
-      </mat-card-title>
-
-      <app-table-overview [dataSource]="recordList" [columns]="recordListColumns" (rowSelect)="recordRowSelect($event)">
-      </app-table-overview>
-    </mat-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-
-
-    <mat-card style="margin:5px" class="full-width">
-      <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord"></app-medical-records>
-    </mat-card>
-  </mat-grid-tile>
 </mat-grid-list>

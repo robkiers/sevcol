@@ -1,4 +1,9 @@
 // dashboard
+.dashboard-container {
+  margin: 15px;
+  height: calc(100% - 30px);
+  box-sizing: border-box;
+}
 
 .dashboard-button {
   width: 40rem;

@@ -37,6 +37,11 @@ export class FirebaseService {
     return this.db.collection('databaselist').valueChanges();
   }
 
+  getDatabaseEntry(entry) {
+    // this.itemscollection.doc(id).ref.get()
+    return this.db.collection('databaselist').doc(entry).valueChanges();
+  }
+
   createDatabseEntry(entry) {
     return this.db.collection('databaselist').doc(entry.id).set(Object.assign(entry));
   }

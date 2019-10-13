@@ -11,7 +11,9 @@ const routes: Routes = [
   { path: '', component: DashboardComponent },
   {
     path: 'medical-scanner',
-    loadChildren: './medical/scanner/scanner.module#ScannerModule'
+    loadChildren: './medical/medical-scanner/medical-scanner.module#MedicalScannerModule'
+
+    // src\app\medical\\medical-scanner.module.ts
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   {

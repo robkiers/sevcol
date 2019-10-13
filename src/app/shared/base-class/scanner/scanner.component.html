@@ -1,0 +1,12 @@
+test
+<ng-container [ngSwitch]="isCanvasSupported">
+  <ng-container *ngSwitchDefault>
+    <canvas #qrCanvas [hidden]="canvasHidden" [width]="canvasWidth" [height]="canvasHeight"></canvas>
+    <div #videoWrapper [style.width]="canvasWidth" [style.height]="canvasHeight"></div>
+  </ng-container>
+  <ng-container *ngSwitchCase="false">
+    <p>
+      You are using an <strong>outdated</strong> browser.
+    </p>
+  </ng-container>
+</ng-container>

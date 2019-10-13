@@ -10,9 +10,10 @@ import { MedicalRecordsComponent } from '../../medical-records/medical-records.c
 })
 export class ContainerComponent implements OnInit {
 
+  SCOPE = 'ContainerComponent';
+
   patientList;
   selectedPatient;
-
   patientListColumns = [
     { definition: 'name', header: 'Name', width: '20%' },
     { definition: 'gender', header: 'Gender', width: '20%' },
@@ -26,7 +27,6 @@ export class ContainerComponent implements OnInit {
 
   recordList;
   selectedRecord;
-
   recordListColumns = [
     { definition: 'date', header: 'Date', width: '30%' },
     { definition: 'treatingDoctor', header: 'Treating Doctor', width: '30%' },

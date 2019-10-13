@@ -9,25 +9,14 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class TableOverviewComponent {
 
-  // @Input() set dataSource(dataSource) {
-  //   console.log(dataSource);
-  //   this.data = new MatTableDataSource(dataSource)
-  // }
   @Input() set dataSource(dataSource) {
-    this.data = dataSource;
-    // console.log(dataSource)
+    this.data = new MatTableDataSource(dataSource);
   }
 
   @Input() set columns(displayedColumns) {
     this.columnFields = displayedColumns;
-    console.log(displayedColumns);
-    console.log(displayedColumns.map(obj => obj.definition));
     this.displayedColumns = displayedColumns.map(obj => obj.definition);
-
-    // .filter(column => displayedColumns.definition);
   }
-
-  // @Input() columns
 
   @Output() rowSelect = new EventEmitter();
 
@@ -46,9 +35,18 @@ export class TableOverviewComponent {
     this.data.filter = filterValue.trim().toLowerCase();
   }
 
-  // determineWidth() {
-  //   const width = 100 / this.columnFields.length;
-  //   return 'width: ' + width + '%'
-  // }
+  isTimestamp(definition) {
+    if (!!definition) {
+      console.log(definition);
+      // return definition.instante('Timestamp') ? definition.toDate() : definition;
+      // return definition ===  ? definition.toDate() : definition;
+
+      // return new Date(definition) ? true : false;
+      return definition === definition.toString() ? definition : definition.format('D MMMM YYYY');
+      // new Date(definition).toLocaleString();
+      // return definition === definition.toString() ? definition : definition.toDate();
+    }
+
+  }
 
 }

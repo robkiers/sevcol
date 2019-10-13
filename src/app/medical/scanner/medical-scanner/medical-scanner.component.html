@@ -11,14 +11,24 @@
   <canvas #canvas [width]="width" [height]="height"></canvas>
 </div> -->
 
-<div class="viewScreen">
 
-  <div>
+
+
+<div class="viewScreen">
+<!-- 
+  <qr-scanner [debug]="false" [canvasWidth]="1080" [canvasHeight]="720" [stopAfterScan]="true" [updateTime]="500">
+  </qr-scanner> -->
+  <!-- canvas width (default: 640) -->
+  <!-- canvas height                                (default: 480) -->
+  <!-- should the scanner stop after first success? (default: true) -->
+  <!-- miliseconds between new capture              (default: 500) -->
+
+  <!-- <div>
     <button mat-raised-button (click)="start()">Play</button>
-    <!-- <button (click)="toggleControls()" class="btn btn-success">Toggle Controls</button> -->
+    <button (click)="toggleControls()" class="btn btn-success">Toggle Controls</button>
     <button mat-raised-button (click)="pause()">Pause</button>
     <button mat-raised-button (click)="resume()">Resume</button>
-    <!-- <button (click)="sound()" class="btn btn-danger">Play with Sound</button> -->
+    <button (click)="sound()" class="btn btn-danger">Play with Sound</button>
   </div>
 
   <div>
@@ -30,5 +40,5 @@
         </h3>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-database-view',
@@ -11,19 +11,6 @@ import { FirebaseService } from 'src/app/shared/services/firebase.service';
   styleUrls: ['./database-view.component.scss']
 })
 export class DatabaseViewComponent implements OnInit {
-
-  // dataSource = [
-  //   {
-  //     title: 'Paracetamol',
-  //     id: '01',
-  //     category: 'Medical',
-  //     subCategory: 'Medicine',
-  //     shortDescription: 'Relatively safe if somewhat weak, painkiller',
-  //     description: 'Relatively safe if somewhat weak, painkiller. Also helps with fevers. Starts working in roughly half an hour. If used in a high dosage for several weeks, there is a chance of damage to liver, kidneys and/or blood. Do not generally use in conjunction with another painkiller, unless prescribed.',
-  //     measurement: 'kilogram',
-  //     onboard: '110',
-  //   }
-  // ];
 
   categoryList = [
     { value: 'medical', viewValue: 'Medical' },
@@ -43,47 +30,53 @@ export class DatabaseViewComponent implements OnInit {
     { value: 'metre', viewValue: 'Metre' },
     { value: 'kilogram', viewValue: 'Kilogram' },
     { value: 'ampere', viewValue: 'Ampere' },
-    // { value: 'kelvin', viewValue: 'Kelvin' },
+    { value: 'units', viewValue: 'Units' },
     // { value: 'mole', viewValue: 'Mole' },
     // { value: 'candela', viewValue: 'Candela' },
   ];
 
-  // databaseEntries = new MatTableDataSource(this.dataSource);
 
-  databaseEntries;
-  selectedEntry;
+  // databaseEntries;
+  // selectedEntry;
 
-  // displayedColumns = ['title'];
-
-  columns = [
-    { definition: 'title', header: 'Title', width: '30%' },
-    { definition: 'category', header: 'Category', width: '30%' },
-    { definition: 'shortDescription', header: '', width: '40%' }
-  ];
+  // columns = [
+  //   { definition: 'title', header: 'Title', width: '30%' },
+  //   { definition: 'category', header: 'Category', width: '30%' },
+  //   { definition: 'shortDescription', header: 'Description', width: '40%' }
+  // ];
 
   formGroup;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @Input() selectedEntry;
+
+  // @Input() set patient(patient) {
+  // this.resetProperties();
+  // 
+  // this.patientFile = patient;
+  // this._api.getMedicalRecordsList(patient).subscribe(data => {
+  //   this.medicalRecords = new MatTableDataSource(data)
+  // });
+  // 
+  // }
 
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this._api.getDatabaseList().subscribe(data => this.databaseEntries = new MatTableDataSource(data));
+    // this._api.getDatabaseList().subscribe(data => this.databaseEntries = data);
   }
 
+  // rowSelect(row) {
+  //   this.formGroup = null;
+  //   this.selectedEntry = row;
+  // }
 
-
-  selectRow(row) {
-    this.formGroup = null;
-    this.selectedEntry = row;
-  }
-
-  applyFilter(filterValue: string) {
-    this.databaseEntries.filter = filterValue.trim().toLowerCase();
-  }
+  // applyFilter(filterValue: string) {
+  //   this.databaseEntries.filter = filterValue.trim().toLowerCase();
+  // }
 
   createFormgroup(selectedEntry?: any) {
     this.selectedEntry = null;
@@ -94,7 +87,7 @@ export class DatabaseViewComponent implements OnInit {
         title: [selectedEntry.title, [Validators.required]],
         category: [selectedEntry.category, [Validators.required]],
         subCategory: [selectedEntry.subCategory, [Validators.required]],
-        shortDescription: [selectedEntry.shortDescription, [Validators.required]],
+        shortDescription: [selectedEntry.shortDescription, [Validators.required, Validators.maxLength(100)]],
         description: [selectedEntry.description, [Validators.required]],
         measurement: [selectedEntry.measurement],
         amountOnBoard: [selectedEntry.amountOnBoard],
@@ -126,8 +119,40 @@ export class DatabaseViewComponent implements OnInit {
     this.selectedEntry = saveEntity;
   }
 
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '450px',
+      data: {
+        name: 'test', animal: 'animal'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+
 }
 
+@Component({
+  selector: 'dialog-overview',
+  templateUrl: 'dialog.html',
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: any
+  ) { }
+
+  cancelDialog(): void {
+    this.dialogRef.close();
+  }
+
+}
 
 export interface DatabaseEntry {
   title: string,

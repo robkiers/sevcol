@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,18 +11,22 @@ import { UUID } from 'angular2-uuid';
   styleUrls: ['./patient-view.component.scss']
 })
 export class PatientViewComponent implements OnInit {
+  
+  originLookup = [
+    { value: 'earth', viewValue: 'Earth' },
+    { value: 'luna', viewValue: 'Luna' },
+    { value: 'mars', viewValue: 'Mars' },
+    { value: 'jupiter', viewValue: 'United Moons of Jupiter' },
+    { value: 'saturn', viewValue: 'Saturn Collective' },
+    { value: 'eden', viewValue: 'Eden' },
+    { value: 'kordoss', viewValue: 'Kordoss' },
+    { value: 'lux', viewValue: 'Lux' },
+    { value: 'lucis', viewValue: 'Lucis' }
+  ];
 
-  // patientList;
-  // selectedEntry;
-  // displayedColumns = ['name', 'gender', 'organisation', 'ship'];
-  formGroup;
+  formGroup: FormGroup;
 
   @Input() selectedEntry;
-
-  // set dataSource(dataSource) {
-  //   this.data = dataSource;
-  //   // console.log(dataSource)
-  // }
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
@@ -32,17 +36,7 @@ export class PatientViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this._api.getPatientList().subscribe(data => this.patientList = new MatTableDataSource(data));
   }
-
-  selectRow(row) {
-    this.formGroup = null;
-    this.selectedEntry = row;
-  }
-
-  // applyFilter(filterValue: string) {
-  //   this.patientList.filter = filterValue.trim().toLowerCase();
-  // }
 
   createFormgroup(selectedEntry?: any) {
     this.selectedEntry = null;
