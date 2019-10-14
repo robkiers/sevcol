@@ -17,6 +17,7 @@ export class ScannerComponent implements OnInit {
   resultRetrieve;
   scannerOpenState = true;
   step = 0;
+  devicesRecord;
 
   @ViewChild(QrScannerComponent, { static: true }) qrScannerComponent: QrScannerComponent;
 
@@ -35,6 +36,7 @@ export class ScannerComponent implements OnInit {
 
   startScan() {
     this.qrScannerComponent.getMediaDevices().then(devices => {
+      this.devicesRecord = devices;
       console.log(devices);
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {

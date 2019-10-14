@@ -1,36 +1,45 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AbstractCameraService } from 'src/app/shared/services/abstract-camera.service';
 import { switchMap } from 'rxjs/operators';
 
+
 @Component({
-  selector: 'app-medical-scanner',
-  templateUrl: './medical-scanner.component.html',
-  styleUrls: ['./medical-scanner.component.scss']
+  selector: 'app-camera',
+  templateUrl: './camera.component.html',
+  styleUrls: ['./camera.component.scss']
 })
-export class MedicalScannerComponent implements OnInit {
+export class CameraComponent implements OnInit {
 
-  // imageString = '';
+
+  videoWidth = '600px';
+  videoHeight = '600px';
+
+  width = '600px';
+  height = '600px';
+
+
+  imageString = '';
   // faceApiResponse: Observable<FaceRecognitionResponse>;
-  // subscriptionKey: string;
-  // mediaStream;
+  subscriptionKey: string;
+  mediaStream;
 
-  // @ViewChild('video', { static: true }) private video: any;
-  // /** Canvas for Video Snapshots */
-  // @ViewChild('canvas', { static: true }) private canvas: any;
+  @ViewChild('video', { static: true }) private video: any;
+  /** Canvas for Video Snapshots */
+  @ViewChild('canvas', { static: true }) private canvas: any;
 
-  // /** width and height of the active video stream */
-  // private activeVideoSettings: MediaTrackSettings = null;
+  /** width and height of the active video stream */
+  private activeVideoSettings: MediaTrackSettings = null;
 
-  // public get nativeVideoElement() {
-  //   return this.video.nativeElement;
-  // }
-
+  public get nativeVideoElement() {
+    return this.video.nativeElement;
+  }
 
 
   @ViewChild('videoElement', { static: true }) videoElement: any;
 
-  video: any;
+  // video: any;
   isPlaying = false;
 
   displayControls = true;
@@ -41,7 +50,7 @@ export class MedicalScannerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.video = this.videoElement.nativeElement;
+    this.video = this.videoElement.nativeElement;
   }
 
   start() {
@@ -83,17 +92,17 @@ export class MedicalScannerComponent implements OnInit {
   // video.play();
 
 
-  // takeImage() {
-  //   this.cameraService.getPhoto().subscribe(image => {
-  //     console.log('triggre');
-  //     this.imageString = image;
-  //   });
+  takeImage() {
+    this.cameraService.getPhoto().subscribe(image => {
+      console.log('triggre');
+      this.imageString = image;
+    });
 
 
-  //   this.cameraService.getPhoto().pipe(
-  //     switchMap(base64Image => this.imageString = base64Image)
-  //   );
-  // }
+    this.cameraService.getPhoto().pipe(
+      switchMap(base64Image => this.imageString = base64Image)
+    );
+  }
 
   processImage() {
     // if (!this.subscriptionKey) {

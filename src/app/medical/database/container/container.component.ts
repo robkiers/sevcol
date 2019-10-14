@@ -30,12 +30,11 @@ export class ContainerComponent implements OnInit {
   }
 
   rowSelect(row) {
-    // this.formGroup = null;
     this.selectedEntry = row;
-    console.log(this.selectedEntry);
   }
 
   createNewEntry() {
+    this.selectedEntry = null;
     this.databaseViewComponent.createFormgroup();
   }
 

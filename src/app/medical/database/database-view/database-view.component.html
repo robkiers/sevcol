@@ -1,111 +1,96 @@
-<!-- <mat-grid-tile>
-      <mat-card style="margin:5px" class="full-width">
-        <mat-card-title>Database Entries
-          <button mat-raised-button (click)="createFormgroup()" class="float-right">Add Entry
-          </button>
-        </mat-card-title>
+<div *ngIf="!!selected" class="full-width">
+  <mat-card-title>{{selected.title}}</mat-card-title>
+  <mat-card-subtitle>
+    <mat-grid-list cols="3" rowHeight="3em">
+      <mat-grid-tile>Category: {{selected.category}}</mat-grid-tile>
+      <mat-grid-tile>Subcategory: {{selected.subCategory}}</mat-grid-tile>
+      <mat-grid-tile>Onboard: {{selected.amountOnBoard}} {{selected.measurement}}</mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-subtitle>
 
-        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
-        </app-table-overview>
+  <mat-card-content>
+    {{selected.description}}
+  </mat-card-content>
 
-      </mat-card>
-    </mat-grid-tile> -->
-<div class="full-width">
-
-  <mat-card *ngIf="!!selectedEntry" style="margin:5px">
-    <mat-card-title>{{selectedEntry.title}}</mat-card-title>
-    <mat-card-subtitle>
-      <mat-grid-list cols="3" rowHeight="3em">
-        <mat-grid-tile>Category: {{selectedEntry.category}}</mat-grid-tile>
-        <mat-grid-tile>Subcategory: {{selectedEntry.subCategory}}</mat-grid-tile>
-        <mat-grid-tile>Onboard: {{selectedEntry.amountOnBoard}} {{selectedEntry.measurement}}</mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-subtitle>
-
-    <mat-card-content>
-      {{selectedEntry.description}}
-    </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">Update Entry</button>
-    </mat-card-actions>
-  </mat-card>
+  <mat-card-actions>
+    <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+  </mat-card-actions>
+</div>
 
 
 
-  <mat-card *ngIf="!!formGroup" style="margin:5px" class="full-width">
-    <form [formGroup]="formGroup">
-      <mat-grid-list cols="2" rowHeight="3em">
+<div *ngIf="!!formGroup" class="full-width">
+  <form [formGroup]="formGroup">
+    <mat-grid-list cols="2" rowHeight="3em">
 
-        <mat-grid-tile colspan="2">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Name" formControlName='title'>
-          </mat-form-field>
-        </mat-grid-tile>
+      <mat-grid-tile colspan="2">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" formControlName='title'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-        <mat-grid-tile>
-          <mat-form-field class="full-width">
-            <mat-label>Category</mat-label>
-            <mat-select formControlName="category">
-              <mat-option *ngFor="let category of categoryList" [value]="category.value">
-                {{category.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-icon-button matTooltip="Add Category" (click)="openDialog()">
-            <mat-icon>add</mat-icon>
-          </button>
-        </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categoryList" [value]="category.value">
+              {{category.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button matTooltip="Add Category" (click)="openDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-grid-tile>
 
-        <mat-grid-tile>
-          <mat-form-field class="full-width">
-            <mat-label>Subcategory</mat-label>
-            <mat-select formControlName="subCategory">
-              <mat-option *ngFor="let subCategory of subCategoryList" [value]="subCategory.value">
-                {{subCategory.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-icon-button matTooltip="Add Subcategory" (click)="openDialog()">
-            <mat-icon>add</mat-icon>
-          </button>
-        </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <mat-label>Subcategory</mat-label>
+          <mat-select formControlName="subCategory">
+            <mat-option *ngFor="let subCategory of subCategoryList" [value]="subCategory.value">
+              {{subCategory.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button matTooltip="Add Subcategory" (click)="openDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-grid-tile>
 
-        <mat-grid-tile>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Amount on Board" formControlName='amountOnBoard'>
-          </mat-form-field>
-        </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Amount on Board" formControlName='amountOnBoard'>
+        </mat-form-field>
+      </mat-grid-tile>
 
-        <mat-grid-tile>
-          <mat-form-field class="full-width">
-            <mat-label>Measurement</mat-label>
-            <mat-select formControlName="measurement">
-              <mat-option *ngFor="let measurement of measurementList" [value]="measurement.value">
-                {{measurement.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <mat-label>Measurement</mat-label>
+          <mat-select formControlName="measurement">
+            <mat-option *ngFor="let measurement of measurementList" [value]="measurement.value">
+              {{measurement.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" rowspan="2">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Short Description" formControlName='shortDescription'></textarea>
-          </mat-form-field>
-        </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="2">
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Short Description" formControlName='shortDescription'></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
 
-        <mat-grid-tile colspan="2" rowspan="2">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Description" formControlName='description'></textarea>
-          </mat-form-field>
-        </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="2">
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Description" formControlName='description'></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
 
-      </mat-grid-list>
-    </form>
+    </mat-grid-list>
+  </form>
 
-    <mat-card-actions>
-      <button mat-raised-button (click)="save()">Save Entry</button>
-      <button mat-raised-button (click)="cancel()">Cancel Entry</button>
-    </mat-card-actions>
-  </mat-card>
+  <mat-card-actions>
+    <button mat-raised-button (click)="save()">Save Entry</button>
+    <button mat-raised-button (click)="cancel()">Cancel Entry</button>
+  </mat-card-actions>
 </div>

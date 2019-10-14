@@ -1,0 +1,55 @@
+// dashboard
+.dashboard-container {
+  margin: 15px;
+  height: calc(100% - 30px);
+  box-sizing: border-box;
+}
+
+.dashboard-button {
+  width: 40rem;
+  height: 90%;
+}
+
+.dashboard-prime-button {
+  width: 25rem;
+  height: 90%;
+}
+
+.dashboard-second-button {
+  margin-left: 1rem !important;
+  width: 14rem;
+  height: 90%;
+}
+
+.viewScreen {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.margin-left {
+  margin-left: 10px !important;
+}
+
+.mat-grid-tile .mat-figure {
+  justify-content: flex-start !important ;
+  align-items: flex-start !important;
+}
+
+.mat-cell,
+.mat-header-cell {
+  vertical-align: middle !important;
+}
+
+.full-width {
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.float-right {
+  float: right;
+}

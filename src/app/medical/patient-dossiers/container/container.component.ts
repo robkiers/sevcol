@@ -8,6 +8,7 @@ import { MedicalRecordsComponent } from '../../medical-records/medical-records.c
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss']
 })
+
 export class ContainerComponent implements OnInit {
 
   SCOPE = 'ContainerComponent';

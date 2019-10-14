@@ -1,7 +1,7 @@
 <div>
   <mat-grid-list cols="2" gutterSize="5px">
     <mat-grid-tile>
-      <mat-card style="margin:5px" class="full-width">
+      <mat-card class="dashboard-container full-width">
         <mat-card-title>Database Entries
           <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Entry
           </button>
@@ -14,7 +14,9 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <app-database-view [selectedEntry]="selectedEntry"></app-database-view>
+      <mat-card class="dashboard-container full-width">
+        <app-database-view [selectedEntry]="selectedEntry"></app-database-view>
+      </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

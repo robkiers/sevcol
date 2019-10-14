@@ -1,7 +1,4 @@
 <mat-card>
-
-    <!-- <mat-card-title>Scan</mat-card-title> -->
-
     <mat-card-content>
 
         <mat-accordion>
@@ -9,35 +6,31 @@
                 <mat-expansion-panel-header>
                     Scanner
                 </mat-expansion-panel-header>
-                <!-- scannerOpenState -->
-                <qr-scanner [debug]="false" [canvasWidth]="1080" [canvasHeight]="720" [stopAfterScan]="true"
-                    [updateTime]="500">
+                {{devicesRecord | json}}
+
+                <qr-scanner [canvasWidth]="1080" [canvasHeight]="720" [stopAfterScan]="true" [updateTime]="500">
                 </qr-scanner>
 
                 <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
                 <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
+                <!-- <button mat-raised-button (click)="this.initCamera()" class="margin-left">Initiate</button> -->
                 <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
 
-                <!-- <mat-panel-title>
-                        Self aware panel
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Currently I am {{panelOpenState ? 'open' : 'closed'}}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>I'm visible because I am open</p>
-            
-            -->
             </mat-expansion-panel>
             <mat-expansion-panel [expanded]="step === 1" (opened)="openPanel(1)">
                 <mat-expansion-panel-header>
                     Results
                 </mat-expansion-panel-header>
-                {{ result | json }}
-                {{ resultRetrieve | json }}
+
+                <div *ngIf="!!result">
+                    {{ result | json }}
+                </div>
+
                 <div *ngIf="!!resultRetrieve">
                     <app-database-view [selectedEntry]="resultRetrieve"></app-database-view>
                 </div>
+
+                <!-- <app-camera></app-camera> -->
             </mat-expansion-panel>
         </mat-accordion>
 

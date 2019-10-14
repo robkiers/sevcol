@@ -11,7 +11,7 @@ import { UUID } from 'angular2-uuid';
   styleUrls: ['./patient-view.component.scss']
 })
 export class PatientViewComponent implements OnInit {
-  
+
   originLookup = [
     { value: 'earth', viewValue: 'Earth' },
     { value: 'luna', viewValue: 'Luna' },
@@ -25,10 +25,13 @@ export class PatientViewComponent implements OnInit {
   ];
 
   formGroup: FormGroup;
+  selected;
 
-  @Input() selectedEntry;
+  @Input() set selectedEntry(record) {
+    this.formGroup = null;
+    this.selected = record;
+  };
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     protected _fb: FormBuilder,
@@ -39,7 +42,7 @@ export class PatientViewComponent implements OnInit {
   }
 
   createFormgroup(selectedEntry?: any) {
-    this.selectedEntry = null;
+    this.selected = null;
 
     if (!!selectedEntry) {
       this.formGroup = this._fb.group({
@@ -108,7 +111,7 @@ export class PatientViewComponent implements OnInit {
     this._api.createDatabseEntry(saveEntity);
 
     this.formGroup = null;
-    this.selectedEntry = saveEntity;
+    this.selected = saveEntity;
   }
 
 }

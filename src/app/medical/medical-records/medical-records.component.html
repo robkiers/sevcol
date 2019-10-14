@@ -2,7 +2,7 @@
   <mat-card-title>{{selectedRecord.reasonOfVisit}}</mat-card-title>
   <mat-card-subtitle>
     <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile>Date: {{selectedRecord.date.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
+      <mat-grid-tile>Date: {{selectedRecord.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
       <mat-grid-tile>Treating Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
       <mat-grid-tile>Assisting Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
     </mat-grid-list>

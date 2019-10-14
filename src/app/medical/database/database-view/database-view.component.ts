@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Inject, Input } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -31,33 +31,15 @@ export class DatabaseViewComponent implements OnInit {
     { value: 'kilogram', viewValue: 'Kilogram' },
     { value: 'ampere', viewValue: 'Ampere' },
     { value: 'units', viewValue: 'Units' },
-    // { value: 'mole', viewValue: 'Mole' },
-    // { value: 'candela', viewValue: 'Candela' },
   ];
 
+  formGroup: FormGroup;
+  selected;
 
-  // databaseEntries;
-  // selectedEntry;
-
-  // columns = [
-  //   { definition: 'title', header: 'Title', width: '30%' },
-  //   { definition: 'category', header: 'Category', width: '30%' },
-  //   { definition: 'shortDescription', header: 'Description', width: '40%' }
-  // ];
-
-  formGroup;
-
-  @Input() selectedEntry;
-
-  // @Input() set patient(patient) {
-  // this.resetProperties();
-  // 
-  // this.patientFile = patient;
-  // this._api.getMedicalRecordsList(patient).subscribe(data => {
-  //   this.medicalRecords = new MatTableDataSource(data)
-  // });
-  // 
-  // }
+  @Input() set selectedEntry(record) {
+    this.formGroup = null;
+    this.selected = record;
+  };
 
   constructor(
     protected _fb: FormBuilder,
@@ -66,20 +48,10 @@ export class DatabaseViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this._api.getDatabaseList().subscribe(data => this.databaseEntries = data);
   }
 
-  // rowSelect(row) {
-  //   this.formGroup = null;
-  //   this.selectedEntry = row;
-  // }
-
-  // applyFilter(filterValue: string) {
-  //   this.databaseEntries.filter = filterValue.trim().toLowerCase();
-  // }
-
   createFormgroup(selectedEntry?: any) {
-    this.selectedEntry = null;
+    this.selected = null;
 
     if (!!selectedEntry) {
       this.formGroup = this._fb.group({
@@ -103,7 +75,7 @@ export class DatabaseViewComponent implements OnInit {
         measurement: [null],
         amountOnBoard: [null],
       })
-      this.formGroup.markAllAsTouched()();
+      this.formGroup.markAllAsTouched();
     }
   };
 
@@ -116,7 +88,12 @@ export class DatabaseViewComponent implements OnInit {
     this._api.createDatabseEntry(saveEntity);
 
     this.formGroup = null;
-    this.selectedEntry = saveEntity;
+    this.selected = saveEntity;
+  }
+
+  resetProperties() {
+    this.formGroup = null;
+    this.selected = null;
   }
 
 
@@ -130,7 +107,6 @@ export class DatabaseViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
     });
   }
 

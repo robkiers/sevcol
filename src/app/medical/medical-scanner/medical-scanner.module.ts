@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ScannerComponent } from './scanner/scanner.component';
-// import { ScannerModule } from 'src/app/shared/base-class/scanner/scanner.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgQrScannerModule } from 'angular2-qrscanner';
 import { DatabaseViewModule } from '../database/database-view/database-view.module';
+// import { CameraComponent } from './camera/camera.component';
 
 const routes: Routes = [
   { path: '', component: ScannerComponent }
@@ -12,7 +12,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    ScannerComponent
+    ScannerComponent,
+    // CameraComponent
   ],
   imports: [
     NgQrScannerModule,

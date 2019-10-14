@@ -1,37 +1,37 @@
-<div *ngIf="!!selectedEntry" class="full-width">
-  <mat-card-title>{{selectedEntry.name}} {{selectedEntry?.otherNames}} {{selectedEntry.familyName}}
-    <button mat-icon-button matTooltip="Special Attention required" *ngIf="selectedEntry.specialAttention === true">
+<div *ngIf="!!selected" class="full-width">
+  <mat-card-title>{{selected.name}} {{selected?.otherNames}} {{selected.familyName}}
+    <button mat-icon-button matTooltip="Special Attention required" *ngIf="selected.specialAttention === true">
       <mat-icon>error_outline</mat-icon>
     </button>
   </mat-card-title>
   <mat-card-subtitle>
     <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile>{{selectedEntry.gender}}</mat-grid-tile>
-      <mat-grid-tile>Age: {{selectedEntry.age}}</mat-grid-tile>
-      <mat-grid-tile>Bloodgroup: {{selectedEntry.bloodType}}{{selectedEntry.allele}}</mat-grid-tile>
+      <mat-grid-tile>{{selected.gender}}</mat-grid-tile>
+      <mat-grid-tile>Age: {{selected.age}}</mat-grid-tile>
+      <mat-grid-tile>Bloodgroup: {{selected.bloodType}}{{selected.allele}}</mat-grid-tile>
     </mat-grid-list>
   </mat-card-subtitle>
 
   <mat-card-content>
     <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile *ngIf="selectedEntry.specialAttention === true" colspan="3">
-        {{selectedEntry.specialAttentionDescription}}</mat-grid-tile>
+      <mat-grid-tile *ngIf="selected.specialAttention === true" colspan="3">
+        {{selected.specialAttentionDescription}}</mat-grid-tile>
 
-      <mat-grid-tile>Height: {{selectedEntry.height}} cm</mat-grid-tile>
-      <mat-grid-tile>Weight: {{selectedEntry.weight}} kg</mat-grid-tile>
-      <mat-grid-tile>Planet of Origin: {{selectedEntry.origin}}</mat-grid-tile>
+      <mat-grid-tile>Height: {{selected.height}} cm</mat-grid-tile>
+      <mat-grid-tile>Weight: {{selected.weight}} kg</mat-grid-tile>
+      <mat-grid-tile>Planet of Origin: {{selected.origin}}</mat-grid-tile>
 
-      <mat-grid-tile>Ship Enlisted: {{selectedEntry.ship}}</mat-grid-tile>
-      <mat-grid-tile>Organisation Employed: {{selectedEntry.Organisation}}</mat-grid-tile>
+      <mat-grid-tile>Ship Enlisted: {{selected.ship}}</mat-grid-tile>
+      <mat-grid-tile>Organisation Employed: {{selected.Organisation}}</mat-grid-tile>
 
-      <mat-grid-tile colspan="3">{{selectedEntry.notes}}</mat-grid-tile>
+      <mat-grid-tile colspan="3">{{selected.notes}}</mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
 
 
   <mat-card-actions>
-    <!-- <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">View </button> -->
-    <button mat-raised-button (click)="createFormgroup(this.selectedEntry)">Update Entry</button>
+    <!-- <button mat-raised-button (click)="createFormgroup(this.selected)">View </button> -->
+    <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
   </mat-card-actions>
 </div>
 
