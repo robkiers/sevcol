@@ -36,6 +36,15 @@ export class ContainerComponent implements OnInit {
   }
 
   createNewEntry() {
+    this.databaseViewComponent.createFormgroup();
+  }
 
+  determineScreen() {
+    const innerWidth = window.innerWidth;
+    console.log(innerWidth);
+    if (innerWidth < 500) {
+      return '3:1';
+    }
+    return '10:1';
   }
 }

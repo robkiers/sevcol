@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="10:1">
+<mat-grid-list cols="1" [rowHeight]="determineScreen()">
     <mat-grid-tile>
         <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./patient-list']">Patient
             Dossiers</button>

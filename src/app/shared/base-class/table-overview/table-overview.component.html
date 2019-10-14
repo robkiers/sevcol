@@ -16,7 +16,7 @@
         
         <div *ngSwitchCase="'date'">
           <td mat-cell *matCellDef="let element" [style]="col.width">
-            {{ element[col.definition].toDate() | date:'yyyy/MM/dd hh:mm:ss' }}
+            {{ element[col.definition]?.toDate() | date:'yyyy/MM/dd hh:mm:ss' }}
           </td>
         </div>
 

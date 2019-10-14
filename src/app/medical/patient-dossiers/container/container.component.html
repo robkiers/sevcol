@@ -36,7 +36,7 @@
       </mat-card-title>
 
       <mat-card-content style="height: calc(100% - 45px);">
-        <cdk-virtual-scroll-viewport itemSize="50" style="height: calc(100% - 296px);">
+        <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
           <app-table-overview [dataSource]="recordList" [columns]="recordListColumns"
             (rowSelect)="recordRowSelect($event)">
           </app-table-overview>

@@ -12,15 +12,25 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
   }
 
-//   getAvatars() {
-//     console.log('x');
-//     // console.log(
-//     this._db.getAvatars().subscribe(data => {
-//       console.log(data);
-//     }),
-//     (error => )
-// }
+  determineScreen() {
+    const innerWidth = window.innerWidth;
+    console.log(innerWidth);
+    if (innerWidth < 500) {
+      return '3:1';
+    }
+    return '10:1';
+  }
+
+  //   getAvatars() {
+  //     console.log('x');
+  //     // console.log(
+  //     this._db.getAvatars().subscribe(data => {
+  //       console.log(data);
+  //     }),
+  //     (error => )
+  // }
 
 }

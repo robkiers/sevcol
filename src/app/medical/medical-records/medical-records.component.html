@@ -1,39 +1,3 @@
-<!-- <mat-grid-list cols="2" gutterSize="5px">
-  <mat-grid-tile>
-    <mat-card style="margin:5px" class="full-width">
-
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-
-      <button *ngIf="!formGroup" mat-raised-button (click)="createFormgroup()" class="float-right">New Medical
-        Record</button>
-
-      <mat-table [dataSource]="medicalRecords" matSort class="patient-table" style="width:100%">
-        <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef style="width:250px">Date</th>
-          <td mat-cell *matCellDef="let entry"> {{entry.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="treatingDoctor">
-          <th mat-header-cell *matHeaderCellDef style="width:250px" mat-sort-header>Treating Doctor</th>
-          <td mat-cell *matCellDef="let entry"> {{entry.treatingDoctor}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="treatmentAction">
-          <th mat-header-cell *matHeaderCellDef style="width:250px">Actions</th>
-          <td mat-cell *matCellDef="let entry"> {{entry.treatmentAction}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
-      </mat-table>
-
-    </mat-card>
-  </mat-grid-tile>
-
-  <mat-grid-tile>
-    <mat-card *ngIf="!!selectedRecord" style="margin:5px" class="full-width"> -->
 <div *ngIf="!!selectedRecord" class="full-width">
   <mat-card-title>{{selectedRecord.reasonOfVisit}}</mat-card-title>
   <mat-card-subtitle>
