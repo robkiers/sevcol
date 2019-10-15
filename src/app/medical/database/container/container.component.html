@@ -1,5 +1,5 @@
 <div>
-  <mat-grid-list cols="2" gutterSize="5px">
+  <mat-grid-list [cols]="determineScreen()" gutterSize="5px" rowHeight="100%">
     <mat-grid-tile>
       <mat-card class="dashboard-container full-width">
         <mat-card-title>Database Entries
@@ -14,6 +14,7 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
+        <!-- [ngStyle]="{'transform': 'translateX(-' + slidePercentage + '%)'}" -->
       <mat-card class="dashboard-container full-width">
         <app-database-view [selectedEntry]="selectedEntry"></app-database-view>
       </mat-card>

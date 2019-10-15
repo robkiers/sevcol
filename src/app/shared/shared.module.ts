@@ -20,7 +20,8 @@ import { AbstractCameraService, cameraFactory } from './services/abstract-camera
 import { PlatformInformationProvider } from './services/platform-information.provider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -61,7 +62,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSortModule,
     MatDialogModule,
     TableOverviewModule,
-    MatExpansionModule
+    MatExpansionModule,
+    OverlayModule
   ],
   declarations: []
 })
