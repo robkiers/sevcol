@@ -10,7 +10,7 @@
 @media (max-width: 600px) {
   .dashboard-container {
     margin: 0px;
-    height: calc(100% - 30px);
+    height: calc(100%);
     box-sizing: border-box;
   }
 }
@@ -62,4 +62,11 @@
 
 .float-right {
   float: right;
+}
+
+@media (max-width: 600px) {
+  canvas {
+    width: 320px !important;
+    height: 480px !important;
+  }
 }

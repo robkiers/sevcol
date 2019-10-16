@@ -1,23 +1,32 @@
-<div>
-  <mat-grid-list [cols]="determineScreen()" gutterSize="5px" rowHeight="100%">
-    <mat-grid-tile>
-      <mat-card class="dashboard-container full-width">
-        <mat-card-title>Database Entries
-          <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Entry
-          </button>
-        </mat-card-title>
+<mat-grid-list [cols]="determineScreen()" gutterSize="5px">
+  <mat-grid-tile>
+    <mat-card class="dashboard-container full-width">
+      <mat-card-title>Database Entries
+        <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Entry
+        </button>
+      </mat-card-title>
 
-        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
-        </app-table-overview>
-      </mat-card>
+      <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+      </app-table-overview>
+    </mat-card>
 
-    </mat-grid-tile>
+  </mat-grid-tile>
 
-    <mat-grid-tile>
-        <!-- [ngStyle]="{'transform': 'translateX(-' + slidePercentage + '%)'}" -->
-      <mat-card class="dashboard-container full-width">
-        <app-database-view [selectedEntry]="selectedEntry"></app-database-view>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <mat-grid-tile *ngIf="determineScreen() === '2'">
+    <mat-card class="dashboard-container full-width">
+      <app-database-view [selectedEntry]="selectedEntry"></app-database-view>
+    </mat-card>
+  </mat-grid-tile>
+
+
+</mat-grid-list>
+
+<div class="floating-container" *ngIf="determineScreen() === '1'"
+  [ngStyle]="{'visibility':displayView ? 'visible' : 'hidden'}">
+  <mat-card class="dashboard-container full-width">
+
+    <app-database-view [selectedEntry]="selectedEntry" (close)="closePanel($event)"></app-database-view>
+  </mat-card>
 </div>
+<!-- [ngStyle]="{'display':displayView ? 'block' : 'none'}" -->
+<!-- [ngStyle]="{'transform': 'translateY(' + slidePercentage + 'vh)'}" -->

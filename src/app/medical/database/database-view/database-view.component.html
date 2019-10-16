@@ -1,5 +1,11 @@
-<div *ngIf="!!selected" class="full-width">
-  <mat-card-title>{{selected.title}}</mat-card-title>
+<div *ngIf="!!selected">
+  <mat-card-title>
+    <button *ngIf="determineScreen() === '1'" mat-mini-fab color="basic" (click)="closePanel()"
+      aria-label="Return to database overview" style="transform: scale(0.7);">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    {{selected.title}}
+  </mat-card-title>
   <mat-card-subtitle>
     <mat-grid-list cols="3" rowHeight="3em">
       <mat-grid-tile>Category: {{selected.category}}</mat-grid-tile>
@@ -19,7 +25,7 @@
 
 
 
-<div *ngIf="!!formGroup" class="full-width">
+<div *ngIf="!!formGroup">
   <form [formGroup]="formGroup">
     <mat-grid-list cols="2" rowHeight="3em">
 

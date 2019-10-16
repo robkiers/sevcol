@@ -1,8 +1,8 @@
 <div *ngIf="!!selectedRecord" class="full-width">
-  <mat-card-title>{{selectedRecord.reasonOfVisit}}</mat-card-title>
+  <mat-card-title *ngIf="determineCols() === '2'">{{ selectedRecord.reasonOfVisit }}</mat-card-title>
   <mat-card-subtitle>
     <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile>Date: {{selectedRecord.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
+      <mat-grid-tile>Date: {{ selectedRecord.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
       <mat-grid-tile>Treating Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
       <mat-grid-tile>Assisting Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
     </mat-grid-list>
@@ -12,7 +12,7 @@
 
     <mat-grid-list cols="2" rowHeight="3em">
 
-      <mat-grid-tile colspan="2">Description: {{selectedRecord.Description}}</mat-grid-tile>
+      <mat-grid-tile colspan="2">Description: {{selectedRecord.description}}</mat-grid-tile>
       <mat-grid-tile>Treatment Action: {{selectedRecord.treatmentAction}}</mat-grid-tile>
       <mat-grid-tile>Location of Treatment: {{selectedRecord.locationOfTreatment}}</mat-grid-tile>
       <mat-grid-tile>Used Medication: {{selectedRecord.usedMedication}}</mat-grid-tile>
@@ -23,6 +23,7 @@
 
   <mat-card-actions>
     <button mat-raised-button (click)="createFormgroup(this.selectedRecord)">Update Entry</button>
+    <button mat-raised-button (click)="closePanel()" *ngIf="determineCols() === '1'" class="margin-left">Close</button>
   </mat-card-actions>
 </div>
 
@@ -88,7 +89,7 @@
         <mat-form-field class="full-width">
           <mat-label>Used Medicine</mat-label>
           <mat-select formControlName="usedMedication">
-            <mat-option *ngFor="let medicine of medicineList" [value]="medicineList.value">
+            <mat-option *ngFor="let medicine of medicineList" [value]="medicine.value">
               {{medicine.viewValue}}
             </mat-option>
           </mat-select>
@@ -99,7 +100,7 @@
         <mat-form-field class="full-width">
           <mat-label>Prescribed Medicine</mat-label>
           <mat-select formControlName="prescribedMedication">
-            <mat-option *ngFor="let medicine of medicineList" [value]="medicineList.value">
+            <mat-option *ngFor="let medicine of medicineList" [value]="medicine.value">
               {{medicine.viewValue}}
             </mat-option>
           </mat-select>
@@ -129,10 +130,6 @@
 
   <mat-card-actions>
     <button mat-raised-button (click)="save()">Save Entry</button>
-    <button mat-raised-button (click)="cancel()">Cancel Entry</button>
+    <button mat-raised-button (click)="cancel()" class="margin-left">Cancel Entry</button>
   </mat-card-actions>
 </div>
-
-<!-- 
-</mat-grid-tile>
-</mat-grid-list> -->

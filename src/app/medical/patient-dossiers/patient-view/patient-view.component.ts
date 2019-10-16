@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { MatSort } from '@angular/material/sort';
@@ -27,11 +27,12 @@ export class PatientViewComponent implements OnInit {
   formGroup: FormGroup;
   selected;
 
-  @Input() set selectedEntry(record) {
+  @Input() set selectedEntry(patient) {
     this.formGroup = null;
-    this.selected = record;
+    this.selected = patient;
   };
 
+  @Output() close = new EventEmitter();
 
   constructor(
     protected _fb: FormBuilder,
@@ -104,14 +105,28 @@ export class PatientViewComponent implements OnInit {
 
   cancel() {
     this.formGroup = null;
+    this.close.emit(true);
+  }
+
+  closePanel() {
+    this.close.emit(true);
   }
 
   save() {
     const saveEntity = this.formGroup.getRawValue();
-    this._api.createDatabseEntry(saveEntity);
+    this._api.createPatient(saveEntity);
 
     this.formGroup = null;
     this.selected = saveEntity;
+  }
+
+  determineCols() {
+    const innerWidth = window.innerWidth;
+    // console.log(innerWidth);
+    if (innerWidth < 500) {
+      return '1';
+    }
+    return '2';
   }
 
 }

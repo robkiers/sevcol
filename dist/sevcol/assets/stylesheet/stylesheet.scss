@@ -1,8 +1,18 @@
+@import "~@angular/cdk/overlay-prebuilt.css";
+
 // dashboard
 .dashboard-container {
   margin: 15px;
   height: calc(100% - 30px);
   box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .dashboard-container {
+    margin: 0px;
+    height: calc(100%);
+    box-sizing: border-box;
+  }
 }
 
 .dashboard-button {
@@ -52,4 +62,11 @@
 
 .float-right {
   float: right;
+}
+
+@media (max-width: 600px) {
+  canvas {
+    width: 320px !important;
+    height: 480px !important;
+  }
 }

@@ -1,38 +1,31 @@
-<mat-card>
-    <mat-card-content>
+<mat-accordion>
+    <mat-expansion-panel [expanded]="step === 0" (opened)="openPanel(0)">
+        <mat-expansion-panel-header>
+            Scanner
+        </mat-expansion-panel-header>
 
-        <mat-accordion>
-            <mat-expansion-panel [expanded]="step === 0" (opened)="openPanel(0)">
-                <mat-expansion-panel-header>
-                    Scanner
-                </mat-expansion-panel-header>
-                {{devicesRecord | json}}
+        <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
+            [stopAfterScan]="true" [updateTime]="500">
+        </qr-scanner>
 
-                <qr-scanner [canvasWidth]="1080" [canvasHeight]="720" [stopAfterScan]="true" [updateTime]="500">
-                </qr-scanner>
+        <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
+        <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
+        <!-- <button mat-raised-button (click)="this.initCamera()" class="margin-left">Initiate</button> -->
+        <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
 
-                <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
-                <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
-                <!-- <button mat-raised-button (click)="this.initCamera()" class="margin-left">Initiate</button> -->
-                <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
+    </mat-expansion-panel>
+    <mat-expansion-panel [expanded]="step === 1" (opened)="openPanel(1)">
+        <mat-expansion-panel-header>
+            Results
+        </mat-expansion-panel-header>
 
-            </mat-expansion-panel>
-            <mat-expansion-panel [expanded]="step === 1" (opened)="openPanel(1)">
-                <mat-expansion-panel-header>
-                    Results
-                </mat-expansion-panel-header>
+        <div *ngIf="!!result">
+            {{ result | json }}
+        </div>
 
-                <div *ngIf="!!result">
-                    {{ result | json }}
-                </div>
+        <div *ngIf="!!resultRetrieve">
+            <app-database-view [selectedEntry]="resultRetrieve"></app-database-view>
+        </div>
 
-                <div *ngIf="!!resultRetrieve">
-                    <app-database-view [selectedEntry]="resultRetrieve"></app-database-view>
-                </div>
-
-                <!-- <app-camera></app-camera> -->
-            </mat-expansion-panel>
-        </mat-accordion>
-
-    </mat-card-content>
-</mat-card>
+    </mat-expansion-panel>
+</mat-accordion>

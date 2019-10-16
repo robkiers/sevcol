@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
-import { MatTableDataSource } from '@angular/material/table';
 import { UUID } from 'angular2-uuid';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
@@ -12,8 +10,6 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
   styleUrls: ['./medical-records.component.scss']
 })
 export class MedicalRecordsComponent implements OnInit {
-
-
 
   doctorList = [
     { value: 'Porter', viewValue: 'Porter' },
@@ -25,27 +21,17 @@ export class MedicalRecordsComponent implements OnInit {
     { value: 'Pencilin', viewValue: 'Pencilin' },
   ];
 
-  // medicalRecords;
-  // selectedRecord;
-  // displayedColumns = ['date', 'treatingDoctor', 'treatmentAction'];
   formGroup;
-
   patientFile;
-
-  // @ViewChild(MatSort, { static: true }) sort: MatSort;
-
 
   @Input() selectedRecord;
 
   @Input() set patient(patient) {
     this.resetProperties();
-
     this.patientFile = patient;
-    // this._api.getMedicalRecordsList(patient).subscribe(data => {
-    //   this.medicalRecords = new MatTableDataSource(data)
-    // });
-
   }
+
+  @Output() close = new EventEmitter();
 
   constructor(
     protected _fb: FormBuilder,
@@ -56,21 +42,12 @@ export class MedicalRecordsComponent implements OnInit {
   ngOnInit() {
   }
 
-  // selectRow(row) {
-  //   this.formGroup = null;
-  //   this.selectedRecord = row;
-  // }
-
-  // applyFilter(filterValue: string) {
-  //   this.medicalRecords.filter = filterValue.trim().toLowerCase();
-  // }
-
   createFormgroup(selectedRecord?: any) {
     this.selectedRecord = null;
 
     if (!!selectedRecord) {
       this.formGroup = this._fb.group({
-        recordID: selectedRecord.id,
+        recordID: selectedRecord.recordID,
         personID: selectedRecord.personID,
 
         date: [selectedRecord.date, [Validators.required]],
@@ -120,14 +97,22 @@ export class MedicalRecordsComponent implements OnInit {
 
   cancel() {
     this.formGroup = null;
+    this.closePanel();
+  }
+
+  closePanel() {
+    this.close.emit(true);
   }
 
   save() {
     const saveEntity = this.formGroup.getRawValue();
     this._api.upsertMedicalRecord(saveEntity);
 
+    // this.selectedRecord = saveEntity;
+    // console.log(this.selectedRecord);
     this.formGroup = null;
-    this.selectedRecord = saveEntity;
+    this.closePanel();
+
   }
 
   resetProperties() {
@@ -137,4 +122,12 @@ export class MedicalRecordsComponent implements OnInit {
     this.patientFile = null;
   }
 
+  determineCols() {
+    const innerWidth = window.innerWidth;
+    // console.log(innerWidth);
+    if (innerWidth < 500) {
+      return '1';
+    }
+    return '2';
+  }
 }

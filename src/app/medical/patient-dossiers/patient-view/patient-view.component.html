@@ -1,5 +1,6 @@
 <div *ngIf="!!selected" class="full-width">
-  <mat-card-title>{{selected.name}} {{selected?.otherNames}} {{selected.familyName}}
+  <mat-card-title *ngIf="determineCols() === '2'" determineCols>{{selected.name}} {{selected?.otherNames}}
+    {{selected.familyName}}
     <button mat-icon-button matTooltip="Special Attention required" *ngIf="selected.specialAttention === true">
       <mat-icon>error_outline</mat-icon>
     </button>
@@ -32,6 +33,7 @@
   <mat-card-actions>
     <!-- <button mat-raised-button (click)="createFormgroup(this.selected)">View </button> -->
     <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    <button mat-raised-button (click)="closePanel()" *ngIf="determineCols() === '1'" class="margin-left">Close</button>
   </mat-card-actions>
 </div>
 
@@ -157,6 +159,6 @@
 
   <mat-card-actions>
     <button mat-raised-button (click)="save()">Save Entry</button>
-    <button mat-raised-button (click)="cancel()">Cancel Entry</button>
+    <button mat-raised-button (click)="cancel()" class="margin-left">Cancel Entry</button>
   </mat-card-actions>
 </div>

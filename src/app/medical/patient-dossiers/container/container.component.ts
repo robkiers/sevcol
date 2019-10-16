@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { PatientViewComponent } from '../patient-view/patient-view.component';
 import { MedicalRecordsComponent } from '../../medical-records/medical-records.component';
@@ -22,9 +22,9 @@ export class ContainerComponent implements OnInit {
     { definition: 'ship', header: 'Ship', width: '30%' }
   ];
 
-  @ViewChild(PatientViewComponent, { static: true }) patientViewComponent: PatientViewComponent;
+  @ViewChild(PatientViewComponent, { static: false }) patientViewComponent: PatientViewComponent;
 
-  @ViewChild(MedicalRecordsComponent, { static: true }) medicalRecordsComponent: MedicalRecordsComponent;
+  @ViewChild(MedicalRecordsComponent, { static: false }) medicalRecordsComponent: MedicalRecordsComponent;
 
   recordList;
   selectedRecord;
@@ -34,7 +34,11 @@ export class ContainerComponent implements OnInit {
     { definition: 'treatmentAction', header: 'Reason', width: '40%' },
   ];
 
+  patientView = 0;
+  recordView = 0;
+
   constructor(
+    private changeDetectorRef: ChangeDetectorRef,
     protected _api: FirebaseService,
   ) { }
 
@@ -43,19 +47,53 @@ export class ContainerComponent implements OnInit {
   }
 
   rowSelect(patient) {
+    this.setPatientStep(1);
     this.selectedPatient = patient;
     this._api.getMedicalRecordsList(patient).subscribe(data => this.recordList = data);
   }
 
   recordRowSelect(record) {
+    this.setRecordStep(1);
     this.selectedRecord = record;
   }
 
   createMedicalRecord() {
+    this.setRecordStep(1);
+    this.changeDetectorRef.detectChanges();
     this.medicalRecordsComponent.createFormgroup();
   }
 
   createNewPatients() {
+    this.setPatientStep(1);
+    this.changeDetectorRef.detectChanges();
     this.patientViewComponent.createFormgroup();
+  }
+
+  determineCols() {
+    const innerWidth = window.innerWidth;
+    // console.log(innerWidth);
+    if (innerWidth < 500) {
+      return '1';
+    }
+    return '2';
+  }
+
+  closePatient() {
+    this.setPatientStep(0);
+    this.selectedPatient = null;
+    this.selectedRecord = null;
+  }
+
+  closeRecord() {
+    this.setRecordStep(0);
+    this.selectedRecord = null;
+  }
+
+  setPatientStep(i) {
+    this.patientView = i;
+  }
+
+  setRecordStep(i) {
+    this.recordView = i;
   }
 }

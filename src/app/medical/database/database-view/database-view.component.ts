@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, Input } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit, Inject, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
@@ -41,6 +40,8 @@ export class DatabaseViewComponent implements OnInit {
     this.selected = record;
   };
 
+  @Output() close = new EventEmitter();
+
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
@@ -81,6 +82,11 @@ export class DatabaseViewComponent implements OnInit {
 
   cancel() {
     this.formGroup = null;
+    this.closePanel();
+  }
+
+  closePanel() {
+    this.close.emit(true);
   }
 
   save() {
@@ -96,7 +102,6 @@ export class DatabaseViewComponent implements OnInit {
     this.selected = null;
   }
 
-
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '450px',
@@ -108,6 +113,15 @@ export class DatabaseViewComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  determineScreen(): string {
+    const innerWidth = window.innerWidth;
+    // console.log(innerWidth);
+    if (innerWidth < 500) {
+      return '1';
+    }
+    return '2';
   }
 
 }

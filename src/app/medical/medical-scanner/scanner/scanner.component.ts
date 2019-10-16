@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 
@@ -17,12 +17,31 @@ export class ScannerComponent implements OnInit {
   resultRetrieve;
   scannerOpenState = true;
   step = 0;
-  devicesRecord;
+
+
+  canvasWidth = '340';
+  canvasheight = '480';
 
   @ViewChild(QrScannerComponent, { static: true }) qrScannerComponent: QrScannerComponent;
 
   ngOnInit() {
-    // this.startScan();
+  }
+
+  // determineCanvas() {
+  //   const innerWidth = window.innerWidth;
+
+  //   this.canvasWidth = innerWidth < 500 ? '340' : '1080';
+  //   this.canvasheight = innerWidth < 500 ? '480' : '720';
+  // }
+
+  determineCanvas(input: string) {
+    const innerWidth = window.innerWidth;
+
+    if (input === 'width') {
+      return innerWidth < 500 ? '340' : '1080';
+    } else if (input === 'height') {
+      return innerWidth < 500 ? '480' : '720';
+    }
   }
 
   openPanel(index: number) {
@@ -36,8 +55,8 @@ export class ScannerComponent implements OnInit {
 
   startScan() {
     this.qrScannerComponent.getMediaDevices().then(devices => {
-      this.devicesRecord = devices;
-      console.log(devices);
+      // this.devicesRecord = devices;
+      // console.log(devices);
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
         if (device.kind.toString() === 'videoinput') {
