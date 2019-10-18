@@ -19,10 +19,11 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    <div>
+      <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    </div>
   </mat-card-actions>
 </div>
-
 
 
 <div *ngIf="!!formGroup">

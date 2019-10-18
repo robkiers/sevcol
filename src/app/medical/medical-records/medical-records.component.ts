@@ -17,9 +17,7 @@ export class MedicalRecordsComponent implements OnInit {
     { value: 'Wilde', viewValue: 'Wilde' },
   ];
 
-  medicineList = [
-    { value: 'Pencilin', viewValue: 'Pencilin' },
-  ];
+  medicineList;
 
   formGroup;
   patientFile;
@@ -40,6 +38,21 @@ export class MedicalRecordsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this._api.getDatabaseList().subscribe(entities => {
+      this.medicineList = entities
+        .filter(entry => {
+          if (entry['category'] === 'medical' && entry['subCategory'] === 'medicine') {
+            return entry;
+          }
+        })
+        .map(entry => {
+          const menuItem = {
+            value: entry['title'],
+            viewValue: entry['title']
+          };
+          return menuItem;
+        })
+    });
   }
 
   createFormgroup(selectedRecord?: any) {

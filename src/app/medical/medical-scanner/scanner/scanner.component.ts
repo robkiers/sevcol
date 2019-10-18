@@ -15,12 +15,10 @@ export class ScannerComponent implements OnInit {
 
   result;
   resultRetrieve;
+
+  qrResponse;
   scannerOpenState = true;
   step = 0;
-
-
-  canvasWidth = '340';
-  canvasheight = '480';
 
   @ViewChild(QrScannerComponent, { static: true }) qrScannerComponent: QrScannerComponent;
 
@@ -81,14 +79,43 @@ export class ScannerComponent implements OnInit {
 
     this.qrScannerComponent.capturedQr.subscribe(result => {
       this.resetEntries();
+      console.log('result', result);
 
-      this._api.getDatabaseEntry(result).subscribe(entry => {
-        console.log(entry);
-        if (!!entry) {
-          this.resultRetrieve = entry
-        } else
-          this.result = result;
-      });
+      if ((result as string).startsWith('{')) {
+
+        const resultJson = result.toJson()
+        console.log('resultJson', resultJson);
+
+        if (resultJson.type === 'database') {
+          this._api.getDatabaseEntry(resultJson.data).subscribe(entry => {
+            const response = {
+              type: 'database',
+              data: entry,
+            }
+            this.qrResponse = response
+          });
+        } else if (resultJson.type === 'person') {
+          this._api.getPatient(resultJson.data).subscribe(entry => {
+            const response = {
+              type: 'person',
+              data: entry,
+            }
+            this.qrResponse = response
+          });
+        }
+      } else if ((result as string).startsWith('http') || (result as string).startsWith('www')) {
+        const response = {
+          type: 'link',
+          data: result,
+        }
+        this.qrResponse = response
+      } else {
+        const response = {
+          type: 'string',
+          data: result,
+        }
+        this.qrResponse = response
+      }
       this.openPanel(1);
     });
   }
@@ -98,4 +125,10 @@ export class ScannerComponent implements OnInit {
     this.resultRetrieve = null;
   }
 
+}
+
+export interface sevcolQR {
+  type: string,
+  // dataid: string,
+  data: any
 }

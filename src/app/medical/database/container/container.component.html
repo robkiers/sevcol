@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="determineScreen()" gutterSize="5px">
+<mat-grid-list [cols]="determineScreen()" gutterSize="5px" *ngIf="determineScreen() === '2'">
   <mat-grid-tile>
     <mat-card class="dashboard-container full-width">
       <mat-card-title>Database Entries
@@ -18,15 +18,18 @@
     </mat-card>
   </mat-grid-tile>
 
-
 </mat-grid-list>
 
-<div class="floating-container" *ngIf="determineScreen() === '1'"
-  [ngStyle]="{'visibility':displayView ? 'visible' : 'hidden'}">
-  <mat-card class="dashboard-container full-width">
 
+<mat-accordion *ngIf="determineScreen() === '1'">
+
+  <mat-expansion-panel [expanded]="!displayView" (opened)="displayView = false" mat-elevation-z>
+    <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+    </app-table-overview>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="displayView" (opened)="displayView = true">
     <app-database-view [selectedEntry]="selectedEntry" (close)="closePanel($event)"></app-database-view>
-  </mat-card>
-</div>
-<!-- [ngStyle]="{'display':displayView ? 'block' : 'none'}" -->
-<!-- [ngStyle]="{'transform': 'translateY(' + slidePercentage + 'vh)'}" -->
+  </mat-expansion-panel>
+
+</mat-accordion>

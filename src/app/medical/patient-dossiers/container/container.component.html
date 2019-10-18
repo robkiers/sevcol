@@ -90,6 +90,7 @@
     <mat-expansion-panel-header *ngIf="!!selectedRecord">
       Medical Record: {{selectedRecord.reasonOfVisit }}
     </mat-expansion-panel-header>
+    
     <mat-panel-description *ngIf="!selectedRecord">
       <button mat-raised-button (click)="createMedicalRecord()" class="float-right margin-left">Add Record
       </button>

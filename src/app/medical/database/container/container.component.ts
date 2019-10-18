@@ -23,24 +23,15 @@ export class ContainerComponent implements OnInit {
 
   displayView: boolean = false;
 
-  // @ViewChild('databaseViewComponent', { static: false }) set databaseViewComponent(databaseViewComponent: DatabaseViewComponent) {
-  //   if (!!databaseViewComponent) {
-  //     this.databaseViewComponent = databaseViewComponent;
-  //   }
-  // }
-
-  // databaseViewComponent;
   @ViewChild(DatabaseViewComponent, { static: false }) databaseViewComponent?: DatabaseViewComponent;
 
   constructor(
-    // protected _fb: FormBuilder,
     private changeDetectorRef: ChangeDetectorRef,
     protected _api: FirebaseService,
   ) { }
 
   ngOnInit() {
     this._api.getDatabaseList().subscribe(data => this.databaseEntries = data);
-    // this.determineScreen();
   }
 
   rowSelect(row) {
@@ -65,15 +56,13 @@ export class ContainerComponent implements OnInit {
     return '2';
   }
 
+  // setRecordStep(1);
+
   show() {
     this.displayView = true;
-
-    // this.slidePercentage = this.slidePercentage === 100 ? 0 : 100;
-    // transform': 'translateX(-' + slidePercentage + '%)'
   }
 
   closePanel(event) {
-    console.log(event);
     this.displayView = false;
   }
 }

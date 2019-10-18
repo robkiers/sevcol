@@ -19,13 +19,23 @@
             Results
         </mat-expansion-panel-header>
 
-        <div *ngIf="!!result">
-            {{ result | json }}
-        </div>
+        <div *ngIf="!!qrResponse">
+            <div *ngIf="qrResponse.type === 'database'">
+                <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+            </div>
 
-        <div *ngIf="!!resultRetrieve">
-            <app-database-view [selectedEntry]="resultRetrieve"></app-database-view>
-        </div>
+            <div *ngIf="qrResponse.type === 'person'">
+                <!-- <app-database-view [selectedEntry]="qrResponse.data"></app-database-view> -->
+            </div>
 
+            <div *ngIf="qrResponse.type === 'link'">
+                {{ qrResponse.data }}
+                <a [href]="qrResponse.data">Visit Link</a>
+            </div>
+
+            <div *ngIf="qrResponse.type === 'string'">
+                {{ qrResponse.data }}
+            </div>
+        </div>
     </mat-expansion-panel>
 </mat-accordion>

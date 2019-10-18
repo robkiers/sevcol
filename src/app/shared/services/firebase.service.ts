@@ -16,7 +16,7 @@ export class FirebaseService {
   }
 
   getPatient(personID: string) {
-    return this.db.collection('patient').doc(personID).snapshotChanges();
+    return this.db.collection('patientlist').doc(personID).valueChanges();
   }
 
   createPatient(patient) {
