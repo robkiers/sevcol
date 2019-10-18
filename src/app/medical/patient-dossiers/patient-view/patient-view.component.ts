@@ -122,11 +122,11 @@ export class PatientViewComponent implements OnInit {
 
   determineCols() {
     const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
+    console.log(innerWidth);
     if (innerWidth < 500) {
-      return '1';
+      return '2';
     }
-    return '2';
+    return '3';
   }
 
 }

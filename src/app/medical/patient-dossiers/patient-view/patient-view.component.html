@@ -1,12 +1,12 @@
 <div *ngIf="!!selected" class="full-width">
-  <mat-card-title *ngIf="determineCols() === '2'" determineCols>{{selected.name}} {{selected?.otherNames}}
+  <mat-card-title *ngIf="determineCols() === '3'">{{selected.name}} {{selected?.otherNames}}
     {{selected.familyName}}
     <button mat-icon-button matTooltip="Special Attention required" *ngIf="selected.specialAttention === true">
       <mat-icon>error_outline</mat-icon>
     </button>
   </mat-card-title>
   <mat-card-subtitle>
-    <mat-grid-list cols="3" rowHeight="3em">
+    <mat-grid-list [cols]="determineCols()" rowHeight="3em">
       <mat-grid-tile>{{selected.gender}}</mat-grid-tile>
       <mat-grid-tile>Age: {{selected.age}}</mat-grid-tile>
       <mat-grid-tile>Bloodgroup: {{selected.bloodType}}{{selected.allele}}</mat-grid-tile>
@@ -14,8 +14,8 @@
   </mat-card-subtitle>
 
   <mat-card-content>
-    <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile *ngIf="selected.specialAttention === true" colspan="3">
+    <mat-grid-list [cols]="determineCols()" rowHeight="3em">
+      <mat-grid-tile *ngIf="selected.specialAttention === true" [colspan]="determineCols()">
         {{selected.specialAttentionDescription}}</mat-grid-tile>
 
       <mat-grid-tile>Height: {{selected.height}} cm</mat-grid-tile>
@@ -25,7 +25,7 @@
       <mat-grid-tile>Ship Enlisted: {{selected.ship}}</mat-grid-tile>
       <mat-grid-tile>Organisation Employed: {{selected.Organisation}}</mat-grid-tile>
 
-      <mat-grid-tile colspan="3">{{selected.notes}}</mat-grid-tile>
+      <mat-grid-tile [colspan]="determineCols()">{{selected.notes}}</mat-grid-tile>
     </mat-grid-list>
   </mat-card-content>
 
@@ -33,23 +33,23 @@
   <mat-card-actions>
     <!-- <button mat-raised-button (click)="createFormgroup(this.selected)">View </button> -->
     <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
-    <button mat-raised-button (click)="closePanel()" *ngIf="determineCols() === '1'" class="margin-left">Close</button>
+    <button mat-raised-button (click)="closePanel()" *ngIf="determineCols() === '2'" class="margin-left">Close</button>
   </mat-card-actions>
 </div>
 
 <div *ngIf="!!formGroup" class="full-width">
 
   <form [formGroup]="formGroup">
-    <mat-grid-list cols="3" rowHeight="3em" gutterSize="10px">
+    <mat-grid-list [cols]="determineCols()" rowHeight="3em" gutterSize="10px">
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <input matInput placeholder="Name" formControlName='name'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <input matInput placeholder="Other Names" formControlName='otherNames'>
         </mat-form-field>
       </mat-grid-tile>
@@ -104,7 +104,7 @@
       <mat-grid-tile>
       </mat-grid-tile>
 
-      <mat-grid-tile colspan="3">
+      <mat-grid-tile [colspan]="determineCols()">
         <mat-divider class="full-width"></mat-divider>
       </mat-grid-tile>
 
@@ -135,14 +135,14 @@
         <mat-slide-toggle formControlName="specialAttention">Special Attention Required</mat-slide-toggle>
       </mat-grid-tile>
 
-      <mat-grid-tile colspan="2" rowspan="2">
+      <mat-grid-tile [colspan]="determineCols()" rowspan="2">
         <mat-form-field class="full-width">
           <textarea matInput placeholder="Special Attention Description" formControlName='specialAttentionDescription'
             matTextareaAutosize matAutosizeMinRows="4"></textarea>
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile colspan="3" rowspan="2">
+      <mat-grid-tile [colspan]="determineCols()" rowspan="2">
         <mat-form-field class="full-width">
           <textarea matInput matTextareaAutosize placeholder="General Notes" formControlName='notes'
             matAutosizeMinRows="4"></textarea>
