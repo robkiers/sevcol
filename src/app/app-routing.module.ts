@@ -21,6 +21,11 @@ const routes: Routes = [
     loadChildren: './medical/database/database.module#DatabaseModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
+  {
+    path: 'airlock',
+    loadChildren: './airlock/airlock.module#AirlockModule'
+    // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+  },
 ];
 
 @NgModule({
