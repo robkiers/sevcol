@@ -30,7 +30,7 @@ export class PatientViewComponent implements OnInit {
   @Input() set selectedEntry(patient) {
     this.formGroup = null;
     this.selected = patient;
-  };
+  }
 
   @Output() close = new EventEmitter();
 
@@ -129,4 +129,25 @@ export class PatientViewComponent implements OnInit {
     return '3';
   }
 
+}
+
+export interface CharacterPatientFile {
+  personID: string;
+  name: string;
+  otherNames: string;
+  familyName: string;
+  gender: string;
+  height: string;
+  weight: string;
+  planetOfOrigin: string;
+  npc: boolean;
+
+  organisation: string;
+  ship: string;
+
+  bloodType: string;
+  allele: string;
+  specialAttention: boolean;
+  specialAttentionDescription: string;
+  notes: string;
 }

@@ -46,6 +46,14 @@ export class FirebaseService {
     return this.db.collection('databaselist').doc(entry.id).set(Object.assign(entry));
   }
 
+  getCharacterList() {
+    return this.db.collection('characterlist').valueChanges();
+  }
+
+  createCharacter(entry) {
+    return this.db.collection('characterlist').doc(entry.id).set(Object.assign(entry));
+  }
+
 }
 
 // getAvatars(){

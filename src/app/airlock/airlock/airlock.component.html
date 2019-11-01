@@ -26,7 +26,7 @@
 
       <mat-card-content>
 
-        <table mat-table [dataSource]="personList" class="full-width">
+        <table mat-table [dataSource]="characterList" class="full-width">
 
           <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
@@ -70,7 +70,8 @@
 
       <mat-card-actions>
         <button mat-raised-button>Set Active Crew</button>
-        <button mat-raised-button>Register Crewmember</button>
+        <button mat-raised-button disabled="true">Register Crewmember</button>
+        <button mat-raised-button (click)="verifyList()">Verify Lists</button>
       </mat-card-actions>
 
     </mat-card>
