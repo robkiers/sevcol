@@ -22,6 +22,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -63,7 +64,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule,
     TableOverviewModule,
     MatExpansionModule,
-    OverlayModule
+    OverlayModule,
+    MatSnackBarModule
   ],
   declarations: []
 })

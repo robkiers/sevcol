@@ -51,7 +51,7 @@ export class FirebaseService {
   }
 
   createCharacter(entry) {
-    return this.db.collection('characterlist').doc(entry.id).set(Object.assign(entry));
+    return this.db.collection('characterlist').doc(entry.personID).set(Object.assign(entry));
   }
 
 }

@@ -1,1 +1,2 @@
-export * from './PATIENT';
+export * from './CharacterBaseFile';
+export * from './CharacterPatientFile';

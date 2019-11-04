@@ -16,8 +16,9 @@ export class ContainerComponent implements OnInit {
   patientList;
   selectedPatient;
   patientListColumns = [
-    { definition: 'name', header: 'Name', width: '20%' },
-    { definition: 'gender', header: 'Gender', width: '20%' },
+    { definition: 'familyName', header: 'Name', width: '20%' },
+    { definition: 'name', header: 'First Name', width: '20%' },
+    // { definition: 'gender', header: 'Gender', width: '20%' },
     { definition: 'organisation', header: 'Organisation', width: '30%' },
     { definition: 'ship', header: 'Ship', width: '30%' }
   ];

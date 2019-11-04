@@ -21,7 +21,8 @@ export class PatientViewComponent implements OnInit {
     { value: 'eden', viewValue: 'Eden' },
     { value: 'kordoss', viewValue: 'Kordoss' },
     { value: 'lux', viewValue: 'Lux' },
-    { value: 'lucis', viewValue: 'Lucis' }
+    { value: 'lucis', viewValue: 'Lucis' },
+    { value: 'void', viewValue: 'Void Borne' }
   ];
 
   formGroup: FormGroup;

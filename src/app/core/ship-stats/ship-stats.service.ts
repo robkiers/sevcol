@@ -7,6 +7,7 @@ export class ShipStatsService {
 
   time;
   timeAdjustment = 5097430800000;
+  airlock: boolean;
 
   constructor() {
     console.log('ship stats');
