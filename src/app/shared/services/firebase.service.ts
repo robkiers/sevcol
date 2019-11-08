@@ -1,6 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { CharacterBaseFile } from 'src/app/core/models';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -47,11 +49,17 @@ export class FirebaseService {
   }
 
   getCharacterList() {
-    return this.db.collection('characterlist').valueChanges();
+    return this.db.collection('characterlist').valueChanges().pipe(
+      map(data => data as CharacterBaseFile[])
+    );
   }
 
   createCharacter(entry) {
     return this.db.collection('characterlist').doc(entry.personID).set(Object.assign(entry));
+  }
+
+  setActiveCrewRoster() {
+
   }
 
 }

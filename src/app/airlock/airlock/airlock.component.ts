@@ -5,6 +5,8 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { map, tap } from 'rxjs/operators';
 import { CharacterBaseFile, CharacterPatientFile } from 'src/app/core/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ActiveCrewListComponent } from '../active-crew-list/active-crew-list.component';
 
 @Component({
   selector: 'app-airlock',
@@ -29,7 +31,7 @@ export class AirlockComponent implements OnInit {
 
   @ViewChild('scanInput', { static: false }) scanInput: ElementRef;
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event);
     this.scanInput.nativeElement.focus();
@@ -40,6 +42,7 @@ export class AirlockComponent implements OnInit {
     protected _api: FirebaseService,
     private _snackBar: MatSnackBar,
     private _shipStats: ShipStatsService,
+    public _dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -93,6 +96,18 @@ export class AirlockComponent implements OnInit {
         });
       })
     ).subscribe(result => console.log(result));
+  }
+
+  openDialog(): void {
+    const dialogRef = this._dialog.open(ActiveCrewListComponent, {
+      width: '800px',
+      // data: { name: this.name, animal: this.animal }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
   }
 }
 

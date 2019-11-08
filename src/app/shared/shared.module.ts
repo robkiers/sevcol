@@ -23,6 +23,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
 
 import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -65,7 +66,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     TableOverviewModule,
     MatExpansionModule,
     OverlayModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatListModule
   ],
   declarations: []
 })
