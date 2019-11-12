@@ -60,7 +60,8 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;" (click)="selectInactiveRow(row, i)"></tr>
+        <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;" (click)="selectInactiveRow(row, i)">
+        </tr>
       </table>
     </mat-grid-tile>
   </mat-grid-list>
@@ -68,8 +69,8 @@
 </mat-card-content>
 
 <mat-card-actions>
-  <button mat-raised-button>Update Active Roster</button>
-  <button mat-raised-button>Clear Active Roster</button>
-  <button mat-raised-button class="float-right">Cancel</button>
+  <button mat-raised-button (click)="updateActiveDuty()">Update Active Roster</button>
+  <button mat-raised-button (click)="clearActiveDuty()">Clear Active Roster</button>
+  <button mat-raised-button (click)="closeDialog()" class="float-right">Cancel</button>
   <!-- <button mat-raised-button (click)="verifyList()"  (click)="openSnackBar('Set who is present at the event','not implemented')">Verify Lists</button> -->
 </mat-card-actions>

@@ -83,13 +83,21 @@ export class ActiveCrewListComponent implements OnInit {
   }
 
   clearActiveDuty() {
-
+    this.inactiveCharcterList.push.apply(this.inactiveCharcterList, this.activeCharcterList);
+    this.activeCharcterList = [];
+    this.inactiveTable.renderRows();
   }
 
   updateActiveDuty() {
-
+    const activeCrew = this.activeCharcterList.forEach(element => {
+      element.onDuty = true;
+    });
+    // this._api.
   }
 
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }
 
 export interface CharcterActivity {
