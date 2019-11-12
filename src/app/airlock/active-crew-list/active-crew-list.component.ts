@@ -23,6 +23,7 @@ export class ActiveCrewListComponent implements OnInit {
 
   inactiveCharcterList;
   activeCharcterList;
+  deactivateList = [];
 
   crewList;
   activeCrewList;
@@ -52,11 +53,11 @@ export class ActiveCrewListComponent implements OnInit {
           entry = entry as CharacterBaseFile;
           const char: CharcterActivity = {
             personID: entry.personID,
-            cardNumber: entry.cardNumber,
+            cardNumber: null,
 
             name: entry.name,
             familyName: entry.familyName,
-            imageLocation: entry.imageLocation,
+            imageLocation: null,
 
             onDuty: entry.onDuty,
             aboardCelestra: entry.onDuty,
@@ -71,12 +72,20 @@ export class ActiveCrewListComponent implements OnInit {
   }
 
   selectActiveRow(e, i) {
+    if (e.onDuty) {
+      this.deactivateList.push(...this.activeCharcterList[0]);
+    }
     this.inactiveCharcterList.push(this.activeCharcterList.splice(i, 1)[0]);
+
     this.activeTable.renderRows();
     this.inactiveTable.renderRows();
   }
 
   selectInactiveRow(e, i) {
+    if (e.onDuty) {
+      this.deactivateList.push(...this.activeCharcterList[0]);
+    }
+
     this.activeCharcterList.push(this.inactiveCharcterList.splice(i, 1)[0]);
     this.activeTable.renderRows();
     this.inactiveTable.renderRows();
@@ -89,10 +98,18 @@ export class ActiveCrewListComponent implements OnInit {
   }
 
   updateActiveDuty() {
-    const activeCrew = this.activeCharcterList.forEach(element => {
-      element.onDuty = true;
+    // const activeCrew = this.activeCharcterList.forEach(element => {
+    //   element.onDuty = true;
+    // });
+    const activateList = [];
+    this.activeCharcterList.forEach(element => {
+      if (!this.characterList.some(entry => entry.personID === element.personID)) {
+        activateList.push(element);
+      }
     });
-    // this._api.
+
+    this._api.setActiveCrewRoster(activateList, this.deactivateList);
+
   }
 
   closeDialog() {

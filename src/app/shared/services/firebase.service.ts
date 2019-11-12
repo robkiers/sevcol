@@ -1,8 +1,9 @@
 
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { CharacterBaseFile } from 'src/app/core/models';
 import { map } from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -58,8 +59,34 @@ export class FirebaseService {
     return this.db.collection('characterlist').doc(entry.personID).set(Object.assign(entry));
   }
 
-  setActiveCrewRoster() {
+  setActiveCrewRoster(activateList, deactivateList) {
+    const batch = this.db.firestore.batch();
 
+    activateList.forEach(element => {
+      console.log('element', element);
+
+      const characterReference: DocumentReference =
+        firebase.firestore().collection('characterlists').doc('characteractivity').collection('characteractivity').doc(element.personID);
+      batch.set(characterReference, element);
+    });
+
+    deactivateList.forEach(element => {
+      console.log('element', element);
+      const characterReference: DocumentReference =
+        firebase.firestore().collection('characterlists').doc('characteractivity').collection('characteractivity').doc(element.personID);
+      batch.delete(characterReference);
+    });
+
+
+
+    batch.commit().then(() => {
+      console.log('succes');
+    });
+  }
+
+  getActiveCrewRoster() {
+    return this.db.collection('characterlists').doc('characteractivity').collection('characteractivity').valueChanges();
+    // return this.db.collection('characterlists').doc('characteractivity').set(Object.assign(entry));
   }
 
 }
