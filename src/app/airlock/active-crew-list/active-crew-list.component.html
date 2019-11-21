@@ -22,10 +22,10 @@
           <td mat-cell *matCellDef="let person"> {{person.familyName}}, {{person.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="onDuty">
+        <ng-container matColumnDef="active">
           <th mat-header-cell *matHeaderCellDef>on Duty</th>
           <td mat-cell *matCellDef="let person">
-            <mat-slide-toggle [checked]="person.onDuty"></mat-slide-toggle>
+            <mat-slide-toggle [checked]="person.active"></mat-slide-toggle>
           </td>
         </ng-container>
 
@@ -52,10 +52,10 @@
           <td mat-cell *matCellDef="let person"> {{person.familyName}}, {{person.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="onDuty">
+        <ng-container matColumnDef="active">
           <th mat-header-cell *matHeaderCellDef>on Duty</th>
           <td mat-cell *matCellDef="let person">
-            <mat-slide-toggle [checked]="person.onDuty"></mat-slide-toggle>
+            <mat-slide-toggle [checked]="person.active"></mat-slide-toggle>
           </td>
         </ng-container>
 

@@ -13,10 +13,6 @@ export function cameraFactory(
     return new DesktopCameraService();
 }
 
-// export function cameraFactory() {
-//     return new DesktopCameraService();
-// }
-
 interface ICameraService {
     getPhoto(): Observable<string>;
 }

@@ -1,4 +1,3 @@
-*Note that this will function as a station, not accesible from the webapp directly.
 <mat-card class="full-width">
   <mat-card-title>
     Airlock status
@@ -34,7 +33,7 @@
 
       <mat-card-content>
 
-        <table mat-table [dataSource]="characterList" class="full-width">
+        <table mat-table [dataSource]="activeCrewList" class="full-width">
           <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef> No. </th>
             <td mat-cell *matCellDef="let person; index as i;"> {{ i + 1 }} </td>
@@ -50,16 +49,16 @@
             <td mat-cell *matCellDef="let person"> {{person.familyName}}, {{person.name}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="aboardCelestra">
+          <ng-container matColumnDef="disembarked">
             <th mat-header-cell *matHeaderCellDef>Disembarked</th>
             <td mat-cell *matCellDef="let person">
-              <mat-slide-toggle [checked]="!person.aboardCelestra"></mat-slide-toggle>
+              <mat-slide-toggle [checked]="person.disembarked"></mat-slide-toggle>
             </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"
-            [ngClass]="{'offShip': !row.aboardCelestra}"></tr>
+            [ngClass]="{'offShip': row.disembarked}"></tr>
         </table>
 
       </mat-card-content>
@@ -67,10 +66,8 @@
       <mat-card-actions>
         <button mat-raised-button (click)="openDialog()">Set Active
           Crew</button>
-        <button mat-raised-button
-          (click)="openSnackBar('Register crewmember, linking to other models','not implemented')">Register
-          Crewmember</button>
-        <!-- <button mat-raised-button (click)="verifyList()">Verify Lists</button> -->
+        <button mat-raised-button (click)="openRegisterDialog('crew')">
+          Register Crewmember</button>
       </mat-card-actions>
 
     </mat-card>
@@ -84,14 +81,39 @@
       </mat-card-title>
 
       <mat-card-content>
+        <table mat-table [dataSource]="activePassengerList" class="full-width">
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let person; index as i;"> {{ i + 1 }} </td>
+          </ng-container>
 
+          <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let person"> {{person.image}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let person"> {{person.familyName}}, {{person.name}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="disembarked">
+            <th mat-header-cell *matHeaderCellDef>Disembarked</th>
+            <td mat-cell *matCellDef="let person">
+              <mat-slide-toggle [checked]="!person.disembarked"></mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedPassengerColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"
+            [ngClass]="{'offShip': !row.disembarked}"></tr>
+        </table>
       </mat-card-content>
 
       <mat-card-actions>
         <button mat-raised-button (click)="openSnackBar('Find known passenger','not implemented')">Find
           Passenger</button>
-        <button mat-raised-button
-          (click)="openSnackBar('Register Passenger, linking to other models','not implemented')">Register
+        <button mat-raised-button (click)="openRegisterDialog('passenger')">Register
           Passenger</button>
       </mat-card-actions>
     </mat-card>

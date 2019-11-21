@@ -30,10 +30,6 @@ export class ActiveCrewListComponent implements OnInit {
   passengerList;
   knownPassengerList;
 
-  // constructor(
-  //   public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-  //   @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
-
   constructor(
     public dialogRef: MatDialogRef<ActiveCrewListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -45,34 +41,21 @@ export class ActiveCrewListComponent implements OnInit {
 
   ngOnInit() {
     // this.
+    this._api.getActiveCrewRoster().subscribe(data => {
+      console.log('activeCharcterList', data);
+      this.activeCharcterList = data;
+    });
 
-    this._api.getCharacterList().subscribe(data => {
-      this.characterList = data as CharacterBaseFile[];
-      this.activeCharcterList =
-        data.map(entry => {
-          entry = entry as CharacterBaseFile;
-          const char: CharcterActivity = {
-            personID: entry.personID,
-            cardNumber: null,
+    this._api.getCrewRoster().subscribe(data => {
+      console.log('inactiveCharcterList', data);
 
-            name: entry.name,
-            familyName: entry.familyName,
-            imageLocation: null,
-
-            onDuty: entry.onDuty,
-            aboardCelestra: entry.onDuty,
-            isAlive: entry.onDuty,
-          };
-          return char;
-        }
-        );
-      this.inactiveCharcterList = [];
-      console.log('airlock data', data);
+      this.inactiveCharcterList =
+        data.filter(entry => entry.active === false);
     });
   }
 
   selectActiveRow(e, i) {
-    if (e.onDuty) {
+    if (e.active) {
       this.deactivateList.push(...this.activeCharcterList[0]);
     }
     this.inactiveCharcterList.push(this.activeCharcterList.splice(i, 1)[0]);
@@ -82,7 +65,7 @@ export class ActiveCrewListComponent implements OnInit {
   }
 
   selectInactiveRow(e, i) {
-    if (e.onDuty) {
+    if (e.active) {
       this.deactivateList.push(...this.activeCharcterList[0]);
     }
 
@@ -98,9 +81,6 @@ export class ActiveCrewListComponent implements OnInit {
   }
 
   updateActiveDuty() {
-    // const activeCrew = this.activeCharcterList.forEach(element => {
-    //   element.onDuty = true;
-    // });
     const activateList = [];
     this.activeCharcterList.forEach(element => {
       if (!this.characterList.some(entry => entry.personID === element.personID)) {
@@ -109,7 +89,6 @@ export class ActiveCrewListComponent implements OnInit {
     });
 
     this._api.setActiveCrewRoster(activateList, this.deactivateList);
-
   }
 
   closeDialog() {
@@ -125,7 +104,7 @@ export interface CharcterActivity {
   familyName: string;
   imageLocation?: string;
 
-  onDuty: boolean;
-  aboardCelestra: boolean;
-  isAlive: boolean;
+  active: boolean;
+  disembarked: boolean;
+  alive: boolean;
 }

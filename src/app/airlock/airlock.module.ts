@@ -3,6 +3,7 @@ import { AirlockComponent } from './airlock/airlock.component';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ActiveCrewListComponent } from './active-crew-list/active-crew-list.component';
+import { RegisterCharacterComponent } from './register-character/register-character.component';
 
 const routes: Routes = [
   { path: '', component: AirlockComponent }
@@ -12,7 +13,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AirlockComponent,
-    ActiveCrewListComponent
+    ActiveCrewListComponent,
+    RegisterCharacterComponent
   ],
   imports: [
     SharedModule,
@@ -20,6 +22,7 @@ const routes: Routes = [
   ],
   entryComponents: [
     ActiveCrewListComponent,
+    RegisterCharacterComponent
   ]
 })
 export class AirlockModule { }

@@ -23,7 +23,8 @@ export class NewPatientComponent implements OnInit {
     { value: 'eden', viewValue: 'Eden' },
     { value: 'kordoss', viewValue: 'Kordoss' },
     { value: 'lux', viewValue: 'Lux' },
-    { value: 'lucis', viewValue: 'Lucis' }
+    { value: 'lucis', viewValue: 'Lucis' },
+    { value: 'voidborne', viewValue: 'Void Borne' }
   ];
 
   constructor(

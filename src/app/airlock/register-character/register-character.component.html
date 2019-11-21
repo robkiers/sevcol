@@ -1,0 +1,120 @@
+<div *ngIf="!!formGroup" class="full-width">
+  <div class="overlay full-height" *ngIf="cardRegistrationView">
+    present card
+    <button mat-raised-button (click)="cancelCardRegistration()" class="float-right">Cancel</button>
+  </div>
+
+  <form [formGroup]="formGroup">
+    <mat-grid-list [cols]="determineCols()" rowHeight="3em" gutterSize="10px">
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" formControlName='name'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Other Names" formControlName='otherNames'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Family Name" formControlName='familyName'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-button-toggle-group formControlName='gender' name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="Male">Male</mat-button-toggle>
+          <mat-button-toggle value="Female">Female</mat-button-toggle>
+        </mat-button-toggle-group>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Height(cm)" formControlName='height'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Weight(kg)" formControlName='weight'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <mat-label>Planet of Origin</mat-label>
+          <mat-select formControlName="planetOfOrigin">
+            <mat-option *ngFor="let origin of originLookup" [value]="origin.value">
+              {{origin.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input formControlName='dateOfBirth' matInput [matDatepicker]="picker" placeholder="Choose a date of birth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+      </mat-grid-tile>
+
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Ship" formControlName='ship'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Organisation" formControlName='organisation'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width">
+          <mat-label>Certificates</mat-label>
+          <mat-select formControlName="certificates" multiple>
+            <mat-optgroup *ngFor="let group of certificateLookup" [label]="group.name">
+              <mat-option *ngFor="let certificate of group.certificates" [value]="certificate.value">
+                {{certificate.viewValue}}
+              </mat-option>
+            </mat-optgroup>
+
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+
+
+      <mat-grid-tile>
+        <mat-slide-toggle formControlName='disembarked'>Disembarked</mat-slide-toggle>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-slide-toggle formControlName='active'>on Duty</mat-slide-toggle>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-slide-toggle formControlName='npc'>NPC</mat-slide-toggle>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+
+  <mat-card-actions>
+    <button mat-raised-button disabled="true">Take Picture</button>
+    <button mat-raised-button (click)="toggleRegisterCardView()">Register Card</button>
+
+    <button mat-raised-button (click)="cancel()" class="float-right">Cancel Entry</button>
+    <button mat-raised-button (click)="save()" class="float-right">Save Entry</button>
+  </mat-card-actions>
+</div>

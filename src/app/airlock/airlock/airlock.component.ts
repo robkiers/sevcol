@@ -2,11 +2,12 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 import { FormBuilder } from '@angular/forms';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, filter } from 'rxjs/operators';
 import { CharacterBaseFile, CharacterPatientFile } from 'src/app/core/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ActiveCrewListComponent } from '../active-crew-list/active-crew-list.component';
+import { ActiveCrewListComponent, CharcterActivity } from '../active-crew-list/active-crew-list.component';
+import { RegisterCharacterComponent } from '../register-character/register-character.component';
 
 @Component({
   selector: 'app-airlock',
@@ -15,14 +16,18 @@ import { ActiveCrewListComponent } from '../active-crew-list/active-crew-list.co
 })
 export class AirlockComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'image', 'name', 'aboardCelestra'];
+  displayedColumns: string[] = ['position', 'image', 'name', 'disembarked'];
+  displayedPassengerColumns: string[] = ['position', 'image', 'name', 'disembarked'];
 
   characterList: CharacterBaseFile[];
 
   crewList;
   activeCrewList;
   passengerList;
+  activePassengerList;
   knownPassengerList;
+
+  dialogClosed = true;
 
   manualOveride = false;
   airlockOpen = false;
@@ -33,8 +38,9 @@ export class AirlockComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    console.log(event);
-    this.scanInput.nativeElement.focus();
+    if (this.dialogClosed) {
+      this.scanInput.nativeElement.focus();
+    }
   }
 
   constructor(
@@ -50,10 +56,17 @@ export class AirlockComponent implements OnInit {
       this.characterList = data as CharacterBaseFile[];
       console.log('airlock data', data);
     });
+
+    this._api.getActiveCrewRoster().subscribe(data => {
+      this.activeCrewList = data;
+      console.log('airlock data', data);
+    });
+
+    this._api.getActivePassengerList().subscribe(data => this.activePassengerList = data);
   }
 
   selectRow(e) {
-    e.aboardCelestra = !e.aboardCelestra;
+    e.disembarked = !e.disembarked;
     this._api.createCharacter(e);
   }
 
@@ -69,47 +82,30 @@ export class AirlockComponent implements OnInit {
     });
   }
 
-  verifyList() {
-    this._api.getPatientList().pipe(
-      tap(data => console.log(data)),
-      map(data => {
-        data.map(entry => {
-          const castEntry = entry as CharacterPatientFile;
-          const newCharacter: CharacterBaseFile = {
-            personID: castEntry.personID,
-            name: castEntry.name,
-            otherNames: !!castEntry.otherNames ? castEntry.otherNames : null,
-            familyName: castEntry.familyName,
-            gender: castEntry.gender,
-            height: !!castEntry.height ? castEntry.height : null,
-            weight: !!castEntry.weight ? castEntry.weight : null,
-            planetOfOrigin: !!castEntry.planetOfOrigin ? castEntry.planetOfOrigin : null,
-            dateOfBirth: !!castEntry.dateOfBirth ? castEntry.dateOfBirth : null,
-            // imageLocation: castEntry.imageLocation,
-            organisation: !!castEntry.organisation ? castEntry.organisation : null,
-            ship: !!castEntry.ship ? castEntry.ship : null,
-            aboardCelestra: true,
-            onDuty: true,
-            isAlive: true,
-          };
-          this._api.createCharacter(newCharacter);
-        });
-      })
-    ).subscribe(result => console.log(result));
-  }
-
   openDialog(): void {
     const dialogRef = this._dialog.open(ActiveCrewListComponent, {
       width: '800px',
       // data: { name: this.name, animal: this.animal }
     });
+    this.dialogClosed = false;
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
+      this.dialogClosed = true;
     });
   }
-}
 
-// 0001818362
-// 0002181010
+  openRegisterDialog(character: string): void {
+    const dialogRef = this._dialog.open(RegisterCharacterComponent, {
+      width: '800px',
+      data: { character }
+    });
+    this.dialogClosed = false;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.dialogClosed = true;
+    });
+  }
+
+}

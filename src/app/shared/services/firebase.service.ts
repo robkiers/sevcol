@@ -50,9 +50,7 @@ export class FirebaseService {
   }
 
   getCharacterList() {
-    return this.db.collection('characterlist').valueChanges().pipe(
-      map(data => data as CharacterBaseFile[])
-    );
+    return this.db.collection('characterlist').valueChanges();
   }
 
   createCharacter(entry) {
@@ -63,21 +61,16 @@ export class FirebaseService {
     const batch = this.db.firestore.batch();
 
     activateList.forEach(element => {
-      console.log('element', element);
-
       const characterReference: DocumentReference =
         firebase.firestore().collection('characterlists').doc('characteractivity').collection('characteractivity').doc(element.personID);
       batch.set(characterReference, element);
     });
 
     deactivateList.forEach(element => {
-      console.log('element', element);
       const characterReference: DocumentReference =
         firebase.firestore().collection('characterlists').doc('characteractivity').collection('characteractivity').doc(element.personID);
       batch.delete(characterReference);
     });
-
-
 
     batch.commit().then(() => {
       console.log('succes');
@@ -86,7 +79,49 @@ export class FirebaseService {
 
   getActiveCrewRoster() {
     return this.db.collection('characterlists').doc('characteractivity').collection('characteractivity').valueChanges();
-    // return this.db.collection('characterlists').doc('characteractivity').set(Object.assign(entry));
+  }
+
+  getActivePassengerList() {
+    return this.db.collection('characterlists').doc('passengeractivity').collection('passengeractivity').valueChanges();
+  }
+
+  getCrewRoster() {
+    return this.db.collection('characterlists').doc('celestracrew').collection('celestracrew').valueChanges();
+  }
+
+  updateCrewRoster(character) {
+    return this.db.collection('characterlists').doc('celestracrew').collection('celestracrew')
+      .doc(character.personID).set(Object.assign(character));
+  }
+
+  registerCharacter(characterBaseFile, characterActivity, patientFile) {
+    this.db.collection('characterlists').doc('characterlist').collection('characterlist')
+      .doc(characterBaseFile.personID).set(Object.assign(characterBaseFile));
+
+    this.db.collection('characterlists').doc('celestracrew').collection('celestracrew')
+      .doc(characterActivity.personID).set(Object.assign(characterActivity));
+
+    if (characterActivity.active) {
+      this.db.collection('characterlists').doc('characteractivity').collection('characteractivity')
+        .doc(characterActivity.personID).set(Object.assign(characterActivity));
+    }
+
+    this.db.collection('patientlist').doc(patientFile.personID).set(Object.assign(patientFile));
+  }
+
+  registerPassenger(characterBaseFile, characterActivity, patientFile) {
+    this.db.collection('characterlists').doc('characterlist').collection('characterlist')
+      .doc(characterBaseFile.personID).set(Object.assign(characterBaseFile));
+
+    this.db.collection('characterlists').doc('passengerlist').collection('passengerlist')
+      .doc(characterActivity.personID).set(Object.assign(characterActivity));
+
+    if (characterActivity.active) {
+      this.db.collection('characterlists').doc('passengeractivity').collection('passengeractivity')
+        .doc(characterActivity.personID).set(Object.assign(characterActivity));
+    }
+
+    this.db.collection('patientlist').doc(patientFile.personID).set(Object.assign(patientFile));
   }
 
 }

@@ -3,11 +3,12 @@ export interface CharacterPatientFile {
     name: string;
     otherNames?: string;
     familyName?: string;
-    organisation?: string;
     ship?: string;
+    organisation?: string;
+    imageLocation?: string;
     gender: string;
     specialAttention: boolean;
-    specialAttentionDescription: string;
+    specialAttentionDescription?: string;
     bloodType?: string;
     allele?: string;
     dateOfBirth?: Date;
@@ -16,4 +17,5 @@ export interface CharacterPatientFile {
     npc: boolean;
     height?: number;
     weight?: number;
+    alive: boolean;
 }

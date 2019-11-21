@@ -13,7 +13,8 @@ export interface CharacterBaseFile {
     organisation?: string;
     ship?: string;
     cardNumber?: string;
-    aboardCelestra: boolean;
-    onDuty: boolean;
-    isAlive: boolean;
+    disembarked: boolean;
+    active: boolean;
+    alive: boolean;
+    npc: boolean;
 }
