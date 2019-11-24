@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="determineScreen()" gutterSize="5px" *ngIf="determineScreen() === '2'">
+<mat-grid-list [cols]="determineScreen()" gutterSize="5px">
   <mat-grid-tile>
     <mat-card class="dashboard-container full-width">
       <mat-card-title>Database Entries
@@ -21,7 +21,7 @@
 </mat-grid-list>
 
 
-<mat-accordion *ngIf="determineScreen() === '1'">
+<!-- <mat-accordion *ngIf="determineScreen() === '1'">
 
   <mat-expansion-panel [expanded]="!displayView" (opened)="displayView = false" mat-elevation-z>
     <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
@@ -32,4 +32,4 @@
     <app-database-view [selectedEntry]="selectedEntry" (close)="closePanel($event)"></app-database-view>
   </mat-expansion-panel>
 
-</mat-accordion>
+</mat-accordion> -->

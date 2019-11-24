@@ -1,15 +1,16 @@
+<div class="overlay" *ngIf="cardRegistrationView">
+  <div class="overlay-center">{{ cardRegistrationPending ? 'card registered' : 'present card' }}</div>
+  <button mat-raised-button (click)="toggleRegisterCardView()" class="float-right">Cancel</button>
+</div>
+
 <div *ngIf="!!formGroup" class="full-width">
-  <div class="overlay full-height" *ngIf="cardRegistrationView">
-    present card
-    <button mat-raised-button (click)="cancelCardRegistration()" class="float-right">Cancel</button>
-  </div>
 
   <form [formGroup]="formGroup">
     <mat-grid-list [cols]="determineCols()" rowHeight="3em" gutterSize="10px">
 
       <mat-grid-tile>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Name" formControlName='name'>
+          <input matInput placeholder="Name" formControlName='name' autofocus>
         </mat-form-field>
       </mat-grid-tile>
 
@@ -111,10 +112,10 @@
   </form>
 
   <mat-card-actions>
-    <button mat-raised-button disabled="true">Take Picture</button>
+    <!-- <button mat-raised-button disabled="true">Take Picture</button> -->
     <button mat-raised-button (click)="toggleRegisterCardView()">Register Card</button>
 
-    <button mat-raised-button (click)="cancel()" class="float-right">Cancel Entry</button>
-    <button mat-raised-button (click)="save()" class="float-right">Save Entry</button>
+    <button mat-raised-button (click)="cancel()" class="float-right">Cancel</button>
+    <button mat-raised-button (click)="save()" class="float-right" [disabled]="!this.formGroup.valid">Save</button>
   </mat-card-actions>
 </div>

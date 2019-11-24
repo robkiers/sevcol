@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, Optional, Host, SkipSelf } from '@angular/core';
+import { Component, Input, Output, EventEmitter, Optional, Host, SkipSelf, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-table-overview',
@@ -7,10 +8,12 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./table-overview.component.scss']
 })
 
-export class TableOverviewComponent {
+export class TableOverviewComponent implements OnInit {
 
   @Input() set dataSource(dataSource) {
     this.data = new MatTableDataSource(dataSource);
+    this.data.sort = this.sort;
+
   }
 
   @Input() set columns(displayedColumns) {
@@ -20,12 +23,19 @@ export class TableOverviewComponent {
 
   @Output() rowSelect = new EventEmitter();
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   data;
   columnFields;
   displayedColumns;
 
   constructor(
   ) { }
+
+  ngOnInit() {
+    this.data.sort = this.sort;
+  }
+
 
   selectRow(row) {
     this.rowSelect.emit(row);
@@ -37,16 +47,13 @@ export class TableOverviewComponent {
 
   isTimestamp(definition) {
     if (!!definition) {
-      console.log(definition);
-      // return definition.instante('Timestamp') ? definition.toDate() : definition;
-      // return definition ===  ? definition.toDate() : definition;
-
-      // return new Date(definition) ? true : false;
       return definition === definition.toString() ? definition : definition.format('D MMMM YYYY');
-      // new Date(definition).toLocaleString();
-      // return definition === definition.toString() ? definition : definition.toDate();
     }
 
+  }
+
+  log(event) {
+    console.log(event);
   }
 
 }
