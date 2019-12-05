@@ -10,9 +10,10 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <!-- <button mat-raised-button (click)="airlockOpen = !airlockOpen"> {{airlockOpen ? 'Close': 'Open'}} Airlock</button> -->
-    <button mat-raised-button (click)="openSnackBar('Ask SL for status','not implemented')" disabled="true">Request dock status</button>
-    <!-- <button mat-raised-button (click)="manualOveride = !manualOveride">Manual override</button> -->
+    <button mat-raised-button (click)="airlockOpen = !airlockOpen"> {{airlockOpen ? 'Close': 'Open'}} Airlock</button>
+    <button mat-raised-button (click)="openSnackBar('Ask SL for status','not implemented')" disabled="true">Request dock
+      status</button>
+    <button mat-raised-button (click)="manualOveride = !manualOveride">Manual override</button>
 
     <span *ngIf="manualOveride">
       <button mat-raised-button (click)="innerAirlock = !innerAirlock">{{innerAirlock ? 'Close': 'Open'}} inner Airlock
@@ -97,6 +98,9 @@
           <th mat-header-cell *matHeaderCellDef>Disembarked</th>
           <td mat-cell *matCellDef="let person">
             <mat-slide-toggle [checked]="person.disembarked" disabled="true" class="fakeActive"></mat-slide-toggle>
+            <button mat-mini-fab (click)="unlistPassenger($event)" style="margin-left: 10px;">
+              <mat-icon>remove_cirle_outline</mat-icon>
+            </button>
           </td>
         </ng-container>
 

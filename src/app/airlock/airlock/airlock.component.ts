@@ -76,6 +76,10 @@ export class AirlockComponent implements OnInit {
     this.scanInput.nativeElement.value = '';
   }
 
+  unlistPassenger(event) {
+    console.log(event);
+  }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 3000,
