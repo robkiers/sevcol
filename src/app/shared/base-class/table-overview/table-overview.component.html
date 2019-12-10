@@ -1,16 +1,28 @@
 <div *ngIf="!!data && !!columnFields">
 
-  <table mat-table [dataSource]="data" matSort class="full-width" >
+  <table mat-table [dataSource]="data" matSort class="full-width">
 
     <ng-container *ngFor="let col of columnFields" [matColumnDef]="col.definition">
       <th mat-header-cell *matHeaderCellDef mat-sort-header [style]="col.width"> {{ col.header }} </th>
 
 
       <div [ngSwitch]="col.definition">
-        
+
         <div *ngSwitchCase="'date'">
           <td mat-cell *matCellDef="let element" [style]="col.width">
             {{ element[col.definition]?.toDate() | date:'yyyy/MM/dd hh:mm:ss' }}
+          </td>
+        </div>
+
+        <div *ngSwitchCase="'position'">
+          <td mat-cell *matCellDef="let element; index as i;" [style]="col.width">
+            {{ i + 1 }}
+          </td>
+        </div>
+
+        <div *ngSwitchCase="'name'">
+          <td mat-cell *matCellDef="let element" [style]="col.width">
+            {{element.familyName}}, {{element.name}}
           </td>
         </div>
 
@@ -24,6 +36,6 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
+    <tr mat-row *matRowDef="let row; index as i; columns: displayedColumns;" (click)="selectRow(row)"></tr>
   </table>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShipStatsService } from '../ship-stats/ship-stats.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TopBarService } from './top-bar.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TopBarComponent implements OnInit {
 
+  visible = true;
   time;
   // timeAdjustment = 5097430800000;
   formGroup: FormGroup;
@@ -20,8 +21,9 @@ export class TopBarComponent implements OnInit {
     private shipStats: ShipStatsService,
     private router: Router,
     protected _fb: FormBuilder,
-    private activatedRoute: ActivatedRoute) {
-
+    private activatedRoute: ActivatedRoute,
+    public nav: TopBarService
+    ) {
 
     // .pipe(
     //   filter(event => event instanceof NavigationEnd),
@@ -59,4 +61,9 @@ export class TopBarComponent implements OnInit {
     console.log(this.router);
   }
 
+  hide() { this.visible = false; }
+
+  show() { this.visible = true; }
+
+  toggle() { this.visible = !this.visible; }
 }

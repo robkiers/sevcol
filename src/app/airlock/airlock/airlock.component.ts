@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ActiveCrewListComponent, CharcterActivity } from '../active-crew-list/active-crew-list.component';
 import { RegisterCharacterComponent } from '../register-character/register-character.component';
+import { FindPassengerComponent } from '../find-passenger/find-passenger.component';
+import { TopBarService } from 'src/app/core/top-bar/top-bar.service';
 
 @Component({
   selector: 'app-airlock',
@@ -30,9 +32,11 @@ export class AirlockComponent implements OnInit {
   dialogClosed = true;
 
   manualOveride = false;
+
   airlockOpen = false;
   innerAirlock = false;
   outerAirlock = false;
+  airlockPressurized = true;
 
   @ViewChild('scanInput', { static: false }) scanInput: ElementRef;
 
@@ -48,10 +52,13 @@ export class AirlockComponent implements OnInit {
     protected _api: FirebaseService,
     private _snackBar: MatSnackBar,
     private _shipStats: ShipStatsService,
-    public _dialog: MatDialog
+    public _dialog: MatDialog,
+    public _topbar: TopBarService
   ) { }
 
   ngOnInit() {
+    this._topbar.hide();
+
     this._api.getCharacterList().subscribe(data => {
       this.characterList = data as CharacterBaseFile[];
       console.log('airlock data', data);
@@ -76,8 +83,20 @@ export class AirlockComponent implements OnInit {
     this.scanInput.nativeElement.value = '';
   }
 
-  unlistPassenger(event) {
-    console.log(event);
+  findPassenger() {
+    const dialogRef = this._dialog.open(FindPassengerComponent, {
+      width: '800px',
+    });
+    this.dialogClosed = false;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.dialogClosed = true;
+    });
+  }
+
+  unlistPassenger(event, person) {
+    this._api.delistPassenger(person);
   }
 
   openSnackBar(message: string, action: string) {
@@ -112,4 +131,9 @@ export class AirlockComponent implements OnInit {
     });
   }
 
+  toggleAirlock() {
+    this.airlockOpen = !this.airlockOpen;
+    this.outerAirlock = this.airlockOpen;
+    this.innerAirlock = this.airlockOpen;
+  }
 }

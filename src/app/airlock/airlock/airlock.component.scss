@@ -8,13 +8,60 @@
 }
 
 .airlock-container {
-  margin-top: 15px;
+  // margin-top: 15px;
   display: flex;
   box-sizing: border-box;
   align-items: stretch;
-  max-height: calc(100% - 190px);
+  max-height: calc(100% - 250px);
 }
 
 .fakeActive {
   opacity: 1 !important;
+}
+
+.airlock-container-top {
+  margin: 10px 0 10px 0;
+  display: flex;
+  height: 250px;
+  .action {
+    width: 100%;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+  }
+  .action:last-child {
+    margin-right: 0;
+  }
+}
+
+.airlock-button {
+  // height: calc(100% - 5px);
+  margin-bottom: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.airlock-button:last-child {
+  margin-bottom: 0;
+}
+
+.status {
+  display: flex;
+  font-size: 1.1rem;
+  .text {
+    // width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+  }
+  .state {
+    // width: 100%;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+  }
+  .item {
+    width: 100%;
+    height: 100%;
+  }
 }

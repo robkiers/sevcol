@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'sevcol';
+  title = 'CSAI - Celestra Software Assistant Interface';
 }

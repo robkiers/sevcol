@@ -1,5 +1,8 @@
 <div class="overlay" *ngIf="cardRegistrationView">
-  <div class="overlay-center">{{ cardRegistrationPending ? 'card registered' : 'present card' }}</div>
+  <div class="overlay-center">
+    <mat-icon *ngIf="cardRegistrationPending">check</mat-icon>
+    {{ cardRegistrationPending ? 'card registered' : 'present card' }}
+  </div>
   <button mat-raised-button (click)="toggleRegisterCardView()" class="float-right">Cancel</button>
 </div>
 

@@ -1,19 +1,21 @@
-<mat-toolbar>
-    <div>
+<nav *ngIf="nav.visible">
+    <mat-toolbar>
+        <div>
 
-        <button mat-raised-button [routerLink]="['']">
-            <mat-icon>chevron_left</mat-icon>Dashboard
-        </button>
-    </div>
+            <button mat-raised-button [routerLink]="['']">
+                <mat-icon>chevron_left</mat-icon>Dashboard
+            </button>
+        </div>
 
-    <div class='margin-left'>
+        <div class='margin-left'>
 
-    </div>
+        </div>
 
-    <div class='float-right'>
-        <span class='title'>
-            {{ time | date: 'HH:mm' }}
-            {{ time | date: 'EEEE, MMMM d, y' }}
-        </span>
-    </div>
-</mat-toolbar>
+        <div class='float-right'>
+            <span class='title'>
+                {{ time | date: 'HH:mm' }}
+                {{ time | date: 'EEEE, MMMM d, y' }}
+            </span>
+        </div>
+    </mat-toolbar>
+</nav>

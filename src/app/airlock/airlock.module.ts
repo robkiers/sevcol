@@ -4,17 +4,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { ActiveCrewListComponent } from './active-crew-list/active-crew-list.component';
 import { RegisterCharacterComponent } from './register-character/register-character.component';
+import { FindPassengerComponent } from './find-passenger/find-passenger.component';
 
 const routes: Routes = [
   { path: '', component: AirlockComponent }
-  // { path: '', component: PatientViewComponent }
 ];
 
 @NgModule({
   declarations: [
     AirlockComponent,
     ActiveCrewListComponent,
-    RegisterCharacterComponent
+    RegisterCharacterComponent,
+    FindPassengerComponent
   ],
   imports: [
     SharedModule,
@@ -22,7 +23,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     ActiveCrewListComponent,
-    RegisterCharacterComponent
+    RegisterCharacterComponent,
+    FindPassengerComponent
   ]
 })
 export class AirlockModule { }

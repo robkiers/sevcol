@@ -1,0 +1,7 @@
+<mat-card-title>Passenger List</mat-card-title>
+<app-table-overview [dataSource]="passengerList" [columns]="columns" (rowSelect)="rowSelect($event)">
+</app-table-overview>
+
+<mat-card-actions>
+  <button mat-raised-button (click)="closeDialog()">Close Screen</button>
+</mat-card-actions>
