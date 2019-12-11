@@ -8,11 +8,10 @@
 }
 
 .airlock-container {
-  // margin-top: 15px;
   display: flex;
   box-sizing: border-box;
   align-items: stretch;
-  max-height: calc(100% - 250px);
+  height: calc(100vh - 260px);
 }
 
 .fakeActive {
@@ -20,12 +19,13 @@
 }
 
 .airlock-container-top {
-  margin: 10px 0 10px 0;
+  padding: 10px 0 10px 0;
   display: flex;
   height: 250px;
+  box-sizing: border-box;
   .action {
     width: 100%;
-    margin-right: 5px;
+    margin-right: 10px;
     display: flex;
     flex-direction: column;
   }
@@ -34,8 +34,11 @@
   }
 }
 
+.container-content {
+  height: calc(100vh - 380px);
+}
+
 .airlock-button {
-  // height: calc(100% - 5px);
   margin-bottom: 5px;
   width: 100%;
   height: 100%;
@@ -49,13 +52,11 @@
   display: flex;
   font-size: 1.1rem;
   .text {
-    // width: 100%;
     display: flex;
     flex-direction: column;
     margin-right: 10px;
   }
   .state {
-    // width: 100%;
     font-weight: 500;
     display: flex;
     flex-direction: column;

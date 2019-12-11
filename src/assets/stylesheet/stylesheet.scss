@@ -61,6 +61,10 @@
   height: 100%;
 }
 
+.full-viewport-height {
+  height: calc(100vh);
+}
+
 .float-right {
   float: right;
 }
