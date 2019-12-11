@@ -1,3 +1,7 @@
 .router-container {
+  height: calc(100vh);
+}
+
+.router-container-topbar {
   height: calc(100vh - 83px);
 }

@@ -1,0 +1,11 @@
+<div [ngClass]="{'airlock-open': airlockOpen}" class="status-container">
+  <div>
+    {{ airlockOpen }}
+    <p>Airlock is {{airlockOpen ? 'open' : 'closed'}}</p>
+  </div>
+  <div>
+    <p>
+      {{ peopleOffship === 0 ? peopleOffship > 1 ? '1 crewmember is disembarked' :  'All crew is accounted for.' : peopleOffship + ' crewmembers are disembarked'}}
+    </p>
+  </div>
+</div>

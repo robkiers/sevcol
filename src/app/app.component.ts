@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TopBarService } from './core/top-bar/top-bar.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,10 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'CSAI - Celestra Software Assistant Interface';
+
+  constructor(
+    public _topbar: TopBarService
+  ) {
+  }
 }
+

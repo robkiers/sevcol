@@ -1,0 +1,14 @@
+.airlock-open {
+  background-color: red;
+}
+
+.status-container {
+  background-color: green;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  font-size: 2rem;
+  font-weight: 500;
+}

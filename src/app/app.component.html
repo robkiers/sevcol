@@ -1,5 +1,5 @@
 <app-top-bar></app-top-bar>
-<div class="router-container">
+<div class="router-container" [ngClass]="{'router-container-topbar': _topbar.visible}">
     <router-outlet>
     </router-outlet>
 </div>

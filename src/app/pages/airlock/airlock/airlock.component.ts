@@ -54,10 +54,11 @@ export class AirlockComponent implements OnInit {
     private _shipStats: ShipStatsService,
     public _dialog: MatDialog,
     public _topbar: TopBarService
-  ) { }
+  ) {
+    this._topbar.hide();
+  }
 
   ngOnInit() {
-    this._topbar.hide();
 
     this._api.getCharacterList().subscribe(data => {
       this.characterList = data as CharacterBaseFile[];
@@ -70,6 +71,8 @@ export class AirlockComponent implements OnInit {
     });
 
     this._api.getActivePassengerList().subscribe(data => this.activePassengerList = data);
+
+    this._shipStats.getAirlockStatus().subscribe(status => this.airlockOpen = status);
   }
 
   selectRow(e) {
@@ -132,8 +135,10 @@ export class AirlockComponent implements OnInit {
   }
 
   toggleAirlock() {
-    this.airlockOpen = !this.airlockOpen;
-    this.outerAirlock = this.airlockOpen;
-    this.innerAirlock = this.airlockOpen;
+    // this.airlockOpen = !this.airlockOpen;
+    // this.outerAirlock = this.airlockOpen;
+    // this.innerAirlock = this.airlockOpen;
+
+    this._shipStats.toggle();
   }
 }

@@ -1,29 +1,34 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './medical/dashboard/dashboard.component';
+import { DashboardComponent } from './pages/medical/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: 'patient-list',
-    loadChildren: './medical/patient-dossiers/patient-dossiers.module#PatientDossierModule'
+    loadChildren: './pages/medical/patient-dossiers/patient-dossiers.module#PatientDossierModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   { path: '', component: DashboardComponent },
   {
     path: 'medical-scanner',
-    loadChildren: './medical/medical-scanner/medical-scanner.module#MedicalScannerModule'
+    loadChildren: './pages/medical/medical-scanner/medical-scanner.module#MedicalScannerModule'
 
     // src\app\medical\\medical-scanner.module.ts
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   {
     path: 'medical-database',
-    loadChildren: './medical/database/database.module#DatabaseModule'
+    loadChildren: './pages/medical/database/database.module#DatabaseModule'
+    // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+  },
+  {
+    path: 'airlock-status',
+    loadChildren: './pages/airlock-status/airlock-status.module#AirlockStatusModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   {
     path: 'airlock',
-    loadChildren: './airlock/airlock.module#AirlockModule'
+    loadChildren: './pages/airlock/airlock.module#AirlockModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
 ];
