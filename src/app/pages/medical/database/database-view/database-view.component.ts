@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GenerateQRService } from 'src/app/shared/base-class/generate-qr/generate-qr.service';
 
 @Component({
   selector: 'app-database-view',
@@ -38,14 +39,15 @@ export class DatabaseViewComponent implements OnInit {
   @Input() set selectedEntry(record) {
     this.formGroup = null;
     this.selected = record;
-  };
+  }
 
   @Output() close = new EventEmitter();
 
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    protected _qrService: GenerateQRService,
   ) { }
 
   ngOnInit() {
@@ -124,6 +126,9 @@ export class DatabaseViewComponent implements OnInit {
     return '2';
   }
 
+  createQR() {
+    this._qrService.createQR(this.selected);
+  }
 }
 
 @Component({
