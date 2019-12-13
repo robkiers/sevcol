@@ -15,19 +15,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { DesktopCameraService } from './services/desktop-camera.service';
-import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
-import { PlatformInformationProvider } from './services/platform-information.provider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
-
-import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
+import { DesktopCameraService } from './services/desktop-camera.service';
+import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
+import { PlatformInformationProvider } from './services/platform-information.provider';
 
 @NgModule({
   providers: [
