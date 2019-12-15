@@ -1,1 +1,11 @@
-<button class="airlock-button" mat-raised-button (click)="createQR()"><mat-icon>qr_code</mat-icon></button>
+<!-- <button class="airlock-button" mat-raised-button (click)="createQR()"><mat-icon>qr_code</mat-icon></button> -->
+<div id="print-section">
+    <!--Your html stuff that you want to print-->
+    <qrcode [level]="1" [qrvalue]="'QR Code String'"></qrcode>
+    wewr
+</div>
+
+<!--
+     2)- Add the directive name in your button (ngxPrint),
+     3)- Affect your ID to printSectionId
+   -->

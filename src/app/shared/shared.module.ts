@@ -28,6 +28,8 @@ import { TableOverviewModule } from './base-class/table-overview/table-overview.
 import { DesktopCameraService } from './services/desktop-camera.service';
 import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
 import { PlatformInformationProvider } from './services/platform-information.provider';
+import { GenerateQRModule } from './base-class/generate-qr/generate-qr.module';
+// import { PrintLayoutComponent } from './base-class/print-layout/print-layout.component';
 
 @NgModule({
   providers: [
@@ -67,8 +69,9 @@ import { PlatformInformationProvider } from './services/platform-information.pro
     MatExpansionModule,
     OverlayModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    GenerateQRModule
   ],
-  declarations: []
+  // declarations: []
 })
 export class SharedModule { }

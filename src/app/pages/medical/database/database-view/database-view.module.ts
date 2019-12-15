@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DatabaseViewComponent, DialogOverviewExampleDialog } from './database-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AnQrcodeModule } from 'an-qrcode';
 
 @NgModule({
   declarations: [
@@ -8,7 +9,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DialogOverviewExampleDialog
   ],
   imports: [
-    SharedModule
+    SharedModule,
+    AnQrcodeModule
   ],
   exports: [
     DatabaseViewComponent

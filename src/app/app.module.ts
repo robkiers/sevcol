@@ -11,10 +11,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { DashboardModule } from './pages/medical/dashboard/dashboard.module';
+import { PrintLayoutComponent } from './shared/base-class/print-layout/print-layout.component';
+
+// import { PrintLayoutModule } from './shared/base-class/print-layout/print-layout.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PrintLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,7 @@ import { DashboardModule } from './pages/medical/dashboard/dashboard.module';
     CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-
+    // PrintLayoutModule
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

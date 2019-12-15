@@ -17,5 +17,9 @@
                 {{ time | date: 'EEEE, MMMM d, y' }}
             </span>
         </div>
+
+        <button mat-raised-button (click)="openQRPrint()">
+            <mat-icon>border_all</mat-icon>QR
+        </button>
     </mat-toolbar>
 </nav>

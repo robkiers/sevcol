@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ShipStatsService } from '../ship-stats/ship-stats.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TopBarService } from './top-bar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GenerateQRComponent } from 'src/app/shared/base-class/generate-qr/generate-qr.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -15,6 +17,7 @@ export class TopBarComponent implements OnInit {
   time;
   // timeAdjustment = 5097430800000;
   formGroup: FormGroup;
+  dialogClosed = true;
 
 
   constructor(
@@ -22,8 +25,9 @@ export class TopBarComponent implements OnInit {
     private router: Router,
     protected _fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    public nav: TopBarService
-    ) {
+    public nav: TopBarService,
+    public _dialog: MatDialog,
+  ) {
 
     // .pipe(
     //   filter(event => event instanceof NavigationEnd),
@@ -66,4 +70,22 @@ export class TopBarComponent implements OnInit {
   show() { this.visible = true; }
 
   toggle() { this.visible = !this.visible; }
+
+
+  // openQRPrint() {
+
+  // }
+
+  openQRPrint() {
+    const dialogRef = this._dialog.open(GenerateQRComponent, {
+      width: '1400px',
+      height: '1200px'
+    });
+    this.dialogClosed = false;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.dialogClosed = true;
+    });
+  }
 }

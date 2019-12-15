@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GenerateQRService } from './generate-qr.service';
-import { image } from 'qr-image';
 
 @Component({
   selector: 'app-generate-qr',
@@ -18,6 +17,10 @@ export class GenerateQRComponent implements OnInit {
   }
 
   createQR() {
-    image('test');
+
+  }
+
+  print() {
+    window.print();
   }
 }

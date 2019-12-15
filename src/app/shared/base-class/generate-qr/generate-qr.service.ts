@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { image } from 'qr-image';
+// import * as qrCodeGen from 'qr-image';
+// import { }
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,6 @@ export class GenerateQRService {
   constructor() { }
 
   createQR(entry) {
-    console.log('entry', entry);
-    // entry
-    image(entry.id);
+    // qrCodeGen.image(entry.id);
   }
 }

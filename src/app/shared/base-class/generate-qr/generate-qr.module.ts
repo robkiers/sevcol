@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 import { GenerateQRComponent } from './generate-qr.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { image } from 'qr-image';
+import { AnQrcodeModule } from 'an-qrcode';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
-  declarations: [GenerateQRComponent],
+  declarations: [
+    GenerateQRComponent
+  ],
   imports: [
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    
+    AnQrcodeModule,
+    NgxPrintModule
   ]
 })
 export class GenerateQRModule { }
