@@ -4,8 +4,6 @@ import { GenerateQRComponent } from './generate-qr.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AnQrcodeModule } from 'an-qrcode';
-import { NgxPrintModule } from 'ngx-print';
-
 @NgModule({
   declarations: [
     GenerateQRComponent
@@ -15,7 +13,6 @@ import { NgxPrintModule } from 'ngx-print';
     MatButtonModule,
     MatIconModule,
     AnQrcodeModule,
-    NgxPrintModule
   ]
 })
 export class GenerateQRModule { }
