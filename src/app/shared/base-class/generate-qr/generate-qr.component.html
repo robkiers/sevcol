@@ -1,11 +1,6 @@
-<!-- <button class="airlock-button" mat-raised-button (click)="createQR()"><mat-icon>qr_code</mat-icon></button> -->
-<div id="print-section">
-    <!--Your html stuff that you want to print-->
+<div class="print-section">
     <qrcode [level]="1" [qrvalue]="'QR Code String'"></qrcode>
-    wewr
+    wewrwerewrewwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwerwer1234567890
 </div>
 
-<!--
-     2)- Add the directive name in your button (ngxPrint),
-     3)- Affect your ID to printSectionId
-   -->
+<button mat-mini-fab (click)="print()" matTooltip="Unlist passenger" class="printbutton"><mat-icon>print</mat-icon>

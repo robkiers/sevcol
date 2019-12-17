@@ -75,11 +75,12 @@ export class TopBarComponent implements OnInit {
   // openQRPrint() {
 
   // }
-
+  // width: 21cm;
+  // height: 29.7cm;
   openQRPrint() {
     const dialogRef = this._dialog.open(GenerateQRComponent, {
-      width: '1400px',
-      height: '1200px'
+      width: '21cm',
+      height: '29.7cm',
     });
     this.dialogClosed = false;
 

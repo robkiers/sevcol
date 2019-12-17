@@ -1,0 +1,35 @@
+.print-section {
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+@media print {
+  .mat-dialog-container {
+    box-shadow: none !important;
+    width: 21cm;
+    height: 29.7cm;
+    padding: 30mm 45mm 30mm 45mm;
+  }
+  // :host {
+
+  // }
+  .print-section {
+    width: 100%;
+    height: 100%;
+    // width: 21cm;
+    // height: 29.7cm;
+    // margin: 30mm 45mm 30mm 45mm;
+    /* change the margins as you want them to be. */
+  }
+}
+
+.printbutton {
+}
+
+// :host {
+//     border: 1px solid black;
+//     width: 21cm;
+//     height: 29.7cm;
+// }

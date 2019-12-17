@@ -37,11 +37,19 @@ body {
 }
 
 @media print {
-  app-root > * {
+  app-root app-dashboard {
     display: none;
   }
-  app-root app-print-layout {
-    display: block;
+
+  .cdk-global-overlay-wrapper {
+    width: 21cm;
+    height: 29.7cm;
+  }
+  .cdk-overlay-pane {
+    max-width: 100% !important;
+  }
+  .mat-dialog-container {
+    box-shadow: none !important;
   }
 }
 
