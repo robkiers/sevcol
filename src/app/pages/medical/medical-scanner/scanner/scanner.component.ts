@@ -1,36 +1,55 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
 @Component({
   selector: 'app-scanner',
   templateUrl: './scanner.component.html',
   styleUrls: ['./scanner.component.scss']
 })
-export class ScannerComponent implements OnInit {
+export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
+
+  screenSize = 'mobile';
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
   constructor(
     protected _api: FirebaseService,
-  ) { }
+    protected _shipstats: ShipStatsService,
+  ) {
+    // this.screenSize = this._shipstats.screenSize;
+  }
+
+  // private contentPlaceholder: ElementRef;
+
+  // @ViewChild('contentPlaceholder') set content(content: ElementRef) {
+  //    this.contentPlaceholder = content;
+  // }
+
 
   result;
   resultRetrieve;
 
-  qrResponse;
+  qrResponse = null;
   scannerOpenState = true;
   step = 0;
+
+  currentIndex = 0;
 
   @ViewChild(QrScannerComponent, { static: true }) qrScannerComponent: QrScannerComponent;
 
   ngOnInit() {
+    console.log(this.screenSize);
+    console.log(this._shipstats.screenSize);
   }
 
-  // determineCanvas() {
-  //   const innerWidth = window.innerWidth;
+  ngAfterViewInit() {
+    this.startScan();
+  }
 
-  //   this.canvasWidth = innerWidth < 500 ? '340' : '1080';
-  //   this.canvasheight = innerWidth < 500 ? '480' : '720';
-  // }
+  ngOnDestroy() {
+    this.qrScannerComponent.stopScanning();
+  }
 
   determineCanvas(input: string) {
     const innerWidth = window.innerWidth;
@@ -51,10 +70,35 @@ export class ScannerComponent implements OnInit {
     this.step = index;
   }
 
+  swipe(action = this.SWIPE_ACTION.RIGHT) {
+    // console.log(currentIndex);
+    console.log(action);
+    // currentIndex
+    // if (currentIndex > this.avatars.length || currentIndex < 0) { return; }
+
+    // let nextIndex = 0;
+
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      // const isLast = currentIndex === this.avatars.length - 1;
+      // nextIndex = isLast ? 0 : currentIndex + 1;
+      this.currentIndex = 0;
+    }
+
+    // swipe left, previous avatar
+    if (action === this.SWIPE_ACTION.LEFT) {
+      // const isFirst = currentIndex === 0;
+      // nextIndex = isFirst ? this.avatars.length - 1 : currentIndex - 1;
+      this.currentIndex = 1;
+
+    }
+
+    // this.avatars.forEach((x, i) => x.visible = (i === nextIndex)
+  }
+
   startScan() {
     this.qrScannerComponent.getMediaDevices().then(devices => {
       // this.devicesRecord = devices;
-      // console.log(devices);
+      console.log(devices);
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
         if (device.kind.toString() === 'videoinput') {
@@ -128,7 +172,7 @@ export class ScannerComponent implements OnInit {
 }
 
 export interface sevcolQR {
-  type: string,
+  type: string;
   // dataid: string,
-  data: any
+  data: any;
 }

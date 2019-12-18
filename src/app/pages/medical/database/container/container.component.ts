@@ -9,7 +9,9 @@ import { DatabaseViewComponent } from '../database-view/database-view.component'
 })
 export class ContainerComponent implements OnInit {
 
-  screenType = 'mobile'
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+
+  screenType = 'mobile';
 
   databaseEntries;
   selectedEntry;
@@ -64,5 +66,9 @@ export class ContainerComponent implements OnInit {
 
   closePanel(event) {
     this.displayView = false;
+  }
+
+  swipe(currentIndex: number, action = this.SWIPE_ACTION.RIGHT) {
+    console.log('action', action);
   }
 }

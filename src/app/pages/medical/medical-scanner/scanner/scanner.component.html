@@ -38,3 +38,41 @@
         </div>
     </mat-expansion-panel>
 </mat-accordion> -->
+
+<div class="container">
+
+    <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <div class="container__camera" [ngClass]="{'hidden': currentIndex === 1}">
+            <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
+                [stopAfterScan]="true" [updateTime]="500">
+            </qr-scanner>
+        </div>
+
+        <!-- <div *ngIf="!!qrResponse"> -->
+        <div [ngClass]="{'hidden': currentIndex === 0}">
+            test
+            <!-- <div *ngIf="qrResponse.type === 'database'">
+                <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+            </div> -->
+
+            <!-- <div *ngIf="qrResponse.type === 'person'">
+                // <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+            </div> -->
+
+            <!-- <div *ngIf="qrResponse.type === 'link'">
+                {{ qrResponse.data }}
+                <a [href]="qrResponse.data">Visit Link</a>
+            </div>
+
+            <div *ngIf="qrResponse.type === 'string'">
+                {{ qrResponse.data }}
+            </div> -->
+        </div>
+    </div>
+
+    <div class="container__actions">
+        <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
+        <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
+        <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
+    </div>
+</div>

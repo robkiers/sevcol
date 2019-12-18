@@ -6,15 +6,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ShipStatsService {
 
+  screenSize = 'desktop';
+
   time;
   timeAdjustment = 5097430800000;
 
-  // airlock: boolean;
-  // airlockOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private airlockOpen = new BehaviorSubject<boolean>(false);
   public _airlockOpen: Observable<boolean> = this.airlockOpen.asObservable();
 
-  // airlockOpen = false;
   innerAirlock = false;
   outerAirlock = false;
   airlockPressurized = true;
@@ -44,12 +43,21 @@ export class ShipStatsService {
   }
 
   subs() {
-    this._airlockOpen.subscribe(status => {
-      console.log('subtest', status);
-      // this.airlockOpen = status;
-    });
+    // this._airlockOpen.subscribe(status => {
+    //   console.log('subtest', status);
+    //   // this.airlockOpen = status;
+    // });
+    this.screenSize = this.determineScreen();
   }
 
+  determineScreen(): string {
+    const innerWidth = window.innerWidth;
+    // console.log(innerWidth);
+    if (innerWidth < 500) {
+      return 'mobile';
+    }
+    return 'desktop';
+  }
 
   toggle() {
     // this.airlockOpen = !this.airlockOpen;
