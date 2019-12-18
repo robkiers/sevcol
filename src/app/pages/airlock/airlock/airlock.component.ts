@@ -53,7 +53,7 @@ export class AirlockComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private _shipStats: ShipStatsService,
     public _dialog: MatDialog,
-    public _topbar: TopBarService
+    public _topbar: TopBarService,
   ) {
     this._topbar.hide();
   }

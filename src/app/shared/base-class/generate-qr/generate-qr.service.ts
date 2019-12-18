@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-// import * as qrCodeGen from 'qr-image';
-// import { }
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -8,11 +7,26 @@ import { Injectable } from '@angular/core';
 })
 export class GenerateQRService {
 
-  constructedQRCodes;
+  // constructedQRCodes: qrCode[];
+  private constructedQRCodes$ = new BehaviorSubject<qrCode[]>([]);
+  public constructedQRCodes: Observable<qrCode[]> = this.constructedQRCodes$.asObservable();
 
   constructor() { }
 
-  createQR(entry) {
-    // qrCodeGen.image(entry.id);
+  createQR(entry: qrCode) {
+    const currentValue = this.constructedQRCodes$.value;
+    const updatedValue = [...currentValue, entry];
+    console.log(updatedValue);
+    this.constructedQRCodes$.next(updatedValue);
   }
+
+  clearQRCodeList() {
+    this.constructedQRCodes$.next([]);
+  }
+}
+
+export interface qrCode {
+  title: string;
+  data: string;
+  type: string;
 }

@@ -1,8 +1,18 @@
 .print-section {
-  border: 1px solid black;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px);
+  position: relative;
   box-sizing: border-box;
+}
+
+.qrcontainer {
+  border: 1px solid black;
+  display: inline-block;
+  box-sizing: border-box;
+  height: 180px;
+  width: 160px;
+  margin: 10px;
+  text-align: center !important;
 }
 
 @media print {
@@ -12,24 +22,21 @@
     height: 29.7cm;
     padding: 30mm 45mm 30mm 45mm;
   }
-  // :host {
 
-  // }
   .print-section {
     width: 100%;
     height: 100%;
-    // width: 21cm;
-    // height: 29.7cm;
-    // margin: 30mm 45mm 30mm 45mm;
-    /* change the margins as you want them to be. */
+  }
+  .qractions {
+    display: none;
   }
 }
 
-.printbutton {
+.qractions {
+  &__input {
+    width: 70%;
+  }
+  &__button {
+    margin-left: 10px;
+  }
 }
-
-// :host {
-//     border: 1px solid black;
-//     width: 21cm;
-//     height: 29.7cm;
-// }

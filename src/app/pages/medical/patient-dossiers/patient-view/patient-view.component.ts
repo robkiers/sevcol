@@ -4,6 +4,7 @@ import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UUID } from 'angular2-uuid';
+import { GenerateQRService } from 'src/app/shared/base-class/generate-qr/generate-qr.service';
 
 @Component({
   selector: 'app-patient-view',
@@ -38,6 +39,7 @@ export class PatientViewComponent implements OnInit {
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
+    protected _qrService: GenerateQRService,
   ) { }
 
   ngOnInit() {
@@ -129,6 +131,16 @@ export class PatientViewComponent implements OnInit {
     }
     return '3';
   }
+
+  createQR() {
+    const qrCode = {
+      title: this.selected.familyName + this.selected.name,
+      data: this.selected.personID,
+      type: 'person',
+    };
+    this._qrService.createQR(qrCode);
+  }
+
 
 }
 

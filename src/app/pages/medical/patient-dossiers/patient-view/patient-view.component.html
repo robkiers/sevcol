@@ -32,6 +32,7 @@
 
   <mat-card-actions>
     <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    <button mat-raised-button (click)="createQR()">Create QR</button>
     <button mat-raised-button (click)="closePanel()" *ngIf="determineCols() === '2'" class="margin-left">Close</button>
   </mat-card-actions>
 </div>

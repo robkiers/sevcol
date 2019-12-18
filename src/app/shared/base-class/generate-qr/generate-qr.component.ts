@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GenerateQRService } from './generate-qr.service';
+import { GenerateQRService, qrCode } from './generate-qr.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-generate-qr',
@@ -8,38 +9,43 @@ import { GenerateQRService } from './generate-qr.service';
 })
 export class GenerateQRComponent implements OnInit {
 
-  constructor(
-    _qrservice: GenerateQRService
+  qrcodeList;
+  formGroup;
 
+  constructor(
+    protected _qrservice: GenerateQRService,
+    protected _fb: FormBuilder,
   ) { }
 
   ngOnInit() {
-  }
-
-  createQR() {
-
+    this._qrservice.constructedQRCodes.subscribe(data => this.qrcodeList = data);
+    this.createFormgroup();
   }
 
   print() {
     window.print();
   }
+
+  addCustomInput() {
+    const saveEntity = this.formGroup.getRawValue();
+    if (!!saveEntity.newCode) {
+      const newCodeINput = {
+        type: '',
+        title: 'custom',
+        data: saveEntity.newCode,
+      };
+      this._qrservice.createQR(newCodeINput);
+      this.formGroup.reset();
+    }
+  }
+
+  createFormgroup() {
+    this.formGroup = this._fb.group({
+      newCode: '',
+    });
+  }
+
+  clearCodes() {
+    this._qrservice.clearQRCodeList();
+  }
 }
-
-
-// printContents = document.getElementById(this.printSectionId).innerHTML;
-// popupWin = window.open("", "_blank", "top=0,left=0,height=auto,width=auto");
-// popupWin.document.open();
-// popupWin.document.write(`
-//   <html>
-//     <head>
-//       <title>${this.printTitle ? this.printTitle : ""}</title>
-//       ${this.returnStyleValues()}
-//       ${this.returnStyleSheetLinkTags()}
-//       ${styles}
-//       ${links}
-//     </head>
-//     <body onload="window.print(); setTimeout(()=>{ window.close(); }, 0)">
-//       ${printContents}
-//     </body>
-//   </html>`);
-// popupWin.document.close();

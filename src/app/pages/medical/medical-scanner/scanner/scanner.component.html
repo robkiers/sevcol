@@ -1,4 +1,4 @@
-<mat-accordion>
+<!-- <mat-accordion>
     <mat-expansion-panel [expanded]="step === 0" (opened)="openPanel(0)">
         <mat-expansion-panel-header>
             Scanner
@@ -10,7 +10,6 @@
 
         <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
         <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
-        <!-- <button mat-raised-button (click)="this.initCamera()" class="margin-left">Initiate</button> -->
         <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
 
     </mat-expansion-panel>
@@ -25,7 +24,7 @@
             </div>
 
             <div *ngIf="qrResponse.type === 'person'">
-                <!-- <app-database-view [selectedEntry]="qrResponse.data"></app-database-view> -->
+                // <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
             </div>
 
             <div *ngIf="qrResponse.type === 'link'">
@@ -38,4 +37,4 @@
             </div>
         </div>
     </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->

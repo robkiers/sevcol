@@ -127,7 +127,12 @@ export class DatabaseViewComponent implements OnInit {
   }
 
   createQR() {
-    this._qrService.createQR(this.selected);
+    const qrCode = {
+      title: this.selected.title,
+      data: this.selected.id,
+      type: 'database',
+    };
+    this._qrService.createQR(qrCode);
   }
 }
 
