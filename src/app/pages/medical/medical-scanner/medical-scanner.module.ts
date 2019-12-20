@@ -3,8 +3,9 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgQrScannerModule } from 'angular2-qrscanner';
-import { DatabaseViewModule } from '../database/database-view/database-view.module';
 import { CameraComponent } from './camera/camera.component';
+import { DatabaseViewModule } from '../database/database-view/database-view.module';
+import { PatientViewModule } from '../patient-dossiers/patient-view/patient-view.module';
 
 const routes: Routes = [
   { path: '', component: ScannerComponent }
@@ -19,7 +20,8 @@ const routes: Routes = [
     NgQrScannerModule,
     SharedModule,
     RouterModule.forChild(routes),
-    DatabaseViewModule
+    DatabaseViewModule,
+    PatientViewModule
   ]
 })
 export class MedicalScannerModule { }

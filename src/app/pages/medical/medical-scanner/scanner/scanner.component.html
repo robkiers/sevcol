@@ -42,33 +42,42 @@
 <div class="container">
 
     <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-        <div class="container__camera" [ngClass]="{'hidden': currentIndex === 1}">
-            <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
-                [stopAfterScan]="true" [updateTime]="500">
-            </qr-scanner>
-        </div>
+        <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="log($event)">
+            <mat-tab>
+                <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
+                    [stopAfterScan]="true" [updateTime]="500">
+                </qr-scanner>
+            </mat-tab>
+            <mat-tab>
 
-        <!-- <div *ngIf="!!qrResponse"> -->
-        <div [ngClass]="{'hidden': currentIndex === 0}">
-            test
-            <!-- <div *ngIf="qrResponse.type === 'database'">
-                <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
-            </div> -->
+                <div *ngIf="!!qrResponse">
+                    <div class="regular" [ngClass]="{'hiddenRight': currentIndex === 0}">
 
-            <!-- <div *ngIf="qrResponse.type === 'person'">
-                // <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
-            </div> -->
+                        <div *ngIf="qrResponse.type === 'database'">
+                            <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+                        </div>
 
-            <!-- <div *ngIf="qrResponse.type === 'link'">
-                {{ qrResponse.data }}
-                <a [href]="qrResponse.data">Visit Link</a>
-            </div>
+                        <div *ngIf="qrResponse.type === 'person'">
+                            <app-patient-view [selectedEntry]="qrResponse.data"></app-patient-view>
+                        </div>
 
-            <div *ngIf="qrResponse.type === 'string'">
-                {{ qrResponse.data }}
-            </div> -->
-        </div>
+                        <div *ngIf="qrResponse.type === 'link'">
+                            {{ qrResponse.data }}
+                            <a [href]="qrResponse.data">Visit Link</a>
+                        </div>
+
+                        <div *ngIf="qrResponse.type === 'string'">
+                            {{ qrResponse.data }}
+                        </div>
+                    </div>
+                </div>
+
+            </mat-tab>
+        </mat-tab-group>
     </div>
+
+
+
 
     <div class="container__actions">
         <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>

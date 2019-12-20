@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { TableOverviewModule } from './base-class/table-overview/table-overview.module';
 import { DesktopCameraService } from './services/desktop-camera.service';
@@ -69,7 +70,8 @@ import { GenerateQRModule } from './base-class/generate-qr/generate-qr.module';
     OverlayModule,
     MatSnackBarModule,
     MatListModule,
-    GenerateQRModule
+    GenerateQRModule,
+    MatTabsModule
   ],
   // declarations: []
 })

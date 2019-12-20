@@ -2,30 +2,27 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy, AfterViewIn
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scanner',
   templateUrl: './scanner.component.html',
-  styleUrls: ['./scanner.component.scss']
+  styleUrls: ['./scanner.component.scss'],
 })
 export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   screenSize = 'mobile';
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+  selectedIndex = 0;
 
   constructor(
     protected _api: FirebaseService,
     protected _shipstats: ShipStatsService,
+    private router: Router,
   ) {
     // this.screenSize = this._shipstats.screenSize;
   }
-
-  // private contentPlaceholder: ElementRef;
-
-  // @ViewChild('contentPlaceholder') set content(content: ElementRef) {
-  //    this.contentPlaceholder = content;
-  // }
-
 
   result;
   resultRetrieve;
@@ -51,6 +48,10 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.qrScannerComponent.stopScanning();
   }
 
+  log(event) {
+    console.group(event);
+  }
+
   determineCanvas(input: string) {
     const innerWidth = window.innerWidth;
 
@@ -71,34 +72,23 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
-    // console.log(currentIndex);
-    console.log(action);
-    // currentIndex
-    // if (currentIndex > this.avatars.length || currentIndex < 0) { return; }
-
-    // let nextIndex = 0;
-
     if (action === this.SWIPE_ACTION.RIGHT) {
-      // const isLast = currentIndex === this.avatars.length - 1;
-      // nextIndex = isLast ? 0 : currentIndex + 1;
-      this.currentIndex = 0;
+      if (this.selectedIndex === 0) {
+        this.router.navigateByUrl('');
+      } else {
+        this.selectedIndex = 0;
+      }
     }
 
-    // swipe left, previous avatar
-    if (action === this.SWIPE_ACTION.LEFT) {
-      // const isFirst = currentIndex === 0;
-      // nextIndex = isFirst ? this.avatars.length - 1 : currentIndex - 1;
-      this.currentIndex = 1;
-
+    if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0) {
+      this.selectedIndex = 1;
     }
 
-    // this.avatars.forEach((x, i) => x.visible = (i === nextIndex)
   }
 
   startScan() {
     this.qrScannerComponent.getMediaDevices().then(devices => {
-      // this.devicesRecord = devices;
-      console.log(devices);
+
       const videoDevices: MediaDeviceInfo[] = [];
       for (const device of devices) {
         if (device.kind.toString() === 'videoinput') {
@@ -135,30 +125,30 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
             const response = {
               type: 'database',
               data: entry,
-            }
-            this.qrResponse = response
+            };
+            this.qrResponse = response;
           });
         } else if (resultJson.type === 'person') {
           this._api.getPatient(resultJson.data).subscribe(entry => {
             const response = {
               type: 'person',
               data: entry,
-            }
-            this.qrResponse = response
+            };
+            this.qrResponse = response;
           });
         }
       } else if ((result as string).startsWith('http') || (result as string).startsWith('www')) {
         const response = {
           type: 'link',
           data: result,
-        }
-        this.qrResponse = response
+        };
+        this.qrResponse = response;
       } else {
         const response = {
           type: 'string',
           data: result,
-        }
-        this.qrResponse = response
+        };
+        this.qrResponse = response;
       }
       this.openPanel(1);
     });
