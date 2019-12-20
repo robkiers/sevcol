@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { PatientViewComponent } from '../patient-view/patient-view.component';
 import { MedicalRecordsComponent } from '../../medical-records/medical-records.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-container',
@@ -12,6 +13,10 @@ import { MedicalRecordsComponent } from '../../medical-records/medical-records.c
 export class ContainerComponent implements OnInit {
 
   SCOPE = 'ContainerComponent';
+
+  screenSize = 'mobile';
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+  selectedIndex = 0;
 
   patientList;
   selectedPatient;
@@ -41,6 +46,7 @@ export class ContainerComponent implements OnInit {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     protected _api: FirebaseService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -48,24 +54,29 @@ export class ContainerComponent implements OnInit {
   }
 
   rowSelect(patient) {
-    this.setPatientStep(1);
+    // this.setPatientStep(1);
+    this.selectedIndex = 1;
     this.selectedPatient = patient;
     this._api.getMedicalRecordsList(patient).subscribe(data => this.recordList = data);
   }
 
   recordRowSelect(record) {
-    this.setRecordStep(1);
+    this.selectedIndex = 3;
+    // this.setRecordStep(1);
     this.selectedRecord = record;
   }
 
   createMedicalRecord() {
-    this.setRecordStep(1);
+    // this.setRecordStep(1);
+    this.selectedIndex = 3;
+
     this.changeDetectorRef.detectChanges();
     this.medicalRecordsComponent.createFormgroup();
   }
 
   createNewPatients() {
-    this.setPatientStep(1);
+    // this.setPatientStep(1);
+    this.selectedIndex = 1;
     this.changeDetectorRef.detectChanges();
     this.patientViewComponent.createFormgroup();
   }
@@ -80,21 +91,38 @@ export class ContainerComponent implements OnInit {
   }
 
   closePatient() {
-    this.setPatientStep(0);
+    // this.setPatientStep(0);
+    this.selectedIndex = 0;
+
     this.selectedPatient = null;
     this.selectedRecord = null;
   }
 
   closeRecord() {
-    this.setRecordStep(0);
+    this.selectedIndex = 2;
     this.selectedRecord = null;
   }
 
-  setPatientStep(i) {
-    this.patientView = i;
-  }
+  swipe(action = this.SWIPE_ACTION.RIGHT) {
+    console.log(action);
+    if (action === this.SWIPE_ACTION.RIGHT) {
 
-  setRecordStep(i) {
-    this.recordView = i;
+      if (this.selectedIndex === 0) {
+        this.router.navigateByUrl('');
+      } else {
+        this.selectedIndex = this.selectedIndex - 1;
+      }
+    }
+
+    if (action === this.SWIPE_ACTION.LEFT) {
+      if (this.selectedIndex === 0 && !!this.selectedPatient) {
+        this.selectedIndex = this.selectedIndex + 1;
+      } else if (this.selectedIndex === 1 && !!this.selectedPatient) {
+        this.selectedIndex = this.selectedIndex + 1;
+      } else if (this.selectedIndex === 2 && !!this.selectedRecord) {
+        this.selectedIndex = this.selectedIndex + 1;
+      }
+    }
+
   }
 }

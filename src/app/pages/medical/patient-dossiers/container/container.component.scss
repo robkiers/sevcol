@@ -10,3 +10,11 @@
   }
 }
 
+.container {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  &__camera {
+    height: calc(100vh - 95px);
+  }
+}

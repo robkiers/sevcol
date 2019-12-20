@@ -1,4 +1,4 @@
-// 
+//
 @media (max-width: 600px) {
   .floating-container {
     margin: 0px;
@@ -9,5 +9,14 @@
     top: 56px !important;
     position: absolute;
     box-sizing: border-box;
+  }
+}
+
+.container {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  &__camera {
+    height: 100%;
   }
 }

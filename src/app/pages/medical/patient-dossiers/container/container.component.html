@@ -56,6 +56,39 @@
 
 </mat-grid-list>
 
+
+
+<div class="container" *ngIf="screenSize==='mobile'">
+
+  <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader full-height">
+
+      <mat-tab>
+        <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
+        </app-table-overview>
+      </mat-tab>
+
+      <mat-tab>
+        <app-patient-view [selectedEntry]="selectedPatient" (close)="closePatient()"></app-patient-view>
+      </mat-tab>
+
+      <mat-tab>
+        <app-table-overview [dataSource]="recordList" [columns]="recordListColumns"
+          (rowSelect)="recordRowSelect($event)">
+        </app-table-overview>
+      </mat-tab>
+
+      <mat-tab>
+        <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord" (close)="closeRecord()">
+        </app-medical-records>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+</div>
+
+<!-- 
+
 <mat-accordion *ngIf="determineCols() === '1'">
   <mat-expansion-panel>
     <mat-expansion-panel-header *ngIf="!selectedPatient">
@@ -70,19 +103,18 @@
       </button>
     </mat-panel-description>
 
-    <!-- -->
+
     <mat-expansion-panel [expanded]="patientView === 0" (opened)="setPatientStep(0)" mat-elevation-z>
       <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
       </app-table-overview>
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="patientView === 1" (opened)="setPatientStep(1)">
-      <app-patient-view [selectedEntry]="selectedPatient" (close)="closePatient()"></app-patient-view>
     </mat-expansion-panel>
 
   </mat-expansion-panel>
 
-  <!-- [ngStyle]="{'margin-top':displayView ? 'block' : 'none'}"  -->
+  [ngStyle]="{'margin-top':displayView ? 'block' : 'none'}"  
   <mat-expansion-panel class="bottomSticky" [disabled]="!selectedPatient">
     <mat-expansion-panel-header *ngIf="!selectedRecord">
       Medical Records
@@ -90,21 +122,19 @@
     <mat-expansion-panel-header *ngIf="!!selectedRecord">
       Medical Record: {{selectedRecord.reasonOfVisit }}
     </mat-expansion-panel-header>
-    
+
     <mat-panel-description *ngIf="!selectedRecord">
       <button mat-raised-button (click)="createMedicalRecord()" class="float-right margin-left">Add Record
       </button>
     </mat-panel-description>
 
     <mat-expansion-panel [expanded]="recordView === 0" (opened)="setRecordStep(0)" mat-elevation-z>
-      <app-table-overview [dataSource]="recordList" [columns]="recordListColumns" (rowSelect)="recordRowSelect($event)">
-      </app-table-overview>
+
     </mat-expansion-panel>
 
     <mat-expansion-panel [expanded]="recordView === 1" (opened)="setRecordStep(1)">
-      <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord" (close)="closeRecord()">
-      </app-medical-records>
+
     </mat-expansion-panel>
 
   </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->

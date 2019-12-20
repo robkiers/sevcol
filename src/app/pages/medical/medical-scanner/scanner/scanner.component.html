@@ -1,48 +1,53 @@
-<!-- <mat-accordion>
-    <mat-expansion-panel [expanded]="step === 0" (opened)="openPanel(0)">
-        <mat-expansion-panel-header>
-            Scanner
-        </mat-expansion-panel-header>
+<div *ngIf="screenSize==='desktop'">
+    <mat-grid-list cols="2" gutterSize="5px">
+        <mat-grid-tile>
+            <mat-card class="dashboard-container full-width">
+                <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
+                    [stopAfterScan]="true" [updateTime]="500">
+                </qr-scanner>
 
-        <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
-            [stopAfterScan]="true" [updateTime]="500">
-        </qr-scanner>
+                <mat-card-actions>
+                    <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
+                    <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
+                    <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
+                </mat-card-actions>
+            </mat-card>
 
-        <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
-        <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
-        <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
+        </mat-grid-tile>
 
-    </mat-expansion-panel>
-    <mat-expansion-panel [expanded]="step === 1" (opened)="openPanel(1)">
-        <mat-expansion-panel-header>
-            Results
-        </mat-expansion-panel-header>
+        <mat-grid-tile>
+            <mat-card class="dashboard-container full-width">
+                <div *ngIf="!!qrResponse">
+                    <div class="regular" [ngClass]="{'hiddenRight': currentIndex === 0}">
 
-        <div *ngIf="!!qrResponse">
-            <div *ngIf="qrResponse.type === 'database'">
-                <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
-            </div>
+                        <div *ngIf="qrResponse.type === 'database'">
+                            <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+                        </div>
 
-            <div *ngIf="qrResponse.type === 'person'">
-                // <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
-            </div>
+                        <div *ngIf="qrResponse.type === 'person'">
+                            <app-patient-view [selectedEntry]="qrResponse.data"></app-patient-view>
+                        </div>
 
-            <div *ngIf="qrResponse.type === 'link'">
-                {{ qrResponse.data }}
-                <a [href]="qrResponse.data">Visit Link</a>
-            </div>
+                        <div *ngIf="qrResponse.type === 'link'">
+                            {{ qrResponse.data }}
+                            <a [href]="qrResponse.data">Visit Link</a>
+                        </div>
 
-            <div *ngIf="qrResponse.type === 'string'">
-                {{ qrResponse.data }}
-            </div>
-        </div>
-    </mat-expansion-panel>
-</mat-accordion> -->
+                        <div *ngIf="qrResponse.type === 'string'">
+                            {{ qrResponse.data }}
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
 
-<div class="container">
+
+<div class="container" *ngIf="screenSize==='mobile'">
 
     <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-        <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="log($event)">
+        <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
             <mat-tab>
                 <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
                     [stopAfterScan]="true" [updateTime]="500">

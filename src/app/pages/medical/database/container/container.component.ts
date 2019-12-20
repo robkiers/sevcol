@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { DatabaseViewComponent } from '../database-view/database-view.component';
+import { Router } from '@angular/router';
+import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
 @Component({
   selector: 'app-container',
@@ -10,8 +12,9 @@ import { DatabaseViewComponent } from '../database-view/database-view.component'
 export class ContainerComponent implements OnInit {
 
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+  selectedIndex = 0;
 
-  screenType = 'mobile';
+  screenSize = 'mobile';
 
   databaseEntries;
   selectedEntry;
@@ -30,7 +33,11 @@ export class ContainerComponent implements OnInit {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     protected _api: FirebaseService,
-  ) { }
+    private router: Router,
+    protected _shipstats: ShipStatsService,
+  ) {
+    this.screenSize = this._shipstats.screenSize;
+  }
 
   ngOnInit() {
     this._api.getDatabaseList().subscribe(data => this.databaseEntries = data);
@@ -38,7 +45,7 @@ export class ContainerComponent implements OnInit {
 
   rowSelect(row) {
     this.selectedEntry = row;
-    this.show();
+    this.selectedIndex = 1;
   }
 
   createNewEntry() {
@@ -58,17 +65,24 @@ export class ContainerComponent implements OnInit {
     return '2';
   }
 
-  // setRecordStep(1);
-
-  show() {
-    this.displayView = true;
-  }
-
   closePanel(event) {
-    this.displayView = false;
+    this.selectedIndex = 0;
   }
 
-  swipe(currentIndex: number, action = this.SWIPE_ACTION.RIGHT) {
-    console.log('action', action);
+
+  swipe(action = this.SWIPE_ACTION.RIGHT) {
+    console.log('swipe', action);
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      if (this.selectedIndex === 0) {
+        this.router.navigateByUrl('');
+      } else {
+        this.selectedIndex = 0;
+      }
+    }
+
+    if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0 && !!this.selectedEntry) {
+      this.selectedIndex = 1;
+    }
+
   }
 }

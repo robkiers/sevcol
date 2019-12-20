@@ -21,15 +21,19 @@
 </mat-grid-list>
 
 
-<mat-accordion *ngIf="determineScreen() === '1'">
 
-  <mat-expansion-panel [expanded]="!displayView" (opened)="displayView = false" mat-elevation-z>
-    <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
-    </app-table-overview>
-  </mat-expansion-panel>
+<div class="container" *ngIf="screenSize==='mobile'">
 
-  <mat-expansion-panel [expanded]="displayView" (opened)="displayView = true">
-    <app-database-view [selectedEntry]="selectedEntry" (close)="closePanel($event)"></app-database-view>
-  </mat-expansion-panel>
+  <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
 
-</mat-accordion>
+      <mat-tab>
+        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+        </app-table-overview>
+      </mat-tab>
+
+      <mat-tab>
+        <app-database-view [selectedEntry]="selectedEntry" (close)="closePanel($event)"></app-database-view>
+      </mat-tab>
+    </mat-tab-group>
+  </div>

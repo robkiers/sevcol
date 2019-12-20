@@ -8,7 +8,6 @@ const routes: Routes = [
     loadChildren: './pages/medical/patient-dossiers/patient-dossiers.module#PatientDossierModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
-  { path: '', component: DashboardComponent },
   {
     path: 'medical-scanner',
     loadChildren: './pages/medical/medical-scanner/medical-scanner.module#MedicalScannerModule'
@@ -31,6 +30,7 @@ const routes: Routes = [
     loadChildren: './pages/airlock/airlock.module#AirlockModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
+  { path: '', component: DashboardComponent },
 
 ];
 

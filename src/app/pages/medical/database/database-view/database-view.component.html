@@ -1,9 +1,5 @@
 <div *ngIf="!!selected">
   <mat-card-title>
-    <button *ngIf="determineScreen() === '1'" mat-mini-fab color="basic" (click)="closePanel()"
-      aria-label="Return to database overview" style="transform: scale(0.7);">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
     {{selected.title}}
   </mat-card-title>
   <mat-card-subtitle>

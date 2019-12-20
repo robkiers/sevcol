@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './scanner.component.html',
   styleUrls: ['./scanner.component.scss'],
 })
-export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ScannerComponent implements OnInit, OnDestroy {
 
   screenSize = 'mobile';
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
@@ -20,8 +20,9 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
     protected _api: FirebaseService,
     protected _shipstats: ShipStatsService,
     private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
-    // this.screenSize = this._shipstats.screenSize;
+    this.screenSize = this._shipstats.screenSize;
   }
 
   result;
@@ -33,27 +34,21 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   currentIndex = 0;
 
-  @ViewChild(QrScannerComponent, { static: true }) qrScannerComponent: QrScannerComponent;
+  @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent?: QrScannerComponent;
 
   ngOnInit() {
-    console.log(this.screenSize);
-    console.log(this._shipstats.screenSize);
-  }
-
-  ngAfterViewInit() {
+    this.changeDetectorRef.detectChanges();
     this.startScan();
+    // console.log(this.screenSize);
   }
 
   ngOnDestroy() {
     this.qrScannerComponent.stopScanning();
   }
 
-  log(event) {
-    console.group(event);
-  }
-
   determineCanvas(input: string) {
     const innerWidth = window.innerWidth;
+    // console.log(innerWidth);
 
     if (input === 'width') {
       return innerWidth < 500 ? '340' : '1080';
@@ -80,7 +75,7 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
-    if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0) {
+    if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0 && !!this.qrResponse) {
       this.selectedIndex = 1;
     }
 
@@ -151,6 +146,9 @@ export class ScannerComponent implements OnInit, OnDestroy, AfterViewInit {
         this.qrResponse = response;
       }
       this.openPanel(1);
+
+      this.swipe();
+
     });
   }
 
