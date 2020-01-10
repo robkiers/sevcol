@@ -43,10 +43,6 @@ export class ShipStatsService {
   }
 
   subs() {
-    // this._airlockOpen.subscribe(status => {
-    //   console.log('subtest', status);
-    //   // this.airlockOpen = status;
-    // });
     this.screenSize = this.determineScreen();
   }
 

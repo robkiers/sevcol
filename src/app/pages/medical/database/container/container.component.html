@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="determineScreen()" gutterSize="5px" *ngIf="determineScreen() === '2'">
+<mat-grid-list [cols]="determineScreen()" gutterSize="5px" *ngIf="screenSize==='desktop'">
   <mat-grid-tile>
     <mat-card class="dashboard-container full-width">
       <mat-card-title>Database Entries

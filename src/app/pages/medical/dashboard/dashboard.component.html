@@ -17,15 +17,31 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-
+<mat-tab-group [selectedIndex]="selectedTab" backgroundColor="primary" color="primary"
+    (selectedTabChange)="selectedTabChanged($event)" style="height:100%;">
+    <mat-tab label="Dashboard">
+        Dashboard Component -- none closable tab, does not depend on routing.
+    </mat-tab>
+    <mat-tab *ngFor="let tab of tabsComponents; index as i">
+        <ng-template mat-tab-label>
+            {{ tab.title }}
+            <button mat-icon-button class="close-icon" (click)="closeTab($event,i)">
+                <mat-icon class="close-icon ">
+                    close
+                </mat-icon>
+            </button>
+        </ng-template>
+        <ng-container *ngComponentOutlet="tab.component; injector:tab.params"></ng-container>
+    </mat-tab>
+</mat-tab-group>
 
 <!-- <mat-tab-group class="main-tab-group mt-2" [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
     <mat-tab *ngFor="let tab of tabs; let tabIndex = index">
         <ng-template mat-tab-label>{{ tab.title }} -->
 
 
-<mat-tab-group [selectedIndex]="selectedTab.value" (selectedIndexChange)="selectedTab.setValue($event)">
+<!-- <mat-tab-group [selectedIndex]="selectedTab.value" (selectedIndexChange)="selectedTab.setValue($event)">
     <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
         Contents for {{tab}} tab
     </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
