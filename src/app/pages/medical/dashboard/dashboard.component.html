@@ -1,4 +1,24 @@
-<mat-grid-list cols="1" [rowHeight]="determineScreen()">
+<mat-grid-list cols="1" rowHeight="3:1" *ngIf="this.screenSize === 'mobile'">
+    <mat-grid-tile>
+        <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./patient-list']">Patient
+            Dossiers</button>
+        <button mat-raised-button class="dashboard-second-button" [routerLink]="['./patient-list/new-patient']">New
+            Patient</button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-scanner']">Medical Scanner</button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button mat-raised-button class="dashboard-button" (click)="addTab('medical-database')"
+            [routerLink]="['./medical-database']">Medical
+            Database</button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <button mat-raised-button class="dashboard-button" disabled="true">Active Crew Roster</button>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="10:1" *ngIf="this.screenSize === 'desktop'">
     <mat-grid-tile>
         <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./patient-list']">Patient
             Dossiers</button>
@@ -17,14 +37,13 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-<mat-tab-group [selectedIndex]="selectedTab" backgroundColor="primary" color="primary"
+<!-- <mat-tab-group [selectedIndex]="selectedTab" backgroundColor="primary" color="primary"
     (selectedTabChange)="selectedTabChanged($event)" style="height:100%;">
     <mat-tab label="Dashboard">
         Dashboard Component -- none closable tab, does not depend on routing.
     </mat-tab>
     <mat-tab *ngFor="let tab of tabsComponents; index as i">
         <ng-template mat-tab-label>
-            {{ tab.title }}
             <button mat-icon-button class="close-icon" (click)="closeTab($event,i)">
                 <mat-icon class="close-icon ">
                     close
@@ -33,7 +52,7 @@
         </ng-template>
         <ng-container *ngComponentOutlet="tab.component; injector:tab.params"></ng-container>
     </mat-tab>
-</mat-tab-group>
+</mat-tab-group> -->
 
 <!-- <mat-tab-group class="main-tab-group mt-2" [selectedIndex]="selectedTab" (selectedTabChange)="tabChanged($event)">
     <mat-tab *ngFor="let tab of tabs; let tabIndex = index">

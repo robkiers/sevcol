@@ -56,14 +56,14 @@ export class ContainerComponent implements OnInit {
     this.databaseViewComponent.createFormgroup();
   }
 
-  determineScreen(): string {
-    const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
-    if (innerWidth < 500) {
-      return '1';
-    }
-    return '2';
-  }
+  // determineScreen(): string {
+  //   const innerWidth = window.innerWidth;
+  //   // console.log(innerWidth);
+  //   if (innerWidth < 500) {
+  //     return '1';
+  //   }
+  //   return '2';
+  // }
 
   closePanel(event) {
     this.selectedIndex = 0;

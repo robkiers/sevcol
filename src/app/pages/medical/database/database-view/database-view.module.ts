@@ -14,7 +14,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     DatabaseViewComponent
   ],
   entryComponents: [
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    // DatabaseViewComponent
   ]
 })
 export class DatabaseViewModule { }

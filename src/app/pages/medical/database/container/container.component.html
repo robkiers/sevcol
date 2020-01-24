@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="determineScreen()" gutterSize="5px" *ngIf="screenSize==='desktop'">
+<mat-grid-list cols="2" gutterSize="5px" *ngIf="screenSize==='desktop'">
   <mat-grid-tile>
     <mat-card class="dashboard-container full-width">
       <mat-card-title>Database Entries
@@ -23,17 +23,6 @@
 
 
 <div class="container" *ngIf="screenSize==='mobile'">
-
-  <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
-
-      <mat-tab>
-        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
-        </app-table-overview>
-      </mat-tab>
-
-      <mat-tab>
-        <app-database-view [selectedEntry]="selectedEntry" (close)="closePanel($event)"></app-database-view>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+  <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+  </app-table-overview>
+</div>

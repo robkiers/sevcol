@@ -51,6 +51,7 @@ export class DatabaseViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('init');
   }
 
   createFormgroup(selectedEntry?: any) {
