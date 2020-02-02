@@ -3,6 +3,7 @@ import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { DatabaseViewComponent } from '../database-view/database-view.component';
 import { Router } from '@angular/router';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
+// import { TabService } from 'src/app/shared/tab-components/tab.service';
 
 @Component({
   selector: 'app-container',
@@ -12,7 +13,7 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 export class ContainerComponent implements OnInit {
 
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
-  selectedIndex = 0;
+  selectedIndex = 1;
 
   screenSize = 'mobile';
 
@@ -35,17 +36,23 @@ export class ContainerComponent implements OnInit {
     protected _api: FirebaseService,
     private router: Router,
     protected _shipstats: ShipStatsService,
+    // private tabService: TabService,
   ) {
     this.screenSize = this._shipstats.screenSize;
   }
 
   ngOnInit() {
     this._api.getDatabaseList().subscribe(data => this.databaseEntries = data);
+    console.log('init database container');
   }
 
   rowSelect(row) {
     this.selectedEntry = row;
-    this.selectedIndex = 1;
+    this.selectedIndex = 2;
+
+    // if (this.screenSize === 'mobile') {
+    //   this.tabService.navigateToTab('medicaldatabaseentry');
+    // }
   }
 
   createNewEntry() {
@@ -56,33 +63,27 @@ export class ContainerComponent implements OnInit {
     this.databaseViewComponent.createFormgroup();
   }
 
-  // determineScreen(): string {
-  //   const innerWidth = window.innerWidth;
-  //   // console.log(innerWidth);
-  //   if (innerWidth < 500) {
-  //     return '1';
-  //   }
-  //   return '2';
-  // }
-
   closePanel(event) {
     this.selectedIndex = 0;
   }
 
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
-    console.log('swipe', action);
+    // console.log('swipe', action);
     if (action === this.SWIPE_ACTION.RIGHT) {
-      if (this.selectedIndex === 0) {
-        this.router.navigateByUrl('');
-      } else {
-        this.selectedIndex = 0;
+      if (this.selectedIndex !== 0) {
+        this.selectedIndex = this.selectedIndex - 1;
       }
     }
 
-    if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0 && !!this.selectedEntry) {
-      this.selectedIndex = 1;
+    if (action === this.SWIPE_ACTION.LEFT) {
+      if (this.selectedIndex !== 2) {
+        if (this.selectedIndex === 1 && !this.selectedEntry) {
+          return;
+        } else {
+          this.selectedIndex = this.selectedIndex + 1;
+        }
+      }
     }
-
   }
 }

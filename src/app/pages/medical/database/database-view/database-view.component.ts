@@ -51,7 +51,6 @@ export class DatabaseViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('init');
   }
 
   createFormgroup(selectedEntry?: any) {
@@ -67,7 +66,7 @@ export class DatabaseViewComponent implements OnInit {
         description: [selectedEntry.description, [Validators.required]],
         measurement: [selectedEntry.measurement],
         amountOnBoard: [selectedEntry.amountOnBoard],
-      })
+      });
     } else {
       this.formGroup = this._fb.group({
         id: UUID.UUID(),
@@ -78,18 +77,13 @@ export class DatabaseViewComponent implements OnInit {
         description: [null, [Validators.required]],
         measurement: [null],
         amountOnBoard: [null],
-      })
+      });
       this.formGroup.markAllAsTouched();
     }
-  };
+  }
 
   cancel() {
     this.formGroup = null;
-    this.closePanel();
-  }
-
-  closePanel() {
-    this.close.emit(true);
   }
 
   save() {
@@ -116,15 +110,6 @@ export class DatabaseViewComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-  }
-
-  determineScreen(): string {
-    const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
-    if (innerWidth < 500) {
-      return '1';
-    }
-    return '2';
   }
 
   createQR() {

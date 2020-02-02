@@ -16,7 +16,7 @@
 }
 
 .dashboard-button {
-  width: 40rem;
+  width: calc(40rem);
   height: 90%;
 }
 
@@ -41,7 +41,9 @@
 }
 
 .mat-grid-tile .mat-figure {
-  justify-content: flex-start !important ;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  justify-content: flex-start !important;
   align-items: flex-start !important;
 }
 
@@ -82,6 +84,6 @@
 
 .tab-noheader {
   .mat-tab-header {
-    display: none;
+    height: 2px;
   }
 }

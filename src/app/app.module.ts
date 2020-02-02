@@ -12,8 +12,6 @@ import { environment } from '../environments/environment';
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { DashboardModule } from './pages/medical/dashboard/dashboard.module';
 
-import { MatTabsModule } from '@angular/material/tabs';
-import { TabModule } from './shared/tab-components/tab.module';
 
 @NgModule({
   declarations: [
@@ -27,8 +25,6 @@ import { TabModule } from './shared/tab-components/tab.module';
     CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    MatTabsModule,
-    TabModule
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

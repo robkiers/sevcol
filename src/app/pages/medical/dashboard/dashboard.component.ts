@@ -1,20 +1,29 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
-import { TabService } from 'src/app/shared/tab-components/tab.service';
-import { DatabaseViewComponent } from '../database/database-view/database-view.component';
-import { Tab } from 'src/app/shared/tab-components/tab.model';
+import { Component, OnInit } from '@angular/core';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateY(-100%)' }),
+        animate('200ms ease-in', style({ transform: 'translateY(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ transform: 'translateY(-100%)' }))
+      ])
+    ])
+  ]
 })
+
 export class DashboardComponent implements OnInit {
 
   screenSize;
 
   constructor(
-    private tabService: TabService,
     protected _shipstats: ShipStatsService,
   ) {
     this.screenSize = this._shipstats.screenSize;
@@ -25,17 +34,4 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  // determineScreen() {
-  //   const innerWidth = window.innerWidth;
-  //   if (innerWidth < 500) {
-  //     return '3:1';
-  //   }
-  //   return '10:1';
-  // }
-
-  addTab(tab: string) {
-    this.tabService.addTab(
-      new Tab(DatabaseViewComponent, 'Database', { parent: 'DashboardComponent' })
-    );
-  }
 }

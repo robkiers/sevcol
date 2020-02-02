@@ -23,6 +23,20 @@
 
 
 <div class="container" *ngIf="screenSize==='mobile'">
-  <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
-  </app-table-overview>
+  <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+
+    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader" >
+      <mat-tab>
+        <app-dashboard></app-dashboard>
+      </mat-tab>
+      <mat-tab>
+        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+        </app-table-overview>
+      </mat-tab>
+      <mat-tab>
+        <app-database-view [selectedEntry]="selectedEntry">
+        </app-database-view>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>
