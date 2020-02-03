@@ -3,4 +3,7 @@
     <div class="router-container" [ngClass]="{'router-container-topbar': _topbar.visible}">
         <router-outlet></router-outlet>
     </div>
+    <div (swipeup)="openBottomSheet()" class="bottom-anchor">
+        
+    </div>
 </div>

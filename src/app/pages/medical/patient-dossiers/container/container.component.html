@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="determineCols()" rowHeight="50%" *ngIf="determineCols() === '2'">
+<mat-grid-list [cols]="2" rowHeight="50%" *ngIf="screenSize==='desktop'">
 
   <mat-grid-tile>
     <mat-card class="dashboard-container full-width">
@@ -56,40 +56,54 @@
 
 </mat-grid-list>
 
-
-
-<div class="container" *ngIf="screenSize==='mobile'">
-
-  <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader full-height">
-
-      <mat-tab>
-        <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
-        </app-table-overview>
-      </mat-tab>
-
-      <mat-tab>
-        <app-patient-view [selectedEntry]="selectedPatient" (close)="closePatient()"></app-patient-view>
-      </mat-tab>
-
-      <mat-tab>
+<div class="mobile_container" *ngIf="screenSize==='mobile'">
+  <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+          <app-dashboard (selectedTab)="setSelectedIndex($event)" (createNew)="createNewPatients($event)">
+          </app-dashboard>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <div class="mobile-content">
+          <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
+          </app-table-overview>
+        </div>
+        <div class="mobile-footer">
+          <button mat-raised-button (click)="createNewPatients()">New Patient</button>
+          <!-- <button (click)="createNewPatients($event)"> </button> -->
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-patient-view [selectedEntry]="selectedPatient" (cancelNew)="swipe()">
+        </app-patient-view>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
         <app-table-overview [dataSource]="recordList" [columns]="recordListColumns"
           (rowSelect)="recordRowSelect($event)">
         </app-table-overview>
-      </mat-tab>
-
-      <mat-tab>
-        <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord" (close)="closeRecord()">
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord" (cancelNew)="swipe()">
         </app-medical-records>
-      </mat-tab>
-
-    </mat-tab-group>
-  </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
+
 
 <!-- 
 
-<mat-accordion *ngIf="determineCols() === '1'">
+<mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header *ngIf="!selectedPatient">
       Patients

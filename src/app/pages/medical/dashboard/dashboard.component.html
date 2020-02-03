@@ -1,17 +1,17 @@
-<div class="mobile-page">
-    <mat-grid-list cols="1" rowHeight="3:1" *ngIf="this.screenSize === 'mobile'" [@slideInOut]>
+<div class="mobile-page" *ngIf="this.screenSize === 'mobile'" [@slideInOut]>
+    <mat-grid-list cols="1" rowHeight="3:1">
         <mat-grid-tile>
-            <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./patient-list']">Patient
+            <button mat-raised-button class="dashboard-button" (click)="gotoPatientFiles()">Patient
                 Dossiers</button>
-            <button mat-raised-button class="dashboard-second-button" [routerLink]="['./patient-list/new-patient']">New
-                Patient</button>
+            <!-- <button mat-raised-button class="dashboard-second-button" (click)="gotoNewPatient()">New
+                Patient</button> -->
         </mat-grid-tile>
         <mat-grid-tile>
-            <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-scanner']">Medical
+            <button mat-raised-button class="dashboard-button" (click)="gotoScanner()">Medical
                 Scanner</button>
         </mat-grid-tile>
         <mat-grid-tile>
-            <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-database']">Medical
+            <button mat-raised-button class="dashboard-button" (click)="gotoDatabase()">Medical
                 Database</button>
         </mat-grid-tile>
         <!-- <mat-grid-tile>

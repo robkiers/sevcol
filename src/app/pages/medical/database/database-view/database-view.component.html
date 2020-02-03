@@ -1,32 +1,30 @@
-<div *ngIf="!!selected" >
-  <mat-card-title>
-    {{selected.title}}
-  </mat-card-title>
-  <mat-card-subtitle>
-    <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile>Category: {{selected.category}}</mat-grid-tile>
-      <mat-grid-tile>Subcategory: {{selected.subCategory}}</mat-grid-tile>
-      <mat-grid-tile>Onboard: {{selected.amountOnBoard}} {{selected.measurement}}</mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-subtitle>
+<div *ngIf="!formGroup && !!selected" class="full-height">
+  <mat-card class="fake_card full-width mobile-content">
+    <mat-card-title>
+      {{selected.title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-grid-list cols="3" rowHeight="3em">
+        <mat-grid-tile>Category: {{selected.category}}</mat-grid-tile>
+        <mat-grid-tile>Subcategory: {{selected.subCategory}}</mat-grid-tile>
+        <mat-grid-tile>Onboard: {{selected.amountOnBoard}} {{selected.measurement}}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-subtitle>
+    <mat-card-content>
+      {{selected.description}}
+    </mat-card-content>
+  </mat-card>
 
-  <mat-card-content>
-    {{selected.description}}
-  </mat-card-content>
-
-  <mat-card-actions>
-    <div>
-      <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
-      <button mat-raised-button (click)="createQR()">Create QR</button>
-    </div>
-  </mat-card-actions>
+  <div class="mobile-footer">
+    <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    <button mat-raised-button (click)="createQR()">Create QR</button>
+  </div>
 </div>
 
 
-<div *ngIf="!!formGroup">
-  <form [formGroup]="formGroup">
-    <mat-grid-list cols="2" rowHeight="3em">
-
+<div *ngIf="!!formGroup" class="full-width full-height">
+  <form [formGroup]="formGroup" class="mobile-content">
+    <mat-grid-list cols="2" rowHeight="3em" class="marginTop">
       <mat-grid-tile colspan="2">
         <mat-form-field class="full-width">
           <input matInput placeholder="Name" formControlName='title'>
@@ -80,21 +78,18 @@
 
       <mat-grid-tile colspan="2" rowspan="2">
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Short Description" formControlName='shortDescription'></textarea>
+          <textarea rows="3" matInput placeholder="Short Description" formControlName='shortDescription'></textarea>
         </mat-form-field>
       </mat-grid-tile>
-
-      <mat-grid-tile colspan="2" rowspan="2">
-        <mat-form-field class="full-width">
-          <textarea matInput placeholder="Description" formControlName='description'></textarea>
-        </mat-form-field>
-      </mat-grid-tile>
-
     </mat-grid-list>
+
+    <mat-form-field class="full-width">
+      <textarea matInput rows="10" placeholder="Description" formControlName='description'></textarea>
+    </mat-form-field>
   </form>
 
-  <mat-card-actions>
+  <div class="mobile-footer">
     <button mat-raised-button (click)="save()">Save Entry</button>
     <button mat-raised-button (click)="cancel()">Cancel Entry</button>
-  </mat-card-actions>
+  </div>
 </div>

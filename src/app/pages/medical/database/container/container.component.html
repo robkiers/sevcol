@@ -22,21 +22,29 @@
 
 
 
-<div class="container" *ngIf="screenSize==='mobile'">
-  <div class="container__camera" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-
-    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader" >
-      <mat-tab>
-        <app-dashboard></app-dashboard>
-      </mat-tab>
-      <mat-tab>
-        <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
-        </app-table-overview>
-      </mat-tab>
-      <mat-tab>
-        <app-database-view [selectedEntry]="selectedEntry">
+<div class="mobile_container" *ngIf="screenSize==='mobile'">
+  <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-dashboard (selectedTab)="setSelectedIndex($event)"></app-dashboard>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <div class="mobile-content">
+          <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+          </app-table-overview>
+        </div>
+        <div class="mobile-footer">
+          <button mat-raised-button (click)="createNewEntry()">New Database Entry</button>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-database-view [selectedEntry]="selectedEntry" (close)="swipe()">
         </app-database-view>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

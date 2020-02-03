@@ -54,7 +54,7 @@ export class DatabaseViewComponent implements OnInit {
   }
 
   createFormgroup(selectedEntry?: any) {
-    this.selected = null;
+    this.selected = selectedEntry;
 
     if (!!selectedEntry) {
       this.formGroup = this._fb.group({
@@ -84,6 +84,9 @@ export class DatabaseViewComponent implements OnInit {
 
   cancel() {
     this.formGroup = null;
+    if (!this.selected) {
+      this.close.emit(true);
+    }
   }
 
   save() {

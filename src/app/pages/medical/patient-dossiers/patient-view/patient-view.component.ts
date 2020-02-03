@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { UUID } from 'angular2-uuid';
 import { GenerateQRService } from 'src/app/shared/base-class/generate-qr/generate-qr.service';
+import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
 @Component({
   selector: 'app-patient-view',
@@ -26,6 +25,8 @@ export class PatientViewComponent implements OnInit {
     { value: 'void', viewValue: 'Void Borne' }
   ];
 
+  screenSize = 'mobile';
+  colsNumber = 2;
   formGroup: FormGroup;
   selected;
 
@@ -34,19 +35,26 @@ export class PatientViewComponent implements OnInit {
     this.selected = patient;
   }
 
-  @Output() close = new EventEmitter();
+  @Output() cancelNew: EventEmitter<boolean> = new EventEmitter();
+
 
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
     protected _qrService: GenerateQRService,
-  ) { }
+    protected _shipstats: ShipStatsService,
+  ) {
+    this.screenSize = this._shipstats.screenSize;
+    if (this._shipstats.screenSize === 'mobile') {
+      this.colsNumber = 2;
+    }
+  }
 
   ngOnInit() {
   }
 
   createFormgroup(selectedEntry?: any) {
-    this.selected = null;
+    this.selected = selectedEntry;
 
     if (!!selectedEntry) {
       this.formGroup = this._fb.group({
@@ -108,11 +116,10 @@ export class PatientViewComponent implements OnInit {
 
   cancel() {
     this.formGroup = null;
-    this.close.emit(true);
-  }
 
-  closePanel() {
-    this.close.emit(true);
+    if (!this.selected) {
+      this.cancelNew.emit(true);
+    }
   }
 
   save() {
@@ -121,15 +128,6 @@ export class PatientViewComponent implements OnInit {
 
     this.formGroup = null;
     this.selected = saveEntity;
-  }
-
-  determineCols() {
-    const innerWidth = window.innerWidth;
-    console.log(innerWidth);
-    if (innerWidth < 500) {
-      return '2';
-    }
-    return '3';
   }
 
   createQR() {

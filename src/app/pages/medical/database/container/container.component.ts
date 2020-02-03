@@ -14,6 +14,7 @@ export class ContainerComponent implements OnInit {
 
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
   selectedIndex = 1;
+  tabs = 3;
 
   screenSize = 'mobile';
 
@@ -32,11 +33,8 @@ export class ContainerComponent implements OnInit {
   @ViewChild(DatabaseViewComponent, { static: false }) databaseViewComponent?: DatabaseViewComponent;
 
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
     protected _api: FirebaseService,
-    private router: Router,
     protected _shipstats: ShipStatsService,
-    // private tabService: TabService,
   ) {
     this.screenSize = this._shipstats.screenSize;
   }
@@ -49,17 +47,10 @@ export class ContainerComponent implements OnInit {
   rowSelect(row) {
     this.selectedEntry = row;
     this.selectedIndex = 2;
-
-    // if (this.screenSize === 'mobile') {
-    //   this.tabService.navigateToTab('medicaldatabaseentry');
-    // }
   }
 
   createNewEntry() {
-    this.displayView = true;
-    this.selectedEntry = null;
-
-    this.changeDetectorRef.detectChanges();
+    this.selectedIndex = 2;
     this.databaseViewComponent.createFormgroup();
   }
 
@@ -67,9 +58,12 @@ export class ContainerComponent implements OnInit {
     this.selectedIndex = 0;
   }
 
+  setSelectedIndex(index) {
+    this.selectedIndex = index;
+  }
+
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
-    // console.log('swipe', action);
     if (action === this.SWIPE_ACTION.RIGHT) {
       if (this.selectedIndex !== 0) {
         this.selectedIndex = this.selectedIndex - 1;

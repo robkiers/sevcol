@@ -1,48 +1,47 @@
-<div *ngIf="!!selectedRecord" class="full-width">
-  <mat-card-title *ngIf="determineCols() === '2'">{{ selectedRecord.reasonOfVisit }}</mat-card-title>
-  <mat-card-subtitle>
-    <mat-grid-list cols="3" rowHeight="3em">
-      <mat-grid-tile>Date: {{ selectedRecord.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
-      <mat-grid-tile>Treating Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
-      <mat-grid-tile>Assisting Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-subtitle>
+<div *ngIf="!formGroup && !!selectedRecord" class="full-height">
+  <mat-card class="fake_card full-width mobile-content">
+    <mat-card-title>{{ selectedRecord.reasonOfVisit }}</mat-card-title>
+    <mat-card-subtitle>
+      <mat-grid-list [cols]="this.colsNumber" rowHeight="3em">
+        <mat-grid-tile>Date: {{ selectedRecord.date?.toDate() | date:'yyyy/MM/dd hh:mm:ss'}}</mat-grid-tile>
+        <mat-grid-tile>Treating Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
+        <mat-grid-tile>Assisting Doctor: {{selectedRecord.treatingDoctor}}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-subtitle>
 
-  <mat-card-content>
+    <mat-card-content>
 
-    <mat-grid-list cols="2" rowHeight="3em">
+      <mat-grid-list [cols]="this.colsNumber" rowHeight="3em">
 
-      <mat-grid-tile colspan="2">Description: {{selectedRecord.description}}</mat-grid-tile>
-      <mat-grid-tile>Treatment Action: {{selectedRecord.treatmentAction}}</mat-grid-tile>
-      <mat-grid-tile>Location of Treatment: {{selectedRecord.locationOfTreatment}}</mat-grid-tile>
-      <mat-grid-tile>Used Medication: {{selectedRecord.usedMedication}}</mat-grid-tile>
-      <mat-grid-tile>Prescribed: {{selectedRecord.prescribedMedication}}</mat-grid-tile>
-      <mat-grid-tile colspan="2">Notes: {{selectedRecord.treatmentActionNotes}}</mat-grid-tile>
-    </mat-grid-list>
-  </mat-card-content>
+        <mat-grid-tile rowspan='3' [colspan]="this.colsNumber">Description: {{selectedRecord.description}}</mat-grid-tile>
+        <mat-grid-tile rowspan='3' [colspan]="this.colsNumber">Treatment Action: {{selectedRecord.treatmentAction}}</mat-grid-tile>
+        <mat-grid-tile>Location of Treatment: {{selectedRecord.locationOfTreatment}}</mat-grid-tile>
+        <mat-grid-tile>Used Medication: {{selectedRecord.usedMedication}}</mat-grid-tile>
+        <mat-grid-tile>Prescribed: {{selectedRecord.prescribedMedication}}</mat-grid-tile>
+        <mat-grid-tile rowspan='3' [colspan]="this.colsNumber">Notes: {{selectedRecord.treatmentActionNotes}}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
 
-  <mat-card-actions>
+  <div class="mobile-footer">
     <button mat-raised-button (click)="createFormgroup(this.selectedRecord)">Update Entry</button>
-    <button mat-raised-button (click)="closePanel()" *ngIf="determineCols() === '1'" class="margin-left">Close</button>
-  </mat-card-actions>
+  </div>
 </div>
 
 
 
-<div *ngIf="!!formGroup" class="full-width">
+<div *ngIf="!!formGroup" class="full-width full-height">
+  <form [formGroup]="formGroup" class="mobile-content">
 
-  <form [formGroup]="formGroup">
-
-    <mat-grid-list cols="2" rowHeight="3em">
-
+    <mat-grid-list [cols]="this.colsNumber" rowHeight="3em">
       <mat-grid-tile>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Reason of Visit" formControlName='reasonOfVisit'>
+        <mat-form-field>
+          <input matInput placeholder="Reason of Visit" formControlName='reasonOfVisit' matAutosizeMinRows="4">
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <mat-label>Date</mat-label>
           <input matInput [matDatepicker]="datepicker" formControlName='date'>
           <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -50,15 +49,14 @@
         </mat-form-field>
       </mat-grid-tile>
 
-
-      <mat-grid-tile colspan="2" rowspan="2">
+      <mat-grid-tile [colspan]="this.colsNumber" rowspan="3">
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Description" formControlName='description'></textarea>
+          <textarea matInput placeholder="Description" formControlName='description' matTextareaAutosize matAutosizeMinRows="4"></textarea>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <mat-label>Treating Doctor</mat-label>
           <mat-select formControlName="treatingDoctor">
             <mat-option *ngFor="let doctor of doctorList" [value]="doctor.value">
@@ -72,7 +70,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <mat-label>Assisting Doctor</mat-label>
           <mat-select formControlName="assistingDoctor">
             <mat-option *ngFor="let doctor of doctorList" [value]="doctor.value">
@@ -86,7 +84,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <mat-label>Used Medicine</mat-label>
           <mat-select formControlName="usedMedication">
             <mat-option *ngFor="let medicine of medicineList" [value]="medicine.value">
@@ -97,7 +95,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <mat-label>Prescribed Medicine</mat-label>
           <mat-select formControlName="prescribedMedication">
             <mat-option *ngFor="let medicine of medicineList" [value]="medicine.value">
@@ -108,28 +106,28 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field>
           <input matInput placeholder="Location Of Treatment" formControlName='locationOfTreatment'>
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile>
+      <mat-grid-tile [colspan]="this.colsNumber" rowspan="3">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Treatment Action" formControlName='treatmentAction'>
+          <textarea matInput placeholder="Treatment Action" formControlName='treatmentAction' matTextareaAutosize matAutosizeMinRows="4"></textarea>
         </mat-form-field>
       </mat-grid-tile>
 
-      <mat-grid-tile colspan="2" rowspan="2">
+      <mat-grid-tile [colspan]="this.colsNumber" rowspan="3">
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="Notes" formControlName='treatmentActionNotes'></textarea>
+          <textarea matInput placeholder="Notes" formControlName='treatmentActionNotes' matTextareaAutosize matAutosizeMinRows="4"></textarea>
         </mat-form-field>
       </mat-grid-tile>
 
     </mat-grid-list>
   </form>
 
-  <mat-card-actions>
+  <div class="mobile-footer">
     <button mat-raised-button (click)="save()">Save Entry</button>
     <button mat-raised-button (click)="cancel()" class="margin-left">Cancel Entry</button>
-  </mat-card-actions>
+  </div>
 </div>

@@ -30,6 +30,7 @@ import { DesktopCameraService } from './services/desktop-camera.service';
 import { AbstractCameraService, cameraFactory } from './services/abstract-camera.service';
 import { PlatformInformationProvider } from './services/platform-information.provider';
 import { GenerateQRModule } from './base-class/generate-qr/generate-qr.module';
+import { SwipeTabDirective } from './directives/SwipeTabDirective.directive';
 
 @NgModule({
   providers: [
@@ -43,6 +44,9 @@ import { GenerateQRModule } from './base-class/generate-qr/generate-qr.module';
   ],
   imports: [
     CommonModule,
+  ],
+  declarations: [
+    SwipeTabDirective
   ],
   exports: [
     CommonModule,
@@ -71,7 +75,8 @@ import { GenerateQRModule } from './base-class/generate-qr/generate-qr.module';
     MatSnackBarModule,
     MatListModule,
     GenerateQRModule,
-    MatTabsModule
+    MatTabsModule,
+    SwipeTabDirective
   ],
   // declarations: []
 })

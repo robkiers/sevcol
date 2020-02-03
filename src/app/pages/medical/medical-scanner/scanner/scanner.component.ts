@@ -14,71 +14,60 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
   screenSize = 'mobile';
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
-  selectedIndex = 0;
+  selectedIndex = 1;
 
   constructor(
     protected _api: FirebaseService,
     protected _shipstats: ShipStatsService,
-    private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.screenSize = this._shipstats.screenSize;
+    this.determineCanvas();
   }
 
   result;
   resultRetrieve;
 
+  qrWidth = '340';
+  qrHeight = '480';
   qrResponse = null;
   scannerOpenState = true;
-  step = 0;
-
-  currentIndex = 0;
+  // step = 0;
 
   @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent?: QrScannerComponent;
 
   ngOnInit() {
     this.changeDetectorRef.detectChanges();
     this.startScan();
-    // console.log(this.screenSize);
   }
 
   ngOnDestroy() {
     this.qrScannerComponent.stopScanning();
   }
 
-  determineCanvas(input: string) {
-    const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
-
-    if (input === 'width') {
-      return innerWidth < 500 ? '340' : '1080';
-    } else if (input === 'height') {
-      return innerWidth < 500 ? '480' : '720';
-    }
-  }
-
-  openPanel(index: number) {
-    if (index === 0) {
-      this.startScan();
-    } else {
-      this.qrScannerComponent.stopScanning();
-    }
-    this.step = index;
+  determineCanvas() {
+    this.qrWidth = this.screenSize === 'mobile' ? '340' : '1080';
+    this.qrHeight = this.screenSize === 'mobile' ? '480' : '720';
   }
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
     if (action === this.SWIPE_ACTION.RIGHT) {
-      if (this.selectedIndex === 0) {
-        this.router.navigateByUrl('');
-      } else {
-        this.selectedIndex = 0;
+      if (this.selectedIndex !== 0) {
+        this.selectedIndex = this.selectedIndex - 1;
       }
     }
-
     if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0 && !!this.qrResponse) {
       this.selectedIndex = 1;
     }
+    if (this.selectedIndex === 1) {
+      this.startScan();
+    } else {
+      this.qrScannerComponent.stopScanning();
+    }
+  }
 
+  setSelectedIndex(index) {
+    this.selectedIndex = index;
   }
 
   startScan() {
@@ -145,10 +134,8 @@ export class ScannerComponent implements OnInit, OnDestroy {
         };
         this.qrResponse = response;
       }
-      this.openPanel(1);
 
       this.swipe();
-
     });
   }
 

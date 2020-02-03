@@ -6,6 +6,7 @@ import { NgQrScannerModule } from 'angular2-qrscanner';
 import { CameraComponent } from './camera/camera.component';
 import { DatabaseViewModule } from '../database/database-view/database-view.module';
 import { PatientViewModule } from '../patient-dossiers/patient-view/patient-view.module';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 const routes: Routes = [
   { path: '', component: ScannerComponent }
@@ -21,7 +22,8 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     DatabaseViewModule,
-    PatientViewModule
+    PatientViewModule,
+    DashboardModule
   ]
 })
 export class MedicalScannerModule { }

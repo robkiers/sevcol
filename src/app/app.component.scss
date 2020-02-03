@@ -1,7 +1,16 @@
 .router-container {
-  height: calc(100vh);
+  height: calc(100vh - 10px);
 }
 
 .router-container-topbar {
   height: calc(100vh - 83px);
+}
+
+.bottom-anchor {
+  box-sizing: border-box;
+  height: 8px;
+
+  border-style: solid;
+  border-color: transparent transparent rgb(107, 107, 212) transparent;
+  border-width: 0 25px 25px 25px;
 }

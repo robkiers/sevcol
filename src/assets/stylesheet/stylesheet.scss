@@ -7,12 +7,41 @@
   box-sizing: border-box;
 }
 
+.mobile_container {
+  height: calc(100vh - 10px);
+  .mat-tab-group {
+    height: 100%;
+    .mobile_tab {
+      height: 100%;
+    }
+    .mat-tab-body-wrapper {
+      height: 100%;
+    }
+  }
+}
+
+.mobile-content {
+  height: calc(100% - 45px);
+}
+
+.mobile-footer {
+  .mat-raised-button {
+    margin-left: 10px;
+  }
+}
+
 @media (max-width: 600px) {
   .dashboard-container {
     margin: 0px;
     height: calc(100%);
     box-sizing: border-box;
   }
+}
+
+.fake_card {
+  padding: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
 }
 
 .dashboard-button {

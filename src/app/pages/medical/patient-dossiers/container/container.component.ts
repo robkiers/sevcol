@@ -16,7 +16,7 @@ export class ContainerComponent implements OnInit {
 
   screenSize = 'mobile';
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
-  selectedIndex = 0;
+  selectedIndex = 1;
 
   patientList;
   selectedPatient;
@@ -54,75 +54,48 @@ export class ContainerComponent implements OnInit {
   }
 
   rowSelect(patient) {
-    // this.setPatientStep(1);
-    this.selectedIndex = 1;
+    this.selectedIndex = 2;
     this.selectedPatient = patient;
     this._api.getMedicalRecordsList(patient).subscribe(data => this.recordList = data);
   }
 
   recordRowSelect(record) {
-    this.selectedIndex = 3;
-    // this.setRecordStep(1);
+    this.selectedIndex = 4;
     this.selectedRecord = record;
   }
 
   createMedicalRecord() {
-    // this.setRecordStep(1);
-    this.selectedIndex = 3;
-
+    this.selectedIndex = 4;
     this.changeDetectorRef.detectChanges();
     this.medicalRecordsComponent.createFormgroup();
   }
 
   createNewPatients() {
-    // this.setPatientStep(1);
-    this.selectedIndex = 1;
+    this.selectedIndex = 2;
     this.changeDetectorRef.detectChanges();
     this.patientViewComponent.createFormgroup();
   }
 
-  determineCols() {
-    const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
-    if (innerWidth < 500) {
-      return '1';
-    }
-    return '2';
-  }
-
-  closePatient() {
-    // this.setPatientStep(0);
-    this.selectedIndex = 0;
-
-    this.selectedPatient = null;
-    this.selectedRecord = null;
-  }
-
-  closeRecord() {
-    this.selectedIndex = 2;
-    this.selectedRecord = null;
+  setSelectedIndex(index) {
+    this.selectedIndex = index;
   }
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
-    console.log(action);
     if (action === this.SWIPE_ACTION.RIGHT) {
-
-      if (this.selectedIndex === 0) {
-        this.router.navigateByUrl('');
-      } else {
+      if (this.selectedIndex !== 0) {
         this.selectedIndex = this.selectedIndex - 1;
       }
     }
-
     if (action === this.SWIPE_ACTION.LEFT) {
-      if (this.selectedIndex === 0 && !!this.selectedPatient) {
+      if (this.selectedIndex === 1 && !!this.selectedPatient) {
         this.selectedIndex = this.selectedIndex + 1;
-      } else if (this.selectedIndex === 1 && !!this.selectedPatient) {
+      } else if (this.selectedIndex === 2 && !!this.selectedPatient) {
         this.selectedIndex = this.selectedIndex + 1;
-      } else if (this.selectedIndex === 2 && !!this.selectedRecord) {
+      } else if (this.selectedIndex === 3 && !!this.selectedRecord) {
+        this.selectedIndex = this.selectedIndex + 1;
+      } else if (this.selectedIndex === 0) {
         this.selectedIndex = this.selectedIndex + 1;
       }
     }
-
   }
 }

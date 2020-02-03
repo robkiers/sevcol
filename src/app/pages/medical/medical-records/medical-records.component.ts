@@ -11,6 +11,9 @@ import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 })
 export class MedicalRecordsComponent implements OnInit {
 
+  screenSize = 'mobile';
+  colsNumber = 3;
+
   doctorList = [
     { value: 'Porter', viewValue: 'Porter' },
     { value: 'Porter', viewValue: 'Porter' },
@@ -29,13 +32,18 @@ export class MedicalRecordsComponent implements OnInit {
     this.patientFile = patient;
   }
 
-  @Output() close = new EventEmitter();
+  @Output() cancelNew: EventEmitter<boolean> = new EventEmitter();
 
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
     private _shipStats: ShipStatsService,
-  ) { }
+  ) {
+    this.screenSize = this._shipStats.screenSize;
+    if (this._shipStats.screenSize === 'mobile') {
+      this.colsNumber = 2;
+    }
+  }
 
   ngOnInit() {
     this._api.getDatabaseList().subscribe(entities => {
@@ -51,12 +59,12 @@ export class MedicalRecordsComponent implements OnInit {
             viewValue: entry['title']
           };
           return menuItem;
-        })
+        });
     });
   }
 
   createFormgroup(selectedRecord?: any) {
-    this.selectedRecord = null;
+    this.selectedRecord = selectedRecord;
 
     if (!!selectedRecord) {
       this.formGroup = this._fb.group({
@@ -110,11 +118,9 @@ export class MedicalRecordsComponent implements OnInit {
 
   cancel() {
     this.formGroup = null;
-    this.closePanel();
-  }
-
-  closePanel() {
-    this.close.emit(true);
+    if (!this.selectedRecord) {
+      this.cancelNew.emit(true);
+    }
   }
 
   save() {
@@ -124,8 +130,6 @@ export class MedicalRecordsComponent implements OnInit {
     // this.selectedRecord = saveEntity;
     // console.log(this.selectedRecord);
     this.formGroup = null;
-    this.closePanel();
-
   }
 
   resetProperties() {
@@ -135,12 +139,4 @@ export class MedicalRecordsComponent implements OnInit {
     this.patientFile = null;
   }
 
-  determineCols() {
-    const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
-    if (innerWidth < 500) {
-      return '1';
-    }
-    return '2';
-  }
 }
