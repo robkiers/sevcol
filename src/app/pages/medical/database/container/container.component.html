@@ -1,6 +1,6 @@
-<mat-grid-list cols="2" gutterSize="5px" *ngIf="screenSize==='desktop'">
+<mat-grid-list cols="2" rowHeight="100%" gutterSize="5px" *ngIf="screenSize==='desktop'">
   <mat-grid-tile>
-    <mat-card class="dashboard-container full-width">
+    <mat-card class="dashboard-container full-width-margin">
       <mat-card-title>Database Entries
         <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Entry
         </button>
@@ -13,7 +13,7 @@
   </mat-grid-tile>
 
   <mat-grid-tile>
-    <mat-card class="dashboard-container full-width">
+    <mat-card class="dashboard-container full-width-margin">
       <app-database-view [selectedEntry]="selectedEntry"></app-database-view>
     </mat-card>
   </mat-grid-tile>

@@ -6,19 +6,19 @@
     <mat-grid-list cols="3" rowHeight="70px" gutterSize="10px">
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Name" formControlName='name'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Other Names" formControlName='otherNames'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Family Name" formControlName='familyName'>
         </mat-form-field>
       </mat-grid-tile>
@@ -31,19 +31,19 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Height(cm)" formControlName='height'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Weight(kg)" formControlName='weight'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input formControlName='dateOfBirth' matInput [matDatepicker]="picker" placeholder="Choose a date of birth">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -68,11 +68,11 @@
       </mat-grid-tile>
 
       <mat-grid-tile colspan="3">
-        <mat-divider class="full-width"></mat-divider>
+        <mat-divider class="full-width-margin"></mat-divider>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <mat-label>Planet of Origin</mat-label>
           <mat-select formControlName="origin">
             <mat-option *ngFor="let origin of originLookup" [value]="origin.value">
@@ -83,13 +83,13 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Ship" formControlName='ship'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Organisation" formControlName='organisation'>
         </mat-form-field>
       </mat-grid-tile>
@@ -99,14 +99,14 @@
       </mat-grid-tile>
 
       <mat-grid-tile colspan="2" rowspan="2">
-        <mat-form-field class="full-width full-height">
+        <mat-form-field class="full-width-margin full-height">
           <textarea matInput placeholder="Special Attention Description" formControlName='specialAttentionDescription'
             matTextareaAutosize matAutosizeMinRows="4"></textarea>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile colspan="3" rowspan="2">
-        <mat-form-field class="full-width full-height">
+        <mat-form-field class="full-width-margin full-height">
           <textarea matInput matTextareaAutosize placeholder="General Notes" formControlName='notes'
             matAutosizeMinRows="4"></textarea>
         </mat-form-field>

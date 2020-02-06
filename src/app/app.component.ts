@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
     private _bottomSheet: MatBottomSheet
   ) {
     this.screenSize = this._shipstats.screenSize;
+    console.log(this.screenSize);
   }
 
   ngOnInit() {

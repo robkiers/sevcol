@@ -37,7 +37,6 @@ export class PatientViewComponent implements OnInit {
 
   @Output() cancelNew: EventEmitter<boolean> = new EventEmitter();
 
-
   constructor(
     protected _fb: FormBuilder,
     protected _api: FirebaseService,
@@ -47,6 +46,8 @@ export class PatientViewComponent implements OnInit {
     this.screenSize = this._shipstats.screenSize;
     if (this._shipstats.screenSize === 'mobile') {
       this.colsNumber = 2;
+    } else {
+      this.colsNumber = 3;
     }
   }
 

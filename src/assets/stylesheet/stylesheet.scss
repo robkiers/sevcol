@@ -76,12 +76,21 @@
   align-items: flex-start !important;
 }
 
+.mat-figure-override .mat-figure {
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .mat-cell,
 .mat-header-cell {
   vertical-align: middle !important;
 }
 
 .full-width {
+  width: 100%;
+}
+
+.full-width-margin {
   width: calc(100% - 20px);
   margin-left: 10px;
   margin-right: 10px;

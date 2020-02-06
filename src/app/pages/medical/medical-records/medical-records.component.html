@@ -1,5 +1,5 @@
 <div *ngIf="!formGroup && !!selectedRecord" class="full-height">
-  <mat-card class="fake_card full-width mobile-content">
+  <mat-card class="fake_card full-width-margin mobile-content">
     <mat-card-title>{{ selectedRecord.reasonOfVisit }}</mat-card-title>
     <mat-card-subtitle>
       <mat-grid-list [cols]="this.colsNumber" rowHeight="3em">
@@ -30,18 +30,18 @@
 
 
 
-<div *ngIf="!!formGroup" class="full-width full-height">
+<div *ngIf="!!formGroup" class="full-width-margin full-height">
   <form [formGroup]="formGroup" class="mobile-content">
 
     <mat-grid-list [cols]="this.colsNumber" rowHeight="3em">
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width">
           <input matInput placeholder="Reason of Visit" formControlName='reasonOfVisit' matAutosizeMinRows="4">
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width">
           <mat-label>Date</mat-label>
           <input matInput [matDatepicker]="datepicker" formControlName='date'>
           <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
@@ -56,7 +56,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width-button">
           <mat-label>Treating Doctor</mat-label>
           <mat-select formControlName="treatingDoctor">
             <mat-option *ngFor="let doctor of doctorList" [value]="doctor.value">
@@ -70,7 +70,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width-button">
           <mat-label>Assisting Doctor</mat-label>
           <mat-select formControlName="assistingDoctor">
             <mat-option *ngFor="let doctor of doctorList" [value]="doctor.value">
@@ -81,10 +81,10 @@
         <button mat-icon-button matTooltip="Add Doctor">
           <mat-icon>add</mat-icon>
         </button>
-      </mat-grid-tile>
+      </mat-grid-tile >
 
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width">
           <mat-label>Used Medicine</mat-label>
           <mat-select formControlName="usedMedication">
             <mat-option *ngFor="let medicine of medicineList" [value]="medicine.value">
@@ -95,7 +95,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width">
           <mat-label>Prescribed Medicine</mat-label>
           <mat-select formControlName="prescribedMedication">
             <mat-option *ngFor="let medicine of medicineList" [value]="medicine.value">
@@ -106,7 +106,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field>
+        <mat-form-field class="full-width">
           <input matInput placeholder="Location Of Treatment" formControlName='locationOfTreatment'>
         </mat-form-field>
       </mat-grid-tile>

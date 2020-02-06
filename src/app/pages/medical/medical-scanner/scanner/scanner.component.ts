@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@ang
 import { QrScannerComponent } from 'angular2-qrscanner';
 import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
-import { trigger, transition, style, animate, state } from '@angular/animations';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scanner',
@@ -22,17 +20,13 @@ export class ScannerComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
   ) {
     this.screenSize = this._shipstats.screenSize;
-    this.determineCanvas();
   }
 
   result;
   resultRetrieve;
 
-  qrWidth = '340';
-  qrHeight = '480';
   qrResponse = null;
   scannerOpenState = true;
-  // step = 0;
 
   @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent?: QrScannerComponent;
 
@@ -45,20 +39,20 @@ export class ScannerComponent implements OnInit, OnDestroy {
     this.qrScannerComponent.stopScanning();
   }
 
-  determineCanvas() {
-    this.qrWidth = this.screenSize === 'mobile' ? '340' : '1080';
-    this.qrHeight = this.screenSize === 'mobile' ? '480' : '720';
-  }
-
   swipe(action = this.SWIPE_ACTION.RIGHT) {
     if (action === this.SWIPE_ACTION.RIGHT) {
       if (this.selectedIndex !== 0) {
         this.selectedIndex = this.selectedIndex - 1;
       }
     }
-    if (action === this.SWIPE_ACTION.LEFT && this.selectedIndex === 0 && !!this.qrResponse) {
-      this.selectedIndex = 1;
+    if (action === this.SWIPE_ACTION.LEFT) {
+      if (this.selectedIndex === 0) {
+        this.selectedIndex = this.selectedIndex + 1;
+      } else if (this.selectedIndex === 1 && !!this.qrResponse) {
+        this.selectedIndex = this.selectedIndex + 1;
+      }
     }
+
     if (this.selectedIndex === 1) {
       this.startScan();
     } else {
@@ -97,12 +91,10 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
     this.qrScannerComponent.capturedQr.subscribe(result => {
       this.resetEntries();
-      console.log('result', result);
 
       if ((result as string).startsWith('{')) {
 
-        const resultJson = result.toJson()
-        console.log('resultJson', resultJson);
+        const resultJson = result.toJson();
 
         if (resultJson.type === 'database') {
           this._api.getDatabaseEntry(resultJson.data).subscribe(entry => {
@@ -134,8 +126,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
         };
         this.qrResponse = response;
       }
-
-      this.swipe();
+      this.selectedIndex = 2;
     });
   }
 
@@ -148,6 +139,5 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
 export interface sevcolQR {
   type: string;
-  // dataid: string,
   data: any;
 }

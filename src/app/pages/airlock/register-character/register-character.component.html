@@ -6,25 +6,25 @@
   <button mat-raised-button (click)="toggleRegisterCardView()" class="float-right">Cancel</button>
 </div>
 
-<div *ngIf="!!formGroup" class="full-width">
+<div *ngIf="!!formGroup" class="full-width-margin">
 
   <form [formGroup]="formGroup">
     <mat-grid-list [cols]="determineCols()" rowHeight="3em" gutterSize="10px">
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Name" formControlName='name' autofocus>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Other Names" formControlName='otherNames'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Family Name" formControlName='familyName'>
         </mat-form-field>
       </mat-grid-tile>
@@ -37,19 +37,19 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Height(cm)" formControlName='height'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Weight(kg)" formControlName='weight'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <mat-label>Planet of Origin</mat-label>
           <mat-select formControlName="planetOfOrigin">
             <mat-option *ngFor="let origin of originLookup" [value]="origin.value">
@@ -60,7 +60,7 @@
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input formControlName='dateOfBirth' matInput [matDatepicker]="picker" placeholder="Choose a date of birth">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -72,19 +72,19 @@
 
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Ship" formControlName='ship'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <input matInput placeholder="Organisation" formControlName='organisation'>
         </mat-form-field>
       </mat-grid-tile>
 
       <mat-grid-tile>
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width-margin">
           <mat-label>Certificates</mat-label>
           <mat-select formControlName="certificates" multiple>
             <mat-optgroup *ngFor="let group of certificateLookup" [label]="group.name">

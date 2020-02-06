@@ -8,11 +8,14 @@ export class ShipStatsService {
 
   screenSize = 'desktop';
 
-  time;
+  // time;
   timeAdjustment = 5097430800000;
 
   private airlockOpen = new BehaviorSubject<boolean>(false);
   public _airlockOpen: Observable<boolean> = this.airlockOpen.asObservable();
+
+  private time = new BehaviorSubject<any>(this.timeAdjustment + new Date().getTime());
+  public _time: Observable<any> = this.time.asObservable();
 
   innerAirlock = false;
   outerAirlock = false;
@@ -23,19 +26,17 @@ export class ShipStatsService {
       throw new Error(
         'ShipStatsService is already loaded. Import it in the AppModule only');
     }
-    console.log('ship stats', this);
     this.initiateTime();
     this.subs();
   }
 
   initiateTime() {
-    this.time = new Date(this.timeAdjustment + new Date().getTime());
+    // this.time = new Date(this.timeAdjustment + new Date().getTime());
 
     setInterval(() => {
-      this.time = new Date(this.timeAdjustment + new Date().getTime());
+      this.time.next(new Date(this.timeAdjustment + new Date().getTime()));
     }, 60000);
 
-    // this.router.events.subscribe(data => console.log(data));
   }
 
   getTime() {
@@ -48,7 +49,6 @@ export class ShipStatsService {
 
   determineScreen(): string {
     const innerWidth = window.innerWidth;
-    // console.log(innerWidth);
     if (innerWidth < 500) {
       return 'mobile';
     }
@@ -56,13 +56,10 @@ export class ShipStatsService {
   }
 
   toggle() {
-    // this.airlockOpen = !this.airlockOpen;
-    console.log('ship-toggle', this.airlockOpen.value);
     this.airlockOpen.next(!this.airlockOpen.value);
   }
 
   getAirlockStatus() {
-    console.log('get');
     return this.airlockOpen;
   }
   //   this.time = this.timeAdjustment + new Date().getTime();

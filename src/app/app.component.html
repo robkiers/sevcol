@@ -1,9 +1,9 @@
 <div>
-    <!-- <app-top-bar></app-top-bar> -->
-    <div class="router-container" [ngClass]="{'router-container-topbar': _topbar.visible}">
+    <app-top-bar *ngIf="screenSize === 'desktop'"></app-top-bar>
+    <div class="router-container" [ngClass]="{'router-container-topbar': screenSize === 'desktop'}">
         <router-outlet></router-outlet>
     </div>
-    <div (swipeup)="openBottomSheet()" class="bottom-anchor">
+    <div (swipeup)="openBottomSheet()" class="bottom-anchor" *ngIf="screenSize === 'mobile'">
         
     </div>
 </div>

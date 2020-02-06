@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class TopBarService {
 
-  visible: boolean;
+  visible = true;
 
-  constructor() { this.visible = false; }
+  constructor() { this.visible = true; }
 
   hide() { this.visible = false; }
 

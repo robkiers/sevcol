@@ -1,66 +1,68 @@
-<div *ngIf="screenSize==='desktop'">
-    <mat-grid-list cols="2" gutterSize="5px">
-        <mat-grid-tile>
-            <mat-card class="dashboard-container full-width">
-                <qr-scanner [canvasWidth]="determineCanvas('width')" [canvasHeight]="determineCanvas('height')"
-                    [stopAfterScan]="true" [updateTime]="500">
-                </qr-scanner>
+<mat-grid-list rowHeight="100%" cols="2" gutterSize="5px" *ngIf="screenSize==='desktop'">
+    <mat-grid-tile>
+        <mat-card class="dashboard-container full-width-margin">
+            <qr-scanner [stopAfterScan]="true" [updateTime]="500">
+            </qr-scanner>
 
-                <mat-card-actions>
+            <mat-card-actions>
+                <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
+                <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
+                <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
+            </mat-card-actions>
+        </mat-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <mat-card class="dashboard-container full-width-margin">
+            <div *ngIf="!!qrResponse">
+                <div class="regular" [ngClass]="{'hiddenRight': currentIndex === 0}">
+
+                    <div *ngIf="qrResponse.type === 'database'">
+                        <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+                    </div>
+
+                    <div *ngIf="qrResponse.type === 'person'">
+                        <app-patient-view [selectedEntry]="qrResponse.data"></app-patient-view>
+                    </div>
+
+                    <div *ngIf="qrResponse.type === 'link'">
+                        {{ qrResponse.data }}
+                        <a [href]="qrResponse.data">Visit Link</a>
+                    </div>
+
+                    <div *ngIf="qrResponse.type === 'string'">
+                        {{ qrResponse.data }}
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+<div class="mobile_container" *ngIf="screenSize==='mobile'">
+    <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
+        <mat-tab>
+            <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+                <app-dashboard (selectedTab)="setSelectedIndex($event)"></app-dashboard>
+            </div>
+        </mat-tab>
+        <mat-tab>
+            <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+                <div class="mobile-content">
+                    <qr-scanner [stopAfterScan]="true" [updateTime]="500">
+                    </qr-scanner>
+                </div>
+                <div class="mobile-footer">
                     <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
                     <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
                     <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
-                </mat-card-actions>
-            </mat-card>
-
-        </mat-grid-tile>
-
-        <mat-grid-tile>
-            <mat-card class="dashboard-container full-width">
-                <div *ngIf="!!qrResponse">
-                    <div class="regular" [ngClass]="{'hiddenRight': currentIndex === 0}">
-
-                        <div *ngIf="qrResponse.type === 'database'">
-                            <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
-                        </div>
-
-                        <div *ngIf="qrResponse.type === 'person'">
-                            <app-patient-view [selectedEntry]="qrResponse.data"></app-patient-view>
-                        </div>
-
-                        <div *ngIf="qrResponse.type === 'link'">
-                            {{ qrResponse.data }}
-                            <a [href]="qrResponse.data">Visit Link</a>
-                        </div>
-
-                        <div *ngIf="qrResponse.type === 'string'">
-                            {{ qrResponse.data }}
-                        </div>
-                    </div>
                 </div>
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
-</div>
-
-
-<div class="full-height" *ngIf="screenSize==='mobile'">
-
-    <div class="mobile-content" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-        <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
-            <mat-tab>
-                <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-                    <app-dashboard (selectedTab)="setSelectedIndex($event)"></app-dashboard>
-                </div>
-            </mat-tab>
-            <mat-tab>
-                <qr-scanner [stopAfterScan]="true" [updateTime]="500">
-                </qr-scanner>
-                <!-- <qr-scanner [canvasWidth]="qrWidth" [canvasHeight]="qrHeight"
-                    [stopAfterScan]="true" [updateTime]="500">
-                </qr-scanner> -->
-            </mat-tab>
-            <mat-tab *ngIf="!!qrResponse && (qrResponse.type === 'link' || qrResponse.type === 'string')">
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="!!qrResponse && (qrResponse.type === 'link' || qrResponse.type === 'string')">
+            <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
                 <div *ngIf="qrResponse.type === 'link'">
                     {{ qrResponse.data }}
                     <a [href]="qrResponse.data">Visit Link</a>
@@ -68,29 +70,12 @@
                 <div *ngIf="qrResponse.type === 'string'">
                     {{ qrResponse.data }}
                 </div>
-            </mat-tab>
-            <mat-tab *ngIf="!!qrResponse && qrResponse.type === 'database'">
-                <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
-            </mat-tab>
-            <mat-tab *ngIf="!!qrResponse && qrResponse.type === 'person'">
-                <!-- <div *ngIf="!!qrResponse">
-                    <div class="regular" [ngClass]="{'hiddenRight': currentIndex === 0}">
-                        <div *ngIf="qrResponse.type === 'person'">
-                            <app-patient-view [selectedEntry]="qrResponse.data"></app-patient-view>
-                        </div>
-                    </div>
-                </div> -->
-
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-
-
-
-
-    <div class="mobile-footer">
-        <button mat-raised-button (click)="this.qrScannerComponent.stopScanning()">Pause Scan</button>
-        <button mat-raised-button (click)="this.startScan()" class="margin-left">Initiate Scan</button>
-        <button mat-raised-button disabled="true" class="margin-left">Medical Operation</button>
-    </div>
+            </div>
+        </mat-tab>
+        <mat-tab *ngIf="!!qrResponse && qrResponse.type === 'database'">
+            <app-database-view [selectedEntry]="qrResponse.data"></app-database-view>
+        </mat-tab>
+        <mat-tab *ngIf="!!qrResponse && qrResponse.type === 'person'">
+        </mat-tab>
+    </mat-tab-group>
 </div>

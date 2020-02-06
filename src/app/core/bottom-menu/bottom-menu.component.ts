@@ -9,7 +9,7 @@ import { ShipStatsService } from '../ship-stats/ship-stats.service';
   styleUrls: ['./bottom-menu.component.scss']
 })
 export class BottomMenuComponent implements OnInit {
-  
+
   time;
   dialogClosed = true;
 

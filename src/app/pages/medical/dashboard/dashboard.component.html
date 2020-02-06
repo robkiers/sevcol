@@ -25,17 +25,17 @@
     </mat-grid-list>
 </div>
 
-<mat-grid-list cols="1" rowHeight="10:1" *ngIf="this.screenSize === 'desktop'">
-    <mat-grid-tile>
+<mat-grid-list cols="1" rowHeight="10:1" *ngIf="this.screenSize === 'desktop'" class="desktop-page">
+    <mat-grid-tile class="mat-figure-override">
         <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./patient-list']">Patient
             Dossiers</button>
         <button mat-raised-button class="dashboard-second-button" [routerLink]="['./patient-list/new-patient']">New
             Patient</button>
     </mat-grid-tile>
-    <mat-grid-tile>
+    <mat-grid-tile class="mat-figure-override">
         <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-scanner']">Medical Scanner</button>
     </mat-grid-tile>
-    <mat-grid-tile>
+    <mat-grid-tile class="mat-figure-override">
         <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-database']">Medical
             Database</button>
     </mat-grid-tile>

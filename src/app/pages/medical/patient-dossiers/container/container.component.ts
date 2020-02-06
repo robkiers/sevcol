@@ -3,6 +3,7 @@ import { FirebaseService } from 'src/app/shared/services/firebase.service';
 import { PatientViewComponent } from '../patient-view/patient-view.component';
 import { MedicalRecordsComponent } from '../../medical-records/medical-records.component';
 import { Router } from '@angular/router';
+import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
 @Component({
   selector: 'app-container',
@@ -23,7 +24,6 @@ export class ContainerComponent implements OnInit {
   patientListColumns = [
     { definition: 'familyName', header: 'Name', width: '20%' },
     { definition: 'name', header: 'First Name', width: '20%' },
-    // { definition: 'gender', header: 'Gender', width: '20%' },
     { definition: 'organisation', header: 'Organisation', width: '30%' },
     { definition: 'ship', header: 'Ship', width: '30%' }
   ];
@@ -46,8 +46,10 @@ export class ContainerComponent implements OnInit {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     protected _api: FirebaseService,
-    private router: Router,
-  ) { }
+    protected _shipstats: ShipStatsService,
+  ) {
+    this.screenSize = this._shipstats.screenSize;
+  }
 
   ngOnInit() {
     this._api.getPatientList().subscribe(data => this.patientList = data);
@@ -71,9 +73,13 @@ export class ContainerComponent implements OnInit {
   }
 
   createNewPatients() {
-    this.selectedIndex = 2;
-    this.changeDetectorRef.detectChanges();
-    this.patientViewComponent.createFormgroup();
+    this.selectedPatient = null;
+    this.recordList = null;
+    // this.changeDetectorRef.detectChanges();
+    setTimeout(_ => {
+      this.selectedIndex = 2;
+      this.patientViewComponent.createFormgroup();
+    });
   }
 
   setSelectedIndex(index) {
@@ -87,15 +93,17 @@ export class ContainerComponent implements OnInit {
       }
     }
     if (action === this.SWIPE_ACTION.LEFT) {
-      if (this.selectedIndex === 1 && !!this.selectedPatient) {
+      if ((this.selectedIndex === 1 || this.selectedIndex === 2) && !!this.selectedPatient) {
         this.selectedIndex = this.selectedIndex + 1;
-      } else if (this.selectedIndex === 2 && !!this.selectedPatient) {
-        this.selectedIndex = this.selectedIndex + 1;
+        // return;
       } else if (this.selectedIndex === 3 && !!this.selectedRecord) {
         this.selectedIndex = this.selectedIndex + 1;
+        // return;
       } else if (this.selectedIndex === 0) {
         this.selectedIndex = this.selectedIndex + 1;
+        // return;
       }
     }
+    console.log(this.selectedIndex);
   }
 }

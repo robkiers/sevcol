@@ -1,4 +1,4 @@
-<!-- <mat-card class="dashboard-container full-width"> -->
+<!-- <mat-card class="dashboard-container full-width-margin"> -->
 <mat-card-title>
   Active Crew list
 </mat-card-title>
@@ -6,7 +6,7 @@
 <mat-card-content>
   <mat-grid-list cols="2">
     <mat-grid-tile>
-      <table mat-table #activeTable [dataSource]="activeCharcterList" class="full-width">
+      <table mat-table #activeTable [dataSource]="activeCharcterList" class="full-width-margin">
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef> No. </th>
           <td mat-cell *matCellDef="let person; index as i;"> {{ i + 1 }} </td>
@@ -36,7 +36,7 @@
 
     <mat-grid-tile>
 
-      <table mat-table #inactiveTable [dataSource]="inactiveCharcterList" class="full-width">
+      <table mat-table #inactiveTable [dataSource]="inactiveCharcterList" class="full-width-margin">
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef> No. </th>
           <td mat-cell *matCellDef="let person; index as i;"> {{ i + 1 }} </td>
