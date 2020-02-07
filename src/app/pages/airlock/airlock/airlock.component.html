@@ -50,11 +50,22 @@
   </div>
 
   <div class="full-width-margin">
+    <mat-card class="full-height cameraCard">
+      <div class="timestamp">
+        {{ (time | async) | date: 'HH:mm, yyyy.MM.dd' }}
+        <div>
+          <button mat-raised-button (click)='toggleCamera()'>{{cameraRecord ? 'Pause': 'Start'}} Recording</button>
+        </div>
+      </div>
 
+      <div class="full-height" (click)='enlarge()'>
+        <video class="full-height" #videoElement></video>
+      </div>
+
+
+
+    </mat-card>
   </div>
-  <!-- <mat-card >
-
-  </mat-card> -->
 </div>
 
 <div class="airlock-container">

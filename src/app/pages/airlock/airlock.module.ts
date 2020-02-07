@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ActiveCrewListComponent } from './active-crew-list/active-crew-list.component';
 import { RegisterCharacterComponent } from './register-character/register-character.component';
 import { FindPassengerComponent } from './find-passenger/find-passenger.component';
+import { LargeVideoPlayerComponent } from './large-video-player/large-video-player.component';
 
 const routes: Routes = [
   { path: '', component: AirlockComponent }
@@ -15,7 +16,8 @@ const routes: Routes = [
     AirlockComponent,
     ActiveCrewListComponent,
     RegisterCharacterComponent,
-    FindPassengerComponent
+    FindPassengerComponent,
+    LargeVideoPlayerComponent
   ],
   imports: [
     SharedModule,
@@ -24,7 +26,8 @@ const routes: Routes = [
   entryComponents: [
     ActiveCrewListComponent,
     RegisterCharacterComponent,
-    FindPassengerComponent
+    FindPassengerComponent,
+    LargeVideoPlayerComponent
   ]
 })
 export class AirlockModule { }
