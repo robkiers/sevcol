@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { CharcterActivity } from '../active-crew-list/active-crew-list.component';
 import { CharacterBaseFile } from 'src/app/core/models';
 
@@ -23,7 +23,7 @@ export class FindPassengerComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<FindPassengerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
   ) { }
 
   ngOnInit() {

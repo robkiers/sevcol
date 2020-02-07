@@ -1,9 +1,5 @@
-.airlock-open {
-  background-color: red;
-}
-
 .status-container {
-  background-color: green;
+  background-color: rgb(10, 82, 10);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -11,4 +7,15 @@
   height: 100%;
   font-size: 2rem;
   font-weight: 500;
+}
+
+.airlock-open {
+  background-color: rgb(129, 0, 0);
+}
+
+.timestamp {
+  font-size: 1rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }

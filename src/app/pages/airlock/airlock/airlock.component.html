@@ -14,7 +14,7 @@
         <p>Docked vessel Status:</p>
       </div>
       <div class="state">
-        <p>Airlock {{airlockOpen ? 'Open' : 'Closed'}} </p>
+        <p>Airlock {{airlockStatus.innerAirlockOpen && airlockStatus.outerAirlockOpen ? 'Open' : 'Closed'}} </p>
         <mat-divider></mat-divider>
         <p>Customs 3</p>
         <mat-divider></mat-divider>
@@ -26,24 +26,23 @@
 
   <div class="full-width-margin" style="display: flex;">
     <div class="action">
-      <button class="airlock-button" mat-raised-button (click)="openSnackBar('Ask SL for status','not implemented')"
-        disabled="true">
+      <button class="airlock-button" mat-raised-button disabled="true">
         Request dock status</button>
       <button class="airlock-button" mat-raised-button (click)="toggleAirlock()">
-        {{airlockOpen ? 'Close': 'Open'}} Airlock</button>
+        {{airlockStatus.innerAirlockOpen && airlockStatus.outerAirlockOpen ? 'Close': 'Open'}}
+        Airlock</button>
       <button class="airlock-button" mat-raised-button (click)="manualOveride = !manualOveride">Manual override</button>
     </div>
 
     <div class="action" [ngClass]="{'hideElement': !manualOveride}">
-      <button class="airlock-button" mat-raised-button (click)="innerAirlock = !innerAirlock" disabled="true">
-        {{innerAirlock ? 'Close': 'Open'}} inner Airlockdoor</button>
-      <button class="airlock-button" mat-raised-button (click)="outerAirlock = !outerAirlock" disabled="true">
-        {{outerAirlock ? 'Close': 'Open'}} outer Airlockdoor</button>
-      <button class="airlock-button" mat-raised-button (click)="airlockPressurized = !airlockPressurized"
-        disabled="true">
-        {{airlockPressurized ? 'Depressurize' : 'Pressurize'}} Airlock door</button>
-      <button class="airlock-button" mat-raised-button (click)="openSnackBar('gameplay element','not implemented')"
-        disabled="true">
+      <button class="airlock-button" mat-raised-button (click)="toggleInnerAirlock()">
+        {{airlockStatus.innerAirlockOpen ? 'Close': 'Open'}} inner Airlockdoor</button>
+      <button class="airlock-button" mat-raised-button (click)="toggleOuterAirlock()">
+        {{airlockStatus.outerAirlockOpen ? 'Close': 'Open'}} outer Airlockdoor</button>
+      <button class="airlock-button" mat-raised-button (click)="togglePresureAirlock()"
+        [disabled]="disablePresureButton">
+        {{airlockStatus.airlockPresure ? 'Depressurize' : 'Pressurize'}} Airlock</button>
+      <button class="airlock-button" mat-raised-button disabled="true">
         Physical override</button>
     </div>
 
@@ -53,7 +52,7 @@
     <mat-card class="full-height cameraCard">
       <div class="timestamp">
         {{ (time | async) | date: 'HH:mm, yyyy.MM.dd' }}
-        <div>
+        <div *ngIf="showVideo">
           <button mat-raised-button (click)='toggleCamera()'>{{cameraRecord ? 'Pause': 'Start'}} Recording</button>
         </div>
       </div>
@@ -61,8 +60,6 @@
       <div class="full-height" (click)='enlarge()'>
         <video class="full-height" #videoElement></video>
       </div>
-
-
 
     </mat-card>
   </div>
@@ -85,17 +82,17 @@
 
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let person"> {{person.image}} </td>
+            <td mat-cell *matCellDef="let person;"> {{person.image}} </td>
           </ng-container>
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let person"> {{person.familyName}}, {{person.name}}</td>
+            <td mat-cell *matCellDef="let person;"> {{person.familyName}}, {{person.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="disembarked">
             <th mat-header-cell *matHeaderCellDef>Disembarked</th>
-            <td mat-cell *matCellDef="let person">
+            <td mat-cell *matCellDef="let person;">
               <mat-slide-toggle [checked]="person.disembarked" disabled="true" class="fakeActive"></mat-slide-toggle>
             </td>
           </ng-container>
@@ -131,17 +128,17 @@
 
           <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let person"> {{person.image}} </td>
+            <td mat-cell *matCellDef="let person;"> {{person.image}} </td>
           </ng-container>
 
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let person"> {{person.familyName}}, {{person.name}}</td>
+            <td mat-cell *matCellDef="let person;"> {{person.familyName}}, {{person.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="disembarked">
             <th mat-header-cell *matHeaderCellDef>Disembarked</th>
-            <td mat-cell *matCellDef="let person">
+            <td mat-cell *matCellDef="let person;">
               <mat-slide-toggle [checked]="person.disembarked" disabled="true" class="fakeActive"></mat-slide-toggle>
               <button mat-mini-fab (click)="unlistPassenger($event, person)"
                 style="margin-left: 20px; transform: scale(0.7);" matTooltip="Unlist passenger">

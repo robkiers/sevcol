@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Inject, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { UUID } from 'angular2-uuid';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActiveCrewListComponent, CharcterActivity } from '../active-crew-list/active-crew-list.component';
@@ -106,7 +106,7 @@ export class RegisterCharacterComponent implements OnInit {
     public dialogRef: MatDialogRef<ActiveCrewListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     protected _fb: FormBuilder,
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
   ) { }
 
   resetView() {

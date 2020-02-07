@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { UUID } from 'angular2-uuid';
 import { GenerateQRService } from 'src/app/shared/base-class/generate-qr/generate-qr.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
@@ -39,7 +39,7 @@ export class PatientViewComponent implements OnInit {
 
   constructor(
     protected _fb: FormBuilder,
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
     protected _qrService: GenerateQRService,
     protected _shipstats: ShipStatsService,
   ) {

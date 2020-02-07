@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { QrScannerComponent } from 'angular2-qrscanner';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
   selectedIndex = 1;
 
   constructor(
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
     protected _shipstats: ShipStatsService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {

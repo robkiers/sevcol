@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { PatientViewComponent } from '../patient-view/patient-view.component';
 import { MedicalRecordsComponent } from '../../medical-records/medical-records.component';
-import { Router } from '@angular/router';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 
 @Component({
@@ -45,7 +44,7 @@ export class ContainerComponent implements OnInit {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
     protected _shipstats: ShipStatsService,
   ) {
     this.screenSize = this._shipstats.screenSize;

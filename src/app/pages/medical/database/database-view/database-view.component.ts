@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UUID } from 'angular2-uuid';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GenerateQRService } from 'src/app/shared/base-class/generate-qr/generate-qr.service';
 
@@ -45,7 +45,7 @@ export class DatabaseViewComponent implements OnInit {
 
   constructor(
     protected _fb: FormBuilder,
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
     public dialog: MatDialog,
     protected _qrService: GenerateQRService,
   ) { }

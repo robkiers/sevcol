@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { CharacterBaseFile } from 'src/app/core/models';
 import { FormBuilder } from '@angular/forms';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -34,7 +34,7 @@ export class ActiveCrewListComponent implements OnInit {
     public dialogRef: MatDialogRef<ActiveCrewListComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     protected _fb: FormBuilder,
-    protected _api: FirebaseService,
+    protected _api: FirebaseSharedService,
     private _snackBar: MatSnackBar,
     private _shipStats: ShipStatsService,
   ) { }

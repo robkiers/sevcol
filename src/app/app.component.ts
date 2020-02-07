@@ -3,7 +3,7 @@ import { TopBarService } from './core/top-bar/top-bar.service';
 import 'hammerjs';
 import { ShipStatsService } from './core/ship-stats/ship-stats.service';
 import { BottomMenuComponent } from './core/bottom-menu/bottom-menu.component';
-import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
   }
 
   openBottomSheet(): void {
-    console.log('open');
     this._bottomSheet.open(BottomMenuComponent);
   }
 

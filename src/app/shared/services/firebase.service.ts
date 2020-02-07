@@ -1,14 +1,12 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { CharacterBaseFile } from 'src/app/core/models';
-import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class FirebaseSharedService {
 
   constructor(
     public db: AngularFirestore
@@ -54,7 +52,21 @@ export class FirebaseService {
   }
 
   createCharacter(entry) {
-    return this.db.collection('characterlist').doc(entry.personID).set(Object.assign(entry));
+    const batch = this.db.firestore.batch();
+
+    const activityReference: DocumentReference =
+      firebase.firestore().collection('characterlists').doc('characteractivity').collection('characteractivity').doc(entry.personID);
+    batch.set(activityReference, entry);
+
+    const characterReference: DocumentReference =
+      firebase.firestore().collection('characterlists').doc('characterlist').collection('characterlist').doc(entry.personID);
+    batch.set(characterReference, entry);
+
+
+
+    batch.commit().then(() => {
+      console.log('succes');
+    });
   }
 
   setActiveCrewRoster(activateList, deactivateList) {
@@ -141,4 +153,11 @@ export class FirebaseService {
       .doc(characterActivity.personID).update(characterActivity);
   }
 
+  getAirlockStatus() {
+    return this.db.collection('shipStats').doc('airlock').valueChanges();
+  }
+
+  toggleAirlock(status) {
+    return this.db.collection('shipStats').doc('airlock').set(Object.assign(status));
+  }
 }

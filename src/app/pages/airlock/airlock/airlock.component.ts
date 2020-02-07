@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { FirebaseService } from 'src/app/shared/services/firebase.service';
+import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { map, tap, filter } from 'rxjs/operators';
 import { CharacterBaseFile, CharacterPatientFile } from 'src/app/core/models';
@@ -34,24 +34,22 @@ export class AirlockComponent implements OnInit {
 
   manualOveride = false;
 
-  airlockOpen = false;
-  innerAirlock = false;
-  outerAirlock = false;
-  airlockPressurized = true;
-
   time;
-
   cameraRecord = true;
+  showVideo = true;
 
-  // videoWidth = '600px';
-  // videoHeight = '600px';
+  airlockStatus = {
+    innerAirlockOpen: true,
+    outerAirlockOpen: true,
+    airlockPresure: true,
+  };
 
-  // width = '600px';
-  // height = '600px';
+  disablePresureButton = true;
 
   @ViewChild('scanInput', { static: false }) scanInput: ElementRef;
 
   @ViewChild('videoElement', { static: true }) videoElement: any;
+
   video: any;
 
   @HostListener('document:keydown', ['$event'])
@@ -63,8 +61,7 @@ export class AirlockComponent implements OnInit {
 
   constructor(
     protected _fb: FormBuilder,
-    protected _api: FirebaseService,
-    private _snackBar: MatSnackBar,
+    protected _api: FirebaseSharedService,
     private _shipStats: ShipStatsService,
     public _dialog: MatDialog,
     public _topbar: TopBarService,
@@ -84,13 +81,12 @@ export class AirlockComponent implements OnInit {
 
     this._api.getActivePassengerList().subscribe(data => this.activePassengerList = data);
 
-    this._shipStats.getAirlockStatus().subscribe(status => this.airlockOpen = status);
     this.time = this._shipStats.getTime();
 
     this.video = this.videoElement.nativeElement;
     this.initCamera({ video: true, audio: false });
 
-
+    this.setAirlockStatus();
   }
 
   selectRow(e) {
@@ -120,16 +116,9 @@ export class AirlockComponent implements OnInit {
     this._api.delistPassenger(person);
   }
 
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 3000,
-    });
-  }
-
   openDialog(): void {
     const dialogRef = this._dialog.open(ActiveCrewListComponent, {
       width: '800px',
-      // data: { name: this.name, animal: this.animal }
     });
     this.dialogClosed = false;
 
@@ -152,8 +141,95 @@ export class AirlockComponent implements OnInit {
     });
   }
 
+  setAirlockStatus() {
+    this._api.getAirlockStatus().subscribe(data => {
+      this.airlockStatus = data as AirlockStatus;
+      this.updateAllowPresurize();
+    });
+  }
+
   toggleAirlock() {
-    this._shipStats.toggle();
+    if (this.airlockStatus.innerAirlockOpen && this.airlockStatus.outerAirlockOpen) {
+      const status = {
+        innerAirlockOpen: false,
+        outerAirlockOpen: false,
+        airlockPresure: false
+      };
+      this._api.toggleAirlock(status);
+    } else {
+      const status = {
+        innerAirlockOpen: true,
+        outerAirlockOpen: true,
+        airlockPresure: true
+      };
+      this._api.toggleAirlock(status);
+    }
+    this.updateAllowPresurize();
+  }
+
+  toggleInnerAirlock() {
+    if (this.airlockStatus.innerAirlockOpen) {
+      const status = {
+        innerAirlockOpen: false,
+        outerAirlockOpen: this.airlockStatus.outerAirlockOpen,
+        airlockPresure: this.airlockStatus.airlockPresure
+      };
+      this._api.toggleAirlock(status);
+    } else {
+      const status = {
+        innerAirlockOpen: true,
+        outerAirlockOpen: this.airlockStatus.outerAirlockOpen,
+        airlockPresure: this.airlockStatus.airlockPresure
+      };
+      this._api.toggleAirlock(status);
+    }
+    this.updateAllowPresurize();
+  }
+
+  toggleOuterAirlock() {
+    if (this.airlockStatus.outerAirlockOpen) {
+      const status = {
+        innerAirlockOpen: this.airlockStatus.innerAirlockOpen,
+        outerAirlockOpen: false,
+        airlockPresure: this.airlockStatus.airlockPresure
+      };
+      this._api.toggleAirlock(status);
+    } else {
+      const status = {
+        innerAirlockOpen: this.airlockStatus.innerAirlockOpen,
+        outerAirlockOpen: true,
+        airlockPresure: this.airlockStatus.airlockPresure
+      };
+      this._api.toggleAirlock(status);
+    }
+    this.updateAllowPresurize();
+  }
+
+  togglePresureAirlock() {
+    if (this.airlockStatus.airlockPresure) {
+      const status = {
+        innerAirlockOpen: this.airlockStatus.innerAirlockOpen,
+        outerAirlockOpen: this.airlockStatus.outerAirlockOpen,
+        airlockPresure: false
+      };
+      this._api.toggleAirlock(status);
+    } else {
+      const status = {
+        innerAirlockOpen: this.airlockStatus.innerAirlockOpen,
+        outerAirlockOpen: this.airlockStatus.outerAirlockOpen,
+        airlockPresure: true
+      };
+      this._api.toggleAirlock(status);
+    }
+    this.updateAllowPresurize();
+  }
+
+  updateAllowPresurize() {
+    if (!this.airlockStatus.innerAirlockOpen && !this.airlockStatus.outerAirlockOpen) {
+      this.disablePresureButton = false;
+    } else {
+      this.disablePresureButton = true;
+    }
   }
 
   initCamera(config: any) {
@@ -164,10 +240,17 @@ export class AirlockComponent implements OnInit {
       browser.mozGetUserMedia ||
       browser.msGetUserMedia);
 
-    browser.mediaDevices.getUserMedia(config).then(stream => {
-      this.video.srcObject = stream;
-      this.video.play();
-    });
+    browser.mediaDevices.getUserMedia(config).then(
+      () => stream => {
+        this.showVideo = true;
+        this.video.srcObject = stream;
+        this.video.play();
+      },
+      () => {
+        this.showVideo = false;
+        console.log('No recording device found');
+      }
+    );
   }
 
   toggleCamera() {
@@ -176,15 +259,23 @@ export class AirlockComponent implements OnInit {
   }
 
   enlarge() {
-    const dialogRef = this._dialog.open(LargeVideoPlayerComponent, {
-      width: '800px',
-      data: this.video.srcObject
-    });
-    this.dialogClosed = false;
+    if (this.showVideo) {
+      const dialogRef = this._dialog.open(LargeVideoPlayerComponent, {
+        width: '690px',
+        data: this.video.srcObject
+      });
+      this.dialogClosed = false;
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.dialogClosed = true;
-    });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.dialogClosed = true;
+      });
+    }
   }
+}
+
+export interface AirlockStatus {
+  innerAirlockOpen: boolean;
+  outerAirlockOpen: boolean;
+  airlockPresure: boolean;
 }

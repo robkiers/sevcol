@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -6,18 +6,19 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './large-video-player.component.html',
   styleUrls: ['./large-video-player.component.scss']
 })
-export class LargeVideoPlayerComponent implements OnInit {
+export class LargeVideoPlayerComponent implements AfterViewInit {
 
-  @ViewChild('videoElement', { static: true }) videoElement: any;
+  @ViewChild('videoElement', { static: false }) videoElement: any;
   video: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  ngOnInit() {
-    console.log(this.data);
+  ngAfterViewInit() {
+    this.video = this.videoElement.nativeElement;
     this.video.srcObject = this.data;
+    this.video.play();
 
   }
 
