@@ -39,7 +39,6 @@ export class FirebaseSharedService {
   }
 
   getDatabaseEntry(entry) {
-    // this.itemscollection.doc(id).ref.get()
     return this.db.collection('databaselist').doc(entry).valueChanges();
   }
 
