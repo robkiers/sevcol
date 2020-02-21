@@ -39,6 +39,9 @@
         <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-database']">Medical
             Database</button>
     </mat-grid-tile>
+    <mat-grid-tile class="mat-figure-override" *ngIf="_auth.userData as user;">
+        <button mat-raised-button class="dashboard-button">Admin</button>
+    </mat-grid-tile>
     <!-- <mat-grid-tile>
         <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./medical-database']">Medical
             Database</button>

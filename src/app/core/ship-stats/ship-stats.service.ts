@@ -1,10 +1,11 @@
 
-import { Injectable, SkipSelf, Optional } from '@angular/core';
+import { Injectable, SkipSelf, Optional, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ShipStatsService {
+export class ShipStatsService implements OnInit {
 
   screenSize = 'desktop';
 
@@ -17,22 +18,37 @@ export class ShipStatsService {
   private time = new BehaviorSubject<any>(this.timeAdjustment + new Date().getTime());
   public _time: Observable<any> = this.time.asObservable();
 
+  private user = new BehaviorSubject<any>(null);
+  public _user: Observable<any> = this.user.asObservable();
+
+
+
   innerAirlock = false;
   outerAirlock = false;
   airlockPressurized = true;
 
-  constructor(@Optional() @SkipSelf() parentModule: ShipStatsService) {
+  constructor(
+    // @Optional() @SkipSelf()
+    parentModule: ShipStatsService,
+    private _auth: AuthenticationService,
+  ) {
     if (parentModule) {
       throw new Error(
         'ShipStatsService is already loaded. Import it in the AppModule only');
     }
     this.initiateTime();
     this.subs();
+    // this.user.next(this._auth.isSignedin());
+
+  }
+
+  ngOnInit() {
+    console.log('init');
+    console.log(this._auth.isSignedin());
+
   }
 
   initiateTime() {
-    // this.time = new Date(this.timeAdjustment + new Date().getTime());
-
     setInterval(() => {
       this.time.next(new Date(this.timeAdjustment + new Date().getTime()));
     }, 60000);
@@ -54,21 +70,5 @@ export class ShipStatsService {
     }
     return 'desktop';
   }
-
-  toggle() {
-    this.airlockOpen.next(!this.airlockOpen.value);
-  }
-
-  getAirlockStatus() {
-    return this.airlockOpen;
-  }
-  //   this.time = this.timeAdjustment + new Date().getTime();
-
-  // setInterval(() => {
-  //   this.time = this.timeAdjustment + new Date().getTime();
-  // }, 60000);
-
-  // this.router.events.subscribe(data => console.log(data));
-
 
 }

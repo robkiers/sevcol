@@ -1,0 +1,40 @@
+<div *ngIf="!!formGroup" class="full-width-margin full-height">
+    <form [formGroup]="formGroup">
+        <mat-grid-list cols="1" rowHeight="3em" class="marginTop" *ngIf="!signedIn">
+            <mat-grid-tile>
+                <mat-form-field class="full-width-margin">
+                    <input matInput placeholder="Account Name" formControlName='accountName'>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field class="full-width-margin">
+                    <input matInput placeholder="Password" formControlName='password'>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+
+                <button mat-raised-button (click)="submitLogin()">
+                    <mat-icon>done</mat-icon>Log In
+                </button>
+
+                <button mat-raised-button (click)="registerLogin()">
+                    <mat-icon>create</mat-icon>Register
+                </button>
+
+                <button mat-raised-button (click)="cancel()">
+                    <mat-icon>cancel</mat-icon>Cancel
+                </button>
+
+            </mat-grid-tile>
+
+        </mat-grid-list>
+
+        <mat-grid-list *ngIf="signedIn">
+            <mat-grid-tile>
+                Signed in Succesful.
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,12 +33,13 @@ export class DashboardComponent implements OnInit {
     protected _shipstats: ShipStatsService,
     protected _router: Router,
     private _route: ActivatedRoute,
+    private _auth: AuthenticationService,
   ) {
     this.screenSize = this._shipstats.screenSize;
   }
 
   ngOnInit() {
-
+    // console.log();
   }
 
   gotoDatabase() {

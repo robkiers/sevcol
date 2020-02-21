@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenerateQRComponent } from 'src/app/shared/base-class/generate-qr/generate-qr.component';
 import { ActivatedRoute, UrlSegment, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -48,6 +49,19 @@ export class TopBarComponent implements OnInit {
     const dialogRef = this._dialog.open(GenerateQRComponent, {
       width: '21cm',
       height: '29.7cm',
+    });
+    this.dialogClosed = false;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.dialogClosed = true;
+    });
+  }
+
+  logIn() {
+    const dialogRef = this._dialog.open(LoginComponent, {
+      width: '600px',
+      height: '400px',
     });
     this.dialogClosed = false;
 
