@@ -32,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'oc-admin',
-    loadChildren: './pages/admin/airlock.module#AirlockModule'
+    loadChildren: './pages/oc-admin/oc-admin.module#OcAdminModule'
     // loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
   },
   { path: '', component: DashboardComponent },

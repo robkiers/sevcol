@@ -92,6 +92,8 @@ logged in and setting up null when logged out */
     });
   }
 
+
+
 }
 
 // firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
