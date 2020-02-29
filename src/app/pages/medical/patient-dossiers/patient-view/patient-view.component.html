@@ -1,0 +1,166 @@
+<div *ngIf="!formGroup && !!selected" class="full-height">
+  <mat-card class="fake_card full-width-margin mobile-content">
+    <mat-card-title>{{selected.name}} {{selected?.otherNames}}
+      {{selected.familyName}}
+      <button mat-icon-button matTooltip="Special Attention required" *ngIf="selected.specialAttention === true">
+        <mat-icon>error_outline</mat-icon>
+      </button>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-grid-list [cols]="this.colsNumber" rowHeight="2em">
+        <mat-grid-tile>{{selected.gender}}</mat-grid-tile>
+        <mat-grid-tile>age: {{selected.age}}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-subtitle>
+
+    <mat-card-content>
+      <mat-grid-list [cols]="this.colsNumber" rowHeight="2em">
+        <!-- <mat-grid-tile>Age: {{selected.age}}</mat-grid-tile> -->
+        <mat-grid-tile *ngIf="selected.specialAttention === true" [colspan]="this.colsNumber">
+          {{selected.specialAttentionDescription}}</mat-grid-tile>
+
+        <mat-grid-tile>Height: {{selected.height}} cm</mat-grid-tile>
+        <mat-grid-tile>Weight: {{selected.weight}} kg</mat-grid-tile>
+        <mat-grid-tile>Bloodgroup: {{selected.bloodType}}{{selected.allele}}</mat-grid-tile>
+        <mat-grid-tile>Planet of Origin: {{selected.origin}}</mat-grid-tile>
+
+        <mat-grid-tile>Ship Enlisted: {{selected.ship}}</mat-grid-tile>
+        <mat-grid-tile>Organisation Employed: {{selected.Organisation}}</mat-grid-tile>
+
+        <mat-grid-tile rowspan='3' [colspan]="this.colsNumber">Notes: {{selected.notes}}</mat-grid-tile>
+        <mat-grid-tile rowspan='3' [colspan]="this.colsNumber">Attention: {{selected.specialAttentionDescription}}
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="mobile-footer">
+    <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    <button mat-raised-button (click)="createQR()">Create QR</button>
+  </div>
+</div>
+
+<div *ngIf="!!formGroup" class="full-width-margin full-height">
+
+  <form [formGroup]="formGroup" class="mobile-content">
+    <!-- <cdk-virtual-scroll-viewport itemSize="50" class="full-height"> -->
+      <mat-grid-list [cols]="this.colsNumber" rowHeight="3em" gutterSize="10px">
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" formControlName='name'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Other Names" formControlName='otherNames'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Family Name" formControlName='familyName'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-button-toggle-group formControlName='gender' class="spreadToggleGroup">
+            <mat-button-toggle value="Male">Female</mat-button-toggle>
+            <mat-button-toggle value="Female">Male</mat-button-toggle>
+          </mat-button-toggle-group>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Height(cm)" formControlName='height'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Weight(kg)" formControlName='weight'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input formControlName='dateOfBirth' matInput [matDatepicker]="picker" placeholder="Choose a date of birth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-button-toggle-group class="compressGroup" formControlName='bloodType'>
+            <mat-button-toggle value="A">A</mat-button-toggle>
+            <mat-button-toggle value="B">B</mat-button-toggle>
+            <mat-button-toggle value="AB">AB</mat-button-toggle>
+            <mat-button-toggle value="O">O</mat-button-toggle>
+          </mat-button-toggle-group>
+
+          <mat-button-toggle-group class="compressGroup margin-left" formControlName='allele'>
+            <mat-button-toggle value="A">+</mat-button-toggle>
+            <mat-button-toggle value="B">-</mat-button-toggle>
+          </mat-button-toggle-group>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="this.colsNumber">
+          <mat-divider></mat-divider>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <mat-label>Planet of Origin</mat-label>
+            <mat-select formControlName="origin">
+              <mat-option *ngFor="let origin of originLookup" [value]="origin.value">
+                {{origin.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Ship" formControlName='ship'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Organisation" formControlName='organisation'>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile class="full-width">
+          <mat-slide-toggle formControlName="specialAttention">Special Attention Required</mat-slide-toggle>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="this.colsNumber" rowspan="2">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Special Attention Description" formControlName='specialAttentionDescription'
+              matTextareaAutosize matAutosizeMinRows="4"></textarea>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="this.colsNumber" rowspan="2">
+          <mat-form-field class="full-width">
+            <textarea matInput matTextareaAutosize placeholder="General Notes" formControlName='notes'
+              matAutosizeMinRows="4"></textarea>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <!-- <mat-grid-tile>
+        <mat-slide-toggle formControlName='npc'>NPC</mat-slide-toggle>
+      </mat-grid-tile> -->
+
+
+      </mat-grid-list>
+    <!-- </cdk-virtual-scroll-viewport> -->
+  </form>
+
+  <div class="mobile-footer">
+    <button mat-raised-button (click)="save()">Save Entry</button>
+    <button mat-raised-button (click)="cancel()" class="margin-left">Cancel Entry</button>
+  </div>
+</div>

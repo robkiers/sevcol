@@ -1,0 +1,15 @@
+:host ::ng-deep {
+  .compressGroup {
+    .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+      padding: 0 8px;
+    }
+  }
+}
+
+.spreadToggleGroup {
+    width: 100%;
+    display: flex;
+    .mat-button-toggle {
+        flex-grow: 1;
+    }
+}

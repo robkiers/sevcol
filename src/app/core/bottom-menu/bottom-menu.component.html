@@ -1,0 +1,10 @@
+<div>
+    <button mat-raised-button (click)="openQRPrint()">
+        <mat-icon>border_all</mat-icon>QR
+    </button>
+
+    <div class='float-right'>
+        {{ (time | async) | date: 'HH:mm, EEEE' }}<br />
+        {{ (time | async) | date: 'MMMM d, y' }}
+    </div>
+</div>

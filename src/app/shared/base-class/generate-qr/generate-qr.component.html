@@ -1,0 +1,28 @@
+<div class="print-section">
+
+    <div class="qrcontainer" *ngFor="let entry of qrcodeList">
+        <qrcode [level]="2" size="160" [qrvalue]="entry.data"></qrcode>
+        <div class="qrcontainer__title">
+            {{ entry.title }}
+        </div>
+    </div>
+</div>
+
+<div [formGroup]="formGroup" class="qractions">
+    <mat-form-field class="qractions__input">
+        <input matInput placeholder="Add custom QRcode" formControlName='newCode'>
+    </mat-form-field>
+
+    <button mat-mini-fab (click)="addCustomInput()" matTooltip="Add custom" class="qractions__button"
+        [disabled]="qrcodeList.length >= 16">
+        <mat-icon>add</mat-icon>
+    </button>
+
+    <button mat-mini-fab (click)="print()" matTooltip="Print" class="qractions__button">
+        <mat-icon>print</mat-icon>
+    </button>
+
+    <button mat-mini-fab (click)="clearCodes()" matTooltip="Clear QRcode List" class="qractions__button">
+        <mat-icon>layers_clear</mat-icon>
+    </button>
+</div>

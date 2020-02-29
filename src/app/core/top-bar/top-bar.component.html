@@ -1,0 +1,27 @@
+<nav *ngIf="nav.visible">
+    <mat-toolbar>
+        <div *ngIf="showBack">
+            <button mat-raised-button [routerLink]="['']">
+                <mat-icon>chevron_left</mat-icon>Dashboard
+            </button>
+        </div>
+
+        <div class="qrButton">
+            <button mat-raised-button (click)="openQRPrint()">
+                <mat-icon>border_all</mat-icon>QR
+            </button>
+
+            <button mat-icon-button (click)="logIn()">
+                <mat-icon>person</mat-icon>
+            </button>
+
+
+        </div>
+
+        <div class="time-display">
+            <span class="display">{{ (time | async) | date: 'HH:mm, EEEE' }} </span>
+            <span>{{ (time | async)| date: 'MMMM d, y' }}</span>
+        </div>
+
+    </mat-toolbar>
+</nav>

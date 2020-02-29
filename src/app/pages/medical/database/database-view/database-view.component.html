@@ -1,0 +1,95 @@
+<div *ngIf="!formGroup && !!selected" class="full-height">
+  <mat-card class="fake_card full-width-margin mobile-content">
+    <mat-card-title>
+      {{selected.title}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-grid-list cols="3" rowHeight="3em">
+        <mat-grid-tile>Category: {{selected.category}}</mat-grid-tile>
+        <mat-grid-tile>Subcategory: {{selected.subCategory}}</mat-grid-tile>
+        <mat-grid-tile>Onboard: {{selected.amountOnBoard}} {{selected.measurement}}</mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-subtitle>
+    <mat-card-content>
+      {{selected.description}}
+    </mat-card-content>
+  </mat-card>
+
+  <div class="mobile-footer">
+    <button mat-raised-button (click)="createFormgroup(this.selected)">Update Entry</button>
+    <button mat-raised-button (click)="createQR()">Create QR</button>
+  </div>
+</div>
+
+
+<div *ngIf="!!formGroup" class="full-width-margin full-height">
+  <form [formGroup]="formGroup" class="mobile-content">
+    <mat-grid-list cols="2" rowHeight="3em" class="marginTop">
+      <mat-grid-tile colspan="2">
+        <mat-form-field class="full-width-margin">
+          <input matInput placeholder="Name" formControlName='title'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width-margin">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categoryList" [value]="category.value">
+              {{category.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button matTooltip="Add Category" (click)="openDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width-margin">
+          <mat-label>Subcategory</mat-label>
+          <mat-select formControlName="subCategory">
+            <mat-option *ngFor="let subCategory of subCategoryList" [value]="subCategory.value">
+              {{subCategory.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button matTooltip="Add Subcategory" (click)="openDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width-margin">
+          <input matInput placeholder="Amount on Board" formControlName='amountOnBoard'>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field class="full-width-margin">
+          <mat-label>Measurement</mat-label>
+          <mat-select formControlName="measurement">
+            <mat-option *ngFor="let measurement of measurementList" [value]="measurement.value">
+              {{measurement.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2" rowspan="2">
+        <mat-form-field class="full-width-margin">
+          <textarea rows="3" matInput placeholder="Short Description" formControlName='shortDescription'></textarea>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-form-field class="full-width-margin">
+      <textarea matInput rows="10" placeholder="Description" formControlName='description'></textarea>
+    </mat-form-field>
+  </form>
+
+  <div class="mobile-footer">
+    <button mat-raised-button (click)="save()">Save Entry</button>
+    <button mat-raised-button (click)="cancel()">Cancel Entry</button>
+  </div>
+</div>

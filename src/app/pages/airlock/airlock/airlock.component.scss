@@ -1,0 +1,79 @@
+.offShip {
+  background: linear-gradient(90deg, rgba(2, 0, 36, 0) 0%, rgba(1, 91, 130, 0) 40%, rgba(0, 212, 255, 1) 100%);
+}
+
+.hideElement {
+  height: 0px;
+  overflow: hidden;
+}
+
+.airlock-container {
+  display: flex;
+  box-sizing: border-box;
+  align-items: stretch;
+  height: calc(100vh - 260px);
+}
+
+.fakeActive {
+  opacity: 1 !important;
+}
+
+.airlock-container-top {
+  padding: 10px 0 10px 0;
+  display: flex;
+  height: 250px;
+  box-sizing: border-box;
+  .action {
+    width: 100%;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .action:last-child {
+    margin-right: 0;
+  }
+}
+
+.container-content {
+  height: calc(100vh - 380px);
+}
+
+.airlock-button {
+  margin-bottom: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.airlock-button:last-child {
+  margin-bottom: 0;
+}
+
+.status {
+  display: flex;
+  font-size: 1.1rem;
+  .text {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+  }
+  .state {
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+  }
+  .item {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.timestamp {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.cameraCard {
+  padding: 5px;
+  box-sizing: border-box;
+}

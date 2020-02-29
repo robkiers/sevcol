@@ -1,0 +1,40 @@
+// canvas {
+//     width: 320px !important;
+//     height: 480px !important;
+// }
+
+.container {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  &__camera {
+    height: calc(100vh - 95px);
+  }
+  &__actions {
+    // margin-top: auto;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.regular {
+  // left: 0;
+  // right: 0;
+  // margin: 0px;
+}
+
+.hiddenLeft {
+  position: absolute;
+  // margin-left: -200vw;
+  transform: translateX(-100vw);
+  transition-property: 1s linear;
+}
+
+.hiddenRight {
+  position: absolute;
+  // margin-right: -200vw;
+  transform: translateX(+100vw);
+  transition-property: 1s linear;
+}
+
+

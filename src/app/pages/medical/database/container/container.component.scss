@@ -1,0 +1,22 @@
+//
+@media (max-width: 600px) {
+  .floating-container {
+    margin: 0px;
+    height: calc(100% - 56px);
+    width: 100%;
+    //   top: calc(100%);
+    transition-duration: 0.2s;
+    top: 56px !important;
+    position: absolute;
+    box-sizing: border-box;
+  }
+}
+
+.container {
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  &__camera {
+    height: 100%;
+  }
+}

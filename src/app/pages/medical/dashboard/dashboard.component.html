@@ -1,0 +1,53 @@
+<div class="mobile-page" *ngIf="this.screenSize === 'mobile'" [@slideInOut]>
+    <mat-grid-list cols="1" rowHeight="3:1">
+        <mat-grid-tile>
+            <button mat-raised-button class="dashboard-button" (click)="gotoPatientFiles()">Patient
+                Dossiers</button>
+            <!-- <button mat-raised-button class="dashboard-second-button" (click)="gotoNewPatient()">New
+                Patient</button> -->
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button class="dashboard-button" (click)="gotoScanner()">Medical
+                Scanner</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button class="dashboard-button" (click)="gotoDatabase()">Medical
+                Database</button>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile>
+            <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./medical-database']">Medical
+                Database</button>
+            <button mat-raised-button class="dashboard-second-button" disabled="true">Database Query</button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button mat-raised-button class="dashboard-button" disabled="true">Active Crew Roster</button>
+        </mat-grid-tile> -->
+    </mat-grid-list>
+</div>
+
+<mat-grid-list cols="1" rowHeight="10:1" *ngIf="this.screenSize === 'desktop'" class="desktop-page">
+    <mat-grid-tile class="mat-figure-override">
+        <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./patient-list']">Patient
+            Dossiers</button>
+        <button mat-raised-button class="dashboard-second-button" [routerLink]="['./patient-list/new-patient']">New
+            Patient</button>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-figure-override">
+        <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-scanner']">Medical Scanner</button>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-figure-override">
+        <button mat-raised-button class="dashboard-button" [routerLink]="['./medical-database']">Medical
+            Database</button>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-figure-override" *ngIf="_auth.userData as user;">
+        <button mat-raised-button class="dashboard-button">Admin</button>
+    </mat-grid-tile>
+    <!-- <mat-grid-tile>
+        <button mat-raised-button class="dashboard-prime-button" [routerLink]="['./medical-database']">Medical
+            Database</button>
+        <button mat-raised-button class="dashboard-second-button" disabled="true">Database Query</button>
+    </mat-grid-tile> -->
+    <!-- <mat-grid-tile>
+        <button mat-raised-button class="dashboard-button" disabled="true">Active Crew Roster</button>
+    </mat-grid-tile> -->
+</mat-grid-list>

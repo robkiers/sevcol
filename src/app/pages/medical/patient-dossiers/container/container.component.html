@@ -1,0 +1,149 @@
+<mat-grid-list [cols]="2" rowHeight="50%" *ngIf="screenSize==='desktop'">
+
+  <mat-grid-tile>
+    <mat-card class="dashboard-container full-width-margin">
+      <mat-card-title>Patient Files
+        <button mat-raised-button (click)="createNewPatients()" class="float-right">Add Patient File
+        </button>
+      </mat-card-title>
+
+      <mat-card-content style="height: calc(100% - 45px);">
+        <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+          <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
+          </app-table-overview>
+        </cdk-virtual-scroll-viewport>
+      </mat-card-content>
+
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="full-width-margin dashboard-container">
+      <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+        <app-patient-view [selectedEntry]="selectedPatient"></app-patient-view>
+      </cdk-virtual-scroll-viewport>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="full-width-margin dashboard-container">
+      <mat-card-title>Medical Records
+        <button mat-raised-button (click)="createMedicalRecord()" class="float-right"
+          [disabled]="!this.selectedPatient">Add Medical
+          Record</button>
+      </mat-card-title>
+
+      <mat-card-content style="height: calc(100% - 45px);">
+        <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+          <app-table-overview [dataSource]="recordList" [columns]="recordListColumns"
+            (rowSelect)="recordRowSelect($event)">
+          </app-table-overview>
+        </cdk-virtual-scroll-viewport>
+      </mat-card-content>
+
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card class="dashboard-container full-width-margin">
+      <cdk-virtual-scroll-viewport itemSize="50" class="full-height">
+        <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord"></app-medical-records>
+      </cdk-virtual-scroll-viewport>
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>
+
+<div class="mobile_container" *ngIf="screenSize==='mobile'">
+  <mat-tab-group [selectedIndex]="selectedIndex" class="tab-noheader">
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+          <app-dashboard (selectedTab)="setSelectedIndex($event)" (createNew)="createNewPatients($event)">
+          </app-dashboard>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <div class="mobile-content">
+          <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
+          </app-table-overview>
+        </div>
+        <div class="mobile-footer">
+          <button mat-raised-button (click)="createNewPatients()">New Patient</button>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-patient-view [selectedEntry]="selectedPatient" (cancelNew)="swipe()">
+        </app-patient-view>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-table-overview [dataSource]="recordList" [columns]="recordListColumns"
+          (rowSelect)="recordRowSelect($event)">
+        </app-table-overview>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <div class="mobile_tab" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <app-medical-records [patient]="selectedPatient" [selectedRecord]="selectedRecord" (cancelNew)="swipe()">
+        </app-medical-records>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+
+<!-- 
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header *ngIf="!selectedPatient">
+      Patients
+    </mat-expansion-panel-header>
+    <mat-expansion-panel-header *ngIf="!!selectedPatient">
+      Patient: {{selectedPatient.name}} {{selectedPatient.familyName}}
+    </mat-expansion-panel-header>
+
+    <mat-panel-description *ngIf="!selectedPatient">
+      <button mat-raised-button (click)="createNewPatients()" class="float-right margin-left">Add Patient
+      </button>
+    </mat-panel-description>
+
+
+    <mat-expansion-panel [expanded]="patientView === 0" (opened)="setPatientStep(0)" mat-elevation-z>
+      <app-table-overview [dataSource]="patientList" [columns]="patientListColumns" (rowSelect)="rowSelect($event)">
+      </app-table-overview>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="patientView === 1" (opened)="setPatientStep(1)">
+    </mat-expansion-panel>
+
+  </mat-expansion-panel>
+
+  [ngStyle]="{'margin-top':displayView ? 'block' : 'none'}"  
+  <mat-expansion-panel class="bottomSticky" [disabled]="!selectedPatient">
+    <mat-expansion-panel-header *ngIf="!selectedRecord">
+      Medical Records
+    </mat-expansion-panel-header>
+    <mat-expansion-panel-header *ngIf="!!selectedRecord">
+      Medical Record: {{selectedRecord.reasonOfVisit }}
+    </mat-expansion-panel-header>
+
+    <mat-panel-description *ngIf="!selectedRecord">
+      <button mat-raised-button (click)="createMedicalRecord()" class="float-right margin-left">Add Record
+      </button>
+    </mat-panel-description>
+
+    <mat-expansion-panel [expanded]="recordView === 0" (opened)="setRecordStep(0)" mat-elevation-z>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel [expanded]="recordView === 1" (opened)="setRecordStep(1)">
+
+    </mat-expansion-panel>
+
+  </mat-expansion-panel>
+</mat-accordion> -->
