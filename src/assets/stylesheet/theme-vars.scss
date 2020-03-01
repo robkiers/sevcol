@@ -19,7 +19,7 @@ $mat-sevcol-primary: (
   A100: #80d8ff,
   A200: #40c4ff,
   A400: #00b0ff,
-  A700: #0091ea,
+  A700: #030708,
   contrast: (
           50: $dark-primary-text,
           100: $dark-primary-text,
@@ -106,13 +106,13 @@ $mat-sevcol-theme-foreground: (
 // Define the background colors.
 $mat-sevcol-theme-background: (
         status-bar: black,
-        app-bar:    map_get($mat-grey, 900),
+        app-bar:    mat-color($sevcol-primary, A700),
         background: mat-color($sevcol-primary, 900),
         hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
         card:       mat-color($sevcol-primary, 800),
         dialog:     map_get($mat-grey, 800),
         disabled-button: rgba(white, 0.12),
-        raised-button: map-get($mat-grey, 800),
+        raised-button: mat-color($sevcol-primary, 600),
         focused-button: $light-focused,
         selected-button: map_get($mat-grey, 900),
         selected-disabled-button: map_get($mat-grey, 800),
@@ -139,7 +139,11 @@ $sevcol-dark-theme: (
 
 /* You can add global styles to this file, and also import other style files */
 
-$card-border-color: mat-color($sevcol-primary, 600);
 $card-border-width: 0.2cm;
+$global-border-color: mat-color($sevcol-primary, 600);
 $global-border-radius: 0;
-// TODO; https://blog.thoughtram.io/angular/2017/05/23/custom-themes-with-angular-material.html
+
+// Background images
+$background-cross: url("./assets/images/background_cross.png");
+$background-corner-top-left: url("./assets/images/background_corner_top_left.png");
+$background-corner-bottom-right: url("./assets/images/background_corner_bottom_right.png");

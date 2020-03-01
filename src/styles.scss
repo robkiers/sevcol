@@ -9,6 +9,7 @@ html,
 body {
   height: 100%;
   background-color: map-get($mat-sevcol-theme-background, background);
+  background-image: $background-cross;
 }
 body {
   margin: 0;
@@ -37,11 +38,17 @@ mat-card.mat-card {
   border-radius: $global-border-radius;
   border-top-width: $card-border-width;
   border-top-style: solid;
-  border-color: $card-border-color;
+  border-color: $global-border-color;
 }
 
 button.mat-button-base {
   border-radius: $global-border-radius;
+}
+
+button.mat-raised-button {
+  background-image: $background-corner-top-left, $background-corner-bottom-right;
+  background-position: top left, bottom right;
+  background-repeat: no-repeat, no-repeat;
 }
 
 
