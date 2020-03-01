@@ -35,6 +35,9 @@ body {
 
 mat-card.mat-card {
   border-radius: $global-border-radius;
+  border-top-width: $card-border-width;
+  border-top-style: solid;
+  border-color: $card-border-color;
 }
 
 button.mat-button-base {
