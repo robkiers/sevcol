@@ -4,7 +4,6 @@
 // Plus imports for other components in your app.
 
 // Create a new color palette specific for this app.
-// TODO: Currently it is a copy of the default light-blue. But this will be edited.
 $mat-sevcol-primary: (
   50: #d0f2ee,
   100: #b4eae5,
@@ -106,13 +105,13 @@ $mat-sevcol-theme-foreground: (
 // Define the background colors.
 $mat-sevcol-theme-background: (
         status-bar: black,
-        app-bar:    mat-color($sevcol-primary, A700),
-        background: mat-color($sevcol-primary, 900),
+        app-bar:    rgba(black, 0.5),
+        background: mat-color($mat-gray, 900),
         hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
-        card:       mat-color($sevcol-primary, 800),
+        card:       mat-color($sevcol-primary, 800, 0.5),
         dialog:     map_get($mat-grey, 800),
         disabled-button: rgba(white, 0.12),
-        raised-button: mat-color($sevcol-primary, 600),
+        raised-button: mat-color($sevcol-primary, 600, 0.5),
         focused-button: $light-focused,
         selected-button: map_get($mat-grey, 900),
         selected-disabled-button: map_get($mat-grey, 800),
