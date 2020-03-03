@@ -46,9 +46,27 @@ button.mat-button-base {
 }
 
 button.mat-raised-button {
-  background-image: $background-corner-top-left, $background-corner-bottom-right;
-  background-position: top left, bottom right;
-  background-repeat: no-repeat, no-repeat;
+  background-image: $background-scanline, $background-corner-top-left, $background-corner-bottom-right;
+  background-position: 0 0, top left, bottom right;
+  background-repeat: repeat, no-repeat, no-repeat;
+  background-blend-mode: multiply, normal, normal;
+
+  animation: raised-button-hover-animation 1s linear infinite;
+  animation-play-state: paused;
+}
+
+button.mat-raised-button:hover:not([disabled=true]) {
+  animation-play-state: running;
+}
+
+@keyframes raised-button-hover-animation {
+  0% {
+    background-position: 0 0, top left, bottom right;
+  }
+  100% {
+    // The scanline is 16px high, so this animation can loop seamlessly.
+    background-position: 0 16px, top left, bottom right;
+  }
 }
 
 
