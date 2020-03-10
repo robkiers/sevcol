@@ -15,6 +15,9 @@ export interface CharacterBaseFile {
     cardNumber?: string;
     disembarked: boolean;
     active: boolean;
+
     alive: boolean;
+    // datedeceased
+
     npc: boolean;
 }

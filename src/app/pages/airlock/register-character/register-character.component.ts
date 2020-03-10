@@ -1,10 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Inject, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { UUID } from 'angular2-uuid';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActiveCrewListComponent, CharcterActivity } from '../active-crew-list/active-crew-list.component';
-import { CharacterBaseFile, CharacterPatientFile } from 'src/app/core/models';
+import { ActiveCrewListComponent } from '../active-crew-list/active-crew-list.component';
+import { CharacterBaseFile, CharcterActivity, CharacterPatientFile } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-register-character',
@@ -114,23 +114,11 @@ export class RegisterCharacterComponent implements OnInit {
     this.cardRegistrationView = false;
     this.cardRegistrationPending = false;
     this.cardNumber = '';
-    // return false;
   }
 
   ngOnInit() {
-    // console.log(this.data);
     this.createFormgroup();
-
     this._api.getCharacterList().subscribe(data => this.temp = data);
-  }
-
-  determineCols() {
-    const innerWidth = window.innerWidth;
-    console.log(innerWidth);
-    if (innerWidth < 500) {
-      return '2';
-    }
-    return '3';
   }
 
   createFormgroup() {
@@ -206,11 +194,13 @@ export class RegisterCharacterComponent implements OnInit {
       specialAttention: false,
     };
     console.log(this.formGroup);
-    // if (this.data.character === 'crew') {
-    //   this._api.registerCharacter(saveEntity, characterActivity, patientFile);
-    // } else if (this.data.character === 'passenger') {
-    //   this._api.registerPassenger(saveEntity, characterActivity, patientFile);
-    // }
+
+    if (this.data.character === 'crew') {
+      this._api.registerCharacter(saveEntity, characterActivity, patientFile);
+    } else if (this.data.character === 'passenger') {
+      this._api.registerPassenger(saveEntity, characterActivity, patientFile);
+    }
+
     this.formGroup = null;
     this.closeDialog();
 
@@ -218,85 +208,6 @@ export class RegisterCharacterComponent implements OnInit {
 
   toggleRegisterCardView() {
     this.cardRegistrationView = !this.cardRegistrationView;
-  }
-
-  // (keyup.enter)="update(scanInput.value)"
-  update(value) {
-    console.log('card', this.formGroup.get('cardNumber'));
-
-  }
-
-  verifyList() {
-    console.log(this.temp);
-    this.temp.forEach(element => {
-      console.log(element);
-      const saveEntity = element;
-
-      saveEntity.npc = null;
-      saveEntity.cardNumber = null;
-
-      const characterBase: CharacterBaseFile = {
-        personID: saveEntity.personID,
-        cardNumber: saveEntity.cardNumber,
-        name: saveEntity.name,
-        familyName: saveEntity.familyName,
-        imageLocation: null,
-        active: saveEntity.onDuty,
-        disembarked: !saveEntity.aboardCelestra,
-        alive: saveEntity.isAlive,
-        otherNames: saveEntity.otherNames,
-
-        gender: saveEntity.gender,
-        height: saveEntity.height,
-        weight: saveEntity.weight,
-        planetOfOrigin: saveEntity.planetOfOrigin,
-        npc: saveEntity.npc,
-        dateOfBirth: saveEntity.dateOfBirth,
-
-        organisation: saveEntity.organisation,
-        ship: saveEntity.ship
-      };
-
-      const characterActivity: CharcterActivity = {
-        personID: saveEntity.personID,
-        cardNumber: saveEntity.cardNumber,
-        name: saveEntity.name,
-        familyName: saveEntity.familyName,
-        imageLocation: null,
-        active: saveEntity.onDuty,
-        disembarked: !saveEntity.aboardCelestra,
-        alive: saveEntity.isAlive,
-      };
-
-      const patientFile: CharacterPatientFile = {
-        name: saveEntity.name,
-        otherNames: saveEntity.otherNames,
-        familyName: saveEntity.familyName,
-
-        personID: saveEntity.personID,
-        imageLocation: null,
-        alive: saveEntity.isAlive,
-
-        gender: saveEntity.gender,
-        height: saveEntity.height,
-        weight: saveEntity.weight,
-        planetOfOrigin: saveEntity.planetOfOrigin,
-        dateOfBirth: saveEntity.dateOfBirth,
-        npc: saveEntity.npc,
-
-        organisation: saveEntity.organisation,
-        ship: saveEntity.ship,
-        specialAttention: false,
-      };
-      console.log(this.formGroup);
-      // if (this.data.character === 'crew') {
-      //   this._api.registerCharacter(characterBase, characterActivity, patientFile);
-      // } else if (this.data.character === 'passenger') {
-      //   this._api.registerPassenger(characterBase, characterActivity, patientFile);
-      // }
-      // this.formGroup = null;
-      // this.closeDialog();
-    });
   }
 
 }

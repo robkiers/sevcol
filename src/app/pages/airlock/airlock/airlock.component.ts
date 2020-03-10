@@ -2,15 +2,13 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 import { FormBuilder } from '@angular/forms';
 import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
-import { map, tap, filter } from 'rxjs/operators';
-import { CharacterBaseFile, CharacterPatientFile } from 'src/app/core/models';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ActiveCrewListComponent, CharcterActivity } from '../active-crew-list/active-crew-list.component';
+import { ActiveCrewListComponent } from '../active-crew-list/active-crew-list.component';
 import { RegisterCharacterComponent } from '../register-character/register-character.component';
 import { FindPassengerComponent } from '../find-passenger/find-passenger.component';
 import { TopBarService } from 'src/app/core/top-bar/top-bar.service';
 import { LargeVideoPlayerComponent } from '../large-video-player/large-video-player.component';
+import { CharacterBaseFile, AirlockStatus } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-airlock',
@@ -242,6 +240,8 @@ export class AirlockComponent implements OnInit {
 
     browser.mediaDevices.getUserMedia(config).then(
       () => stream => {
+        console.log('recording device found');
+
         this.showVideo = true;
         this.video.srcObject = stream;
         this.video.play();
@@ -272,10 +272,4 @@ export class AirlockComponent implements OnInit {
       });
     }
   }
-}
-
-export interface AirlockStatus {
-  innerAirlockOpen: boolean;
-  outerAirlockOpen: boolean;
-  airlockPresure: boolean;
 }

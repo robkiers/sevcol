@@ -142,24 +142,3 @@ export class PatientViewComponent implements OnInit {
 
 
 }
-
-export interface CharacterPatientFile {
-  personID: string;
-  name: string;
-  otherNames: string;
-  familyName: string;
-  gender: string;
-  height: string;
-  weight: string;
-  planetOfOrigin: string;
-  npc: boolean;
-
-  organisation: string;
-  ship: string;
-
-  bloodType: string;
-  allele: string;
-  specialAttention: boolean;
-  specialAttentionDescription: string;
-  notes: string;
-}

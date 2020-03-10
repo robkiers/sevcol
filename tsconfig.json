@@ -5,7 +5,7 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -19,4 +19,8 @@
       "dom"
     ]
   },
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "allowEmptyCodegenFiles": true
+  }
 }

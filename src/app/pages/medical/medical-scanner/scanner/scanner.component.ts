@@ -136,8 +136,3 @@ export class ScannerComponent implements OnInit, OnDestroy {
   }
 
 }
-
-export interface sevcolQR {
-  type: string;
-  data: any;
-}

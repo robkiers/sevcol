@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { CharacterBaseFile } from 'src/app/core/models';
 import { FormBuilder } from '@angular/forms';
 import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { CharacterBaseFile } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-active-crew-list',
@@ -35,12 +33,9 @@ export class ActiveCrewListComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     protected _fb: FormBuilder,
     protected _api: FirebaseSharedService,
-    private _snackBar: MatSnackBar,
-    private _shipStats: ShipStatsService,
   ) { }
 
   ngOnInit() {
-    // this.
     this._api.getActiveCrewRoster().subscribe(data => {
       console.log('activeCharcterList', data);
       this.activeCharcterList = data;
@@ -94,17 +89,4 @@ export class ActiveCrewListComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close();
   }
-}
-
-export interface CharcterActivity {
-  personID: string;
-  cardNumber?: string;
-
-  name: string;
-  familyName: string;
-  imageLocation?: string;
-
-  active: boolean;
-  disembarked: boolean;
-  alive: boolean;
 }

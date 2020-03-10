@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GenerateQRService, qrCode } from './generate-qr.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { GenerateQRService } from './generate-qr.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-generate-qr',

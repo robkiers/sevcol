@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { Routes, RouterModule } from '@angular/router';
+import { OcAdminDashboardComponent } from './oc-admin-dashboard/oc-admin-dashboard.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent }
+  { path: '', component: OcAdminDashboardComponent }
 ];
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    OcAdminDashboardComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(routes),
   ]
 })

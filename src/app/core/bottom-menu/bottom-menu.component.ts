@@ -19,7 +19,7 @@ export class BottomMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.time = this.shipStats.getTime();
+    // this.time = this.shipStats.getTime();
   }
 
   openQRPrint() {

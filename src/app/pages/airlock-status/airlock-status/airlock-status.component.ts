@@ -1,11 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TopBarService } from 'src/app/core/top-bar/top-bar.service';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
 import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
-import { AirlockStatus } from '../../airlock/airlock/airlock.component';
-import { CharacterBaseFile } from 'src/app/core/models';
-// import { takeUntil } from 'rxjs/operators';
-// import { ReplaySubject } from 'rxjs';
+import { AirlockStatus, CharacterBaseFile } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-airlock-status',

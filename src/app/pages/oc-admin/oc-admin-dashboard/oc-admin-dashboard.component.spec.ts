@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DashboardComponent } from './dashboard.component';
+import { OcAdminDashboardComponent } from './oc-admin-dashboard.component';
 
-describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('OcAdminDashboardComponent', () => {
+  let component: OcAdminDashboardComponent;
+  let fixture: ComponentFixture<OcAdminDashboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [ OcAdminDashboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(OcAdminDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

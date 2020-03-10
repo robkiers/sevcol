@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FirebaseSharedService } from 'src/app/shared/services/firebase.service';
-import { DatabaseViewComponent } from '../database-view/database-view.component';
-import { Router } from '@angular/router';
 import { ShipStatsService } from 'src/app/core/ship-stats/ship-stats.service';
-// import { TabService } from 'src/app/shared/tab-components/tab.service';
+import { DatabaseViewComponent } from 'src/app/shared/base-class/database/database-view/database-view.component';
 
 @Component({
   selector: 'app-container',
@@ -61,7 +59,6 @@ export class ContainerComponent implements OnInit {
   setSelectedIndex(index) {
     this.selectedIndex = index;
   }
-
 
   swipe(action = this.SWIPE_ACTION.RIGHT) {
     if (action === this.SWIPE_ACTION.RIGHT) {

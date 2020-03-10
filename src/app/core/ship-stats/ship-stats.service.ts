@@ -21,16 +21,18 @@ export class ShipStatsService implements OnInit {
   private user = new BehaviorSubject<any>(null);
   public _user: Observable<any> = this.user.asObservable();
 
-
+  // store future date (to the day) in database
+  // store hours offset based on current time
+  // request date update when passing 24 hour mark
 
   innerAirlock = false;
   outerAirlock = false;
   airlockPressurized = true;
 
   constructor(
-    // @Optional() @SkipSelf()
+    @Optional() @SkipSelf()
     parentModule: ShipStatsService,
-    private _auth: AuthenticationService,
+    // private _auth: AuthenticationService,
   ) {
     if (parentModule) {
       throw new Error(
@@ -44,7 +46,7 @@ export class ShipStatsService implements OnInit {
 
   ngOnInit() {
     console.log('init');
-    console.log(this._auth.isSignedin());
+    // console.log(this._auth.isSignedin());
 
   }
 

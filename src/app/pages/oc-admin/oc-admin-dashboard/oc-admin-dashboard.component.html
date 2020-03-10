@@ -1,0 +1,49 @@
+<mat-grid-list cols="2" rowHeight="50%" gutterSize="5px" *ngIf="screenSize==='desktop'">
+    <mat-grid-tile>
+        <mat-card class="dashboard-container full-width-margin">
+            <mat-card-title>Ship Warnings
+                <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Shipwarning</button>
+            </mat-card-title>
+
+            <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+            </app-table-overview>
+        </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+        <mat-card class="dashboard-container full-width-margin">
+            <mat-card-title>Ship Status
+                <!-- <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Shipwarning</button> -->
+            </mat-card-title>
+
+            <p>set shipboarddate</p>
+            <p> Current date and time:</p>
+            <span class="display">{{ (time | async) | date: 'HH:mm, EEEE' }} </span>
+            <span>{{ (time | async)| date: 'MMMM d, y' }}</span>
+
+            <!-- Current date and time:
+            update date -->
+            <div>
+
+                <button mat-raised-button>update date</button>
+                <button mat-raised-button class="float-right">update time</button>
+            </div>
+
+            <!-- update time -->
+            <p>
+                set airlock status
+
+                jam airlock camera
+            </p>
+            <!-- <app-table-overview [dataSource]="databaseEntries" [columns]="columns" (rowSelect)="rowSelect($event)">
+            </app-table-overview> -->
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
+<!-- <p>add shipWarning</p> -->
+
+<!-- <p>list active shipWarning</p> -->

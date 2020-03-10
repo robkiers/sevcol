@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { SevcolQR } from '../../models';
 
 
 @Injectable({
@@ -7,26 +8,18 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class GenerateQRService {
 
-  // constructedQRCodes: qrCode[];
-  private constructedQRCodes$ = new BehaviorSubject<qrCode[]>([]);
-  public constructedQRCodes: Observable<qrCode[]> = this.constructedQRCodes$.asObservable();
+  private constructedQRCodes$ = new BehaviorSubject<SevcolQR[]>([]);
+  public constructedQRCodes: Observable<SevcolQR[]> = this.constructedQRCodes$.asObservable();
 
   constructor() { }
 
-  createQR(entry: qrCode) {
+  createQR(entry: SevcolQR) {
     const currentValue = this.constructedQRCodes$.value;
     const updatedValue = [...currentValue, entry];
-    console.log(updatedValue);
     this.constructedQRCodes$.next(updatedValue);
   }
 
   clearQRCodeList() {
     this.constructedQRCodes$.next([]);
   }
-}
-
-export interface qrCode {
-  title: string;
-  data: string;
-  type: string;
 }
