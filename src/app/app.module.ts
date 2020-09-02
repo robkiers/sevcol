@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,7 @@ import { GeneralComponent } from './pages/general/general/general.component';
     CoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    HammerModule,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
