@@ -11,11 +11,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { APP_BASE_HREF, LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { DashboardModule } from './pages/medical/dashboard/dashboard.module';
+import { GeneralComponent } from './pages/general/general/general.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    GeneralComponent,
   ],
   imports: [
     BrowserModule,

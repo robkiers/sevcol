@@ -22,4 +22,10 @@ export class FirebaseOcAdminService {
   updateSevcolTimeOffset() {
 
   }
+
+  updateShipWarning(shipWarning) {
+    // this.db.collection('characterlists').doc('passengeractivity').collection('passengeractivity')
+    //   .doc(characterActivity.personID).set(Object.assign(characterActivity));
+    // updateShipwarning
+  }
 }

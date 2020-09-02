@@ -2,7 +2,7 @@
     <mat-grid-tile>
         <mat-card class="dashboard-container full-width-margin">
             <mat-card-title>Ship Warnings
-                <button mat-raised-button (click)="createNewEntry()" class="float-right">Add Shipwarning</button>
+                <button mat-raised-button (click)="createNewShipwarning()" class="float-right">Add Shipwarning</button>
             </mat-card-title>
 
 
@@ -39,7 +39,6 @@
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
-                        <!-- [ngClass]="{'offShip': row.disembarked}" -->
                     </table>
                 </cdk-virtual-scroll-viewport>
             </mat-card-content>
@@ -48,28 +47,43 @@
     </mat-grid-tile>
     <!-- <div *ngIf="user$ | async as user"> -->
     <mat-grid-tile>
-        <mat-card class="dashboard-container full-width-margin">
-            <div *ngIf="(sevcolTime$ | async) as SevcolTime; let sevcolTime">
+        <mat-card class="full-width-margin">
+            <!-- <div *ngIf="(sevcolTime$ | async) as SevcolTime; let sevcolTime"> -->
+
+            <div *ngIf="!!this.timeFormGroup">
 
                 <mat-card-title>
                     Ship time
                 </mat-card-title>
 
+                <form [formGroup]="this.timeFormGroup">
+
+                    <mat-form-field>
+                        <mat-label>Ship Time</mat-label>
+                        <input matInput formControlName="timeOffset">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Current Date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="sevcolTime">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker [startAt]="sevcolTime"></mat-datepicker>
+                    </mat-form-field>
+                </form>
+            </div>
+
+            <!-- 
                 <div>
                     <button mat-raised-button>update time</button>
                     {{sevcolTime.timeOffset}}
-                    <!-- <span class="margin-left">{{ (sevcolTime.timeOffset) | date: 'HH:mm, EEEE' }} </span> -->
                 </div>
 
                 <br />
 
                 <div>
-                    <button mat-raised-button>update date </button>
-                    <!-- {{sevcolTime.sevcolDate}} -->
                     <span class="margin-left">{{ (sevcolTime.sevcolDate.seconds * 1000)| date: 'MMMM d, y' }}</span>
-
-                </div>
-            </div>
+                    <input matInput [value]="(sevcolTime.sevcolDate.seconds * 1000)| date: 'MMMM d, y'">
+                </div> -->
 
             <br />
             <mat-divider></mat-divider>

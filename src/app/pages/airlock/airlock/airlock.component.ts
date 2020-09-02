@@ -231,12 +231,15 @@ export class AirlockComponent implements OnInit {
   }
 
   initCamera(config: any) {
+
     const browser = navigator as any;
 
-    browser.getUserMedia = (browser.getUserMedia ||
+    browser.getUserMedia = (
+      browser.getUserMedia ||
       browser.webkitGetUserMedia ||
       browser.mozGetUserMedia ||
-      browser.msGetUserMedia);
+      browser.msGetUserMedia
+    );
 
     browser.mediaDevices.getUserMedia(config).then(
       () => stream => {
