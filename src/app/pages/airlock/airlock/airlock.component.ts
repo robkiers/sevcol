@@ -44,7 +44,7 @@ export class AirlockComponent implements OnInit {
 
   disablePresureButton = true;
 
-  @ViewChild('scanInput', { static: false }) scanInput: ElementRef;
+  @ViewChild('scanInput') scanInput: ElementRef;
 
   @ViewChild('videoElement', { static: true }) videoElement: any;
 

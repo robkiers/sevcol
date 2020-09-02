@@ -12,8 +12,8 @@ import { CharacterBaseFile } from 'src/app/shared/models';
 })
 export class ActiveCrewListComponent implements OnInit {
 
-  @ViewChild('activeTable', { static: false }) activeTable: MatTable<CharacterBaseFile[]>;
-  @ViewChild('inactiveTable', { static: false }) inactiveTable: MatTable<CharacterBaseFile[]>;
+  @ViewChild('activeTable') activeTable: MatTable<CharacterBaseFile[]>;
+  @ViewChild('inactiveTable') inactiveTable: MatTable<CharacterBaseFile[]>;
 
   displayedColumns: string[] = ['position', 'image', 'name'];
 

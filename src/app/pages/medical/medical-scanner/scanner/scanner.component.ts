@@ -28,7 +28,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
   qrResponse = null;
   scannerOpenState = true;
 
-  @ViewChild(QrScannerComponent, { static: false }) qrScannerComponent?: QrScannerComponent;
+  @ViewChild(QrScannerComponent) qrScannerComponent?: QrScannerComponent;
 
   ngOnInit() {
     this.changeDetectorRef.detectChanges();

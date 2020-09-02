@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class LargeVideoPlayerComponent implements AfterViewInit {
 
-  @ViewChild('videoElement', { static: false }) videoElement: any;
+  @ViewChild('videoElement') videoElement: any;
   video: any;
 
   constructor(

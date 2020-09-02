@@ -27,9 +27,9 @@ export class ContainerComponent implements OnInit {
     { definition: 'ship', header: 'Ship', width: '30%' }
   ];
 
-  @ViewChild(PatientViewComponent, { static: false }) patientViewComponent: PatientViewComponent;
+  @ViewChild(PatientViewComponent) patientViewComponent: PatientViewComponent;
 
-  @ViewChild(MedicalRecordsComponent, { static: false }) medicalRecordsComponent: MedicalRecordsComponent;
+  @ViewChild(MedicalRecordsComponent) medicalRecordsComponent: MedicalRecordsComponent;
 
   recordList;
   selectedRecord;

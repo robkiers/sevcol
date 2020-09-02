@@ -28,7 +28,7 @@ export class ContainerComponent implements OnInit {
 
   displayView: boolean = false;
 
-  @ViewChild(DatabaseViewComponent, { static: false }) databaseViewComponent?: DatabaseViewComponent;
+  @ViewChild(DatabaseViewComponent) databaseViewComponent?: DatabaseViewComponent;
 
   constructor(
     protected _api: FirebaseSharedService,
