@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   }
 
   openBottomSheet(): void {
+    console.log('swipe up');
     this._bottomSheet.open(BottomMenuComponent);
   }
 

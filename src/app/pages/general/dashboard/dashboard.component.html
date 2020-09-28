@@ -1,0 +1,44 @@
+<div class="dashboardRow generalInformation">
+  <div class="column">
+    <div *ngIf="!!currentDestination">
+      <div>Current Destination:</div>
+      <div>{{ currentDestination }}</div>
+    </div>
+    <div *ngIf="!!currentLocation">
+      <div>Current Location:</div>
+      <div>{{ currentLocation }}</div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div>Date:</div>
+    <div>{{ time | async | date: "HH:mm, EEEE" }}</div>
+    <div>{{ time | async | date: "MMMM d, y" }}</div>
+  </div>
+</div>
+
+<div class="dashboardRow">
+  <div class="row" *ngFor="let warning of warningList">
+    <div>{{ warning.title }}</div>
+    <div>{{ warning.shortHand }}</div>
+  </div>
+</div>
+
+<div class="dashboardRow">
+  <div class="row" *ngFor="let news of newsList">
+    <div>{{ news.title }}</div>
+    <div>{{ news.shortHand }}</div>
+  </div>
+</div>
+
+<div class="dashboardRow chat">Chat</div>
+
+<!-- <div class="time-display">
+    <span class="display">{{ (time | async) | date: 'HH:mm, EEEE' }} </span>
+    <span>{{ (time | async)| date: 'MMMM d, y' }}</span>
+</div> -->
+
+<!-- <p>general works!</p>
+ship warning
+active crew
+links -->

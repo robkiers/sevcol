@@ -34,6 +34,7 @@ export class TableOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.data.sort = this.sort;
+    console.log('columnFields', this.columnFields);
   }
 
 
