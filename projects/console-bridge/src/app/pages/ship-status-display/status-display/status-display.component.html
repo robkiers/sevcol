@@ -1,0 +1,50 @@
+<div>
+  <!-- <div>Bridge Console</div> -->
+
+  <mat-card class="margin-top">
+    <mat-card-title>Airlock Status</mat-card-title>
+    <div>
+      <div class="airlock open" *ngIf="airlockOpen">Open</div>
+      <div class="airlock closed" *ngIf="!airlockOpen">Closed</div>
+    </div>
+  </mat-card>
+
+  <mat-card class="margin-top">
+    <mat-card-title>Personnel Status</mat-card-title>
+    <div>{{ embarkedCrew }} / {{ activeCrew }} Embarked</div>
+  </mat-card>
+
+  <mat-card class="margin-top">
+    <mat-card-title>Ship Status</mat-card-title>
+
+    <div>
+      <div>Time</div>
+      <div>
+        <span *ngIf="!!dockedAtStation">Docked with {{dockedAtStation}}</span>
+        <span *ngIf="!dockedAtStation">Ship is in flight</span>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="shipDocked">
+      <button mat-button>Request to undock</button>
+    </div>
+    <div *ngIf="!shipDocked">
+      <button mat-button>Request to dock</button>
+    </div>
+    <div>
+      {{ shipDockReply }}
+    </div> -->
+  </mat-card>
+
+  <mat-card class="margin-top">
+    <mat-card-title>Ship Allert</mat-card-title>
+    <div class="buttonContainer">
+      <button mat-raised-button class="consoleButton">Yellow Allert</button>
+      <button mat-raised-button class="consoleButton">Red Allert</button>
+      <button mat-raised-button class="consoleButton">Black Allert</button>
+    </div>
+    <div class="buttonContainer margin-top">
+      <button mat-raised-button class="consoleButton">Clear Allert</button>
+    </div>
+  </mat-card>
+</div>

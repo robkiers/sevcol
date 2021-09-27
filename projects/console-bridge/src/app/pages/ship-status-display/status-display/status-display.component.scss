@@ -1,0 +1,30 @@
+.console {
+  font-size: 20px;
+}
+
+.airlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.closed {
+  // background-color: green;
+  border: solid 2px green;
+}
+
+.open {
+  // background-color: red;
+  border: solid 2px red;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  .consoleButton {
+    width: 100px;
+  }
+}

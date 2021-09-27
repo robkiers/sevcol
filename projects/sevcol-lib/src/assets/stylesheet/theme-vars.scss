@@ -1,0 +1,149 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Create a new color palette specific for this app.
+$mat-sevcol-primary: (
+  50: #d0f2ee,
+  100: #b4eae5,
+  200: #92e8e0,
+  300: #6ae2f2,
+  400: #2CD9D1,
+  500: #3ab6c1,
+  600: #188E99,
+  700: #155a75,
+  800: #113E51,
+  900: #12252C,
+  A100: #80d8ff,
+  A200: #40c4ff,
+  A400: #00b0ff,
+  A700: #030708,
+  contrast: (
+          50: $dark-primary-text,
+          100: $dark-primary-text,
+          200: $dark-primary-text,
+          300: $dark-primary-text,
+          400: $dark-primary-text,
+          500: $light-primary-text,
+          600: $light-primary-text,
+          700: $light-primary-text,
+          800: $light-primary-text,
+          900: $light-primary-text,
+          A100: $dark-primary-text,
+          A200: $dark-primary-text,
+          A400: $dark-primary-text,
+          A700: $light-primary-text,
+  )
+);
+
+// Create a new accent color palette specific for this app.
+// TODO: Currently it is a copy of the default deep-orange. But this will be edited.
+$mat-sevcol-accent: (
+        50: #fbe9e7,
+        100: #ffccbc,
+        200: #ffab91,
+        300: #ff8a65,
+        400: #ff7043,
+        500: #ff5722,
+        600: #f4511e,
+        700: #e64a19,
+        800: #d84315,
+        900: #bf360c,
+        A100: #ff9e80,
+        A200: #ff6e40,
+        A400: #ff3d00,
+        A700: #dd2c00,
+        contrast: (
+                50: $dark-primary-text,
+                100: $dark-primary-text,
+                200: $dark-primary-text,
+                300: $dark-primary-text,
+                400: $dark-primary-text,
+                500: $light-primary-text,
+                600: $light-primary-text,
+                700: $light-primary-text,
+                800: $light-primary-text,
+                900: $light-primary-text,
+                A100: $dark-primary-text,
+                A200: $dark-primary-text,
+                A400: $light-primary-text,
+                A700: $light-primary-text,
+        )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$sevcol-primary: mat-palette($mat-sevcol-primary);
+$sevcol-accent: mat-palette($mat-sevcol-accent, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$sevcol-warn: mat-palette($mat-red);
+
+
+// Define the foreground colors.
+$mat-sevcol-theme-foreground: (
+        base:              white,
+        divider:           $light-dividers,
+        dividers:          $light-dividers,
+        disabled:          $light-disabled-text,
+        disabled-button:   rgba(white, 0.3),
+        disabled-text:     $light-disabled-text,
+        elevation:         black,
+        hint-text:         $light-disabled-text,
+        secondary-text:    $light-secondary-text,
+        icon:              white,
+        icons:             white,
+        text:              white,
+        slider-min:        white,
+        slider-off:        rgba(white, 0.3),
+        slider-off-active: rgba(white, 0.3),
+);
+
+
+// Define the background colors.
+$mat-sevcol-theme-background: (
+        status-bar: black,
+        app-bar:    mat-color($sevcol-primary, A700),
+        background: mat-color($mat-gray, 900),
+        hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+        card:       mat-color($sevcol-primary, 800, 0.5),
+        dialog:     map_get($mat-grey, 800),
+        disabled-button: rgba(white, 0.12),
+        raised-button: mat-color($sevcol-primary, 400, 0.5),
+        focused-button: $light-focused,
+        selected-button: map_get($mat-grey, 900),
+        selected-disabled-button: map_get($mat-grey, 800),
+        disabled-button-toggle: black,
+        unselected-chip: map_get($mat-grey, 700),
+        disabled-list-option: black,
+);
+
+
+// Create the theme object (a scss map containing all of the palettes).
+$sevcol-dark-theme: (
+  primary: $sevcol-primary,
+  accent: $sevcol-accent,
+  warn: $sevcol-warn,
+  is-dark: true,
+  foreground: $mat-sevcol-theme-foreground,
+  background: $mat-sevcol-theme-background,
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($sevcol-dark-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+$card-border-width: 0.2cm;
+$global-border-color: mat-color($sevcol-primary, 600);
+$global-border-radius: 0;
+
+// Background images
+$background-scanline: url("../images/scanline.png");
+$background-cross: url("../images/background_cross.png");
+$background-corner-top-left: url("../images/background_corner_top_left.png");
+$background-corner-bottom-right: url("../images/background_corner_bottom_right.png");

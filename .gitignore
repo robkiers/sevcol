@@ -31,7 +31,6 @@ chrome-profiler-events*.json
 .history/*
 
 # misc
-/.sass-cache
 /connect.lock
 /coverage
 /libpeerconnection.log
@@ -43,3 +42,11 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+projects/app-gamemaster/src/environments/environment.ts
+projects/app-gamemaster/src/environments/environment.prod.ts
+projects/app-ingame-main/src/environments/environment.ts
+projects/app-ingame-main/src/environments/environment.prod.ts
+projects/console-airlock/src/environments/environment.prod.ts
+projects/console-airlock/src/environments/environment.ts
+projects/console-bridge/src/environments/environment.prod.ts
+projects/console-bridge/src/environments/environment.ts
